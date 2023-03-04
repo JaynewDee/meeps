@@ -11,6 +11,6 @@
   "scripts": {
     "start": "node server/server.js",
     "build": "cd client && yarn build",
-    "install": "cd server && yarn && cd ../client && yarn"
+    "install": "cd server && npm install && cd ../client && npm install"
   }
 }
