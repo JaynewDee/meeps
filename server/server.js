@@ -20,7 +20,11 @@ const io = new Server(server, {
 const PORT = 3001;
 
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "../client/index.html"));
+  if (process.env.NODE_ENV === "production") {
+    res.sendFile(join(__dirname, "../client/dist/index.html"));
+  } else {
+    res.sendFile(join(__dirname, "../client/index.html"));
+  }
 });
 
 io.on("connection", (socket) => {
