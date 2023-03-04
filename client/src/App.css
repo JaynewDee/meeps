@@ -43,10 +43,10 @@ body {
   /* padding: 3rem 3rem 0; */
 }
 .messages-container:first-child {
-  padding-top: 3rem;
+  padding-top: 7%;
 }
 .messages-container:last-child {
-  padding-bottom: 15%;
+  padding-bottom: 7%;
 }
 .message-error {
   position: absolute;
