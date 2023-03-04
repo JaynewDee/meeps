@@ -6,6 +6,7 @@
   "author": "Joshua Newell Diehl",
   "license": "MIT",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "build": "cd client && yarn build"
   }
 }
