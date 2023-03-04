@@ -5,8 +5,12 @@
   "main": "./server/server.js",
   "author": "Joshua Newell Diehl",
   "license": "MIT",
+  "engines": {
+    "node": ">=16 <17"
+  },
   "scripts": {
     "start": "node server/server.js",
-    "build": "cd client && yarn build"
+    "build": "cd client && yarn build",
+    "install": "cd server && yarn && cd ../client && yarn"
   }
 }
