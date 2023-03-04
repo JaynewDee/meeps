@@ -11,6 +11,9 @@
   "scripts": {
     "start": "node server/server.js",
     "build": "cd client && npm run build",
-    "install": "cd server && npm install && cd ../client && npm install"
+    "install": "cd client && npm install && cd ../server && npm install"
+  },
+  "dependencies": {
+    "typescript": "^4.9.3"
   }
 }
