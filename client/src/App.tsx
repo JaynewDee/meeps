@@ -34,7 +34,7 @@ function App() {
     return () => {
       socket.disconnect();
     };
-  }, [dataStream]);
+  }, []);
 
   return (
     <div className="App">
