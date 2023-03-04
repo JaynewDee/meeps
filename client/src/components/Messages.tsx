@@ -27,20 +27,15 @@ const Messages: React.FC<MessageProps> = ({
 
   const scrollSwitch = (msg: string, idx: number, ref: any) => {
     const last = dataStream.length - 1;
-    switch (idx) {
-      case last:
-        return (
-          <div ref={ref} key={idx}>
-            <p>{msg}</p>
-          </div>
-        );
-      default:
-        return (
-          <div key={idx}>
-            <p>{msg}</p>
-          </div>
-        );
-    }
+    return idx === last ? (
+      <div ref={ref} key={idx}>
+        <p>{msg}</p>
+      </div>
+    ) : (
+      <div key={idx}>
+        <p>{msg}</p>
+      </div>
+    );
   };
 
   //
