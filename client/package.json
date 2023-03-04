@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc"
   },
   "dependencies": {
     "http-proxy-middleware": "^2.0.6",
