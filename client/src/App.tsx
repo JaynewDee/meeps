@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     //
 
-    const socket = io("//localhost:3001"); // connect to the current host and port
+    const socket = io(); // connect to the current host and port
 
     //
 
