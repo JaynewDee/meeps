@@ -9,12 +9,10 @@ body {
   overflow: hidden;
 }
 
-.app-title {
+header {
   position: fixed;
-  font-size: 2.66rem;
-  height: 6.77rem;
+  height: 6rem;
   width: 100%;
-  padding-left: 1rem;
   text-align: left;
   top: 0;
   margin: 0;
@@ -22,6 +20,12 @@ body {
   border-left: 1px solid white;
   border-bottom: 3px solid white;
   z-index: 3;
+}
+.app-title {
+  margin-top: 0;
+  font-size: 3rem;
+  margin-left: 3.66rem;
+  margin-top: 2rem;
 }
 
 .scroll-wrapper {
@@ -64,6 +68,7 @@ body {
   width: 100vw;
   bottom: 0;
   left: 0;
+  box-shadow: 0 -1px 12px 1px rgba(20, 20, 20, 0.5);
 }
 
 .chat-msg-field {

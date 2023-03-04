@@ -1,4 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef
+} from "react";
 import { SocketProp } from "../utils/hooks";
 
 interface MessageProps {
@@ -14,12 +20,12 @@ const Messages: React.FC<MessageProps> = ({
 }) => {
   socket?.on("chat message", (msg: string) => {
     console.log(msg);
-    setDataStream((prev) => [...dataStream, msg]);
+    setDataStream([...dataStream, msg]);
   });
 
   const scrollRef = useRef<any>(null);
 
-  useEffect(() => {
+  useCallback(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView();
     }
