@@ -19,7 +19,7 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001;
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
   } else {
