@@ -2,9 +2,13 @@ const express = require("express");
 
 const { join } = require("path");
 
+const http = require("http");
+
 const { Server } = require("socket.io");
 
-const server = express();
+const app = express();
+
+const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
@@ -15,9 +19,9 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001;
 
-server.get("*", (req, res) => {
+app.get("*", (req, res) => {
   if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/dist")));
+    res.sendFile(join(__dirname, "../client/dist/index.html"));
   } else {
     res.sendFile(join(__dirname, "../client/index.html"));
   }
