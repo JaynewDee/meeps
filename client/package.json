@@ -6,10 +6,9 @@
   "proxy": "http://localhost:3001",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
     "preview": "vite preview",
-    "tsc": "tsc",
-    "postinstall": "npm run build"
+    "tsc": "./node_modules/typescript/bin/tsc",
+    "postinstall": "tsc & vite build"
   },
   "dependencies": {
     "http-proxy-middleware": "^2.0.6",
