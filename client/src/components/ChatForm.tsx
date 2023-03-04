@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
-import { handleError } from "../utils/errors";
+import { handleSendMessage } from "../utils/events";
 import { SocketProp } from "../utils/hooks";
 
 interface ChatFormProps {
@@ -15,17 +15,15 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputState(e.target.value);
 
-  const handleSendMessage = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (inputState.length < 1 || inputState.length > 66) {
-      await handleError("length", setError);
-      return;
-    } else {
-      setDataStream((prev) => [...prev, inputState]);
-      socket!.emit("chat message", inputState);
-      setInputState("");
-    }
-  };
+  const sendMessage = (e: any) =>
+    handleSendMessage(
+      e,
+      socket,
+      inputState,
+      setInputState,
+      setDataStream,
+      setError
+    );
 
   return (
     <form className="chat-form">
@@ -37,11 +35,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
         className="chat-msg-field"
         onChange={handleInputChange}
       />
-      <button
-        type="submit"
-        className="msg-submit-btn"
-        onClick={handleSendMessage}
-      >
+      <button type="submit" className="msg-submit-btn" onClick={sendMessage}>
         {Arrow({ size: "3rem" })}
       </button>
       {error && <div className="message-error">{error}</div>}
