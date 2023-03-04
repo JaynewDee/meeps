@@ -19,13 +19,13 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001;
 
-app.get("/", (req, res) => {
-  if (process.env.NODE_ENV === "production") {
-    app.use(express.static(join(__dirname, "../client/dist")));
-  } else {
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(join(__dirname, "../client/dist")));
+} else {
+  app.get("*", (req, res) => {
     res.sendFile(join(__dirname, "../client/index.html"));
-  }
-});
+  });
+}
 
 io.on("connection", (socket) => {
   console.info("A socket user has connected.");
