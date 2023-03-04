@@ -1,0 +1,8 @@
+{
+  "name": "meeps",
+  "version": "1.0.0",
+  "description": "serving only the chirpiest meeps",
+  "main": "server.js",
+  "author": "Joshua Newell Diehl",
+  "license": "MIT"
+}
