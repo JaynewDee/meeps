@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
-import { SocketProp } from "../App";
+import { SocketProp } from "../utils/hooks";
 
 interface MessageProps {
   socket: SocketProp;
