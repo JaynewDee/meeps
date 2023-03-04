@@ -2,13 +2,9 @@ const express = require("express");
 
 const { join } = require("path");
 
-const http = require("http");
-
 const { Server } = require("socket.io");
 
-const app = express();
-
-const server = http.createServer(app);
+const server = express();
 
 const io = new Server(server, {
   cors: {
@@ -19,7 +15,7 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001;
 
-app.get("*", (req, res) => {
+server.get("*", (req, res) => {
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
   } else {
