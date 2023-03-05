@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "./App.css";
-import ChatForm from "./components/ChatForm";
+import ChatForm from "./components/Forms/ChatForm";
 import Header from "./components/Header";
 import Messages from "./components/Messages";
 import { useChatSocket } from "./utils/hooks";

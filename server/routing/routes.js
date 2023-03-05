@@ -8,6 +8,11 @@ htmlRouter.get("*", (req, res, next) => {
 
 const apiRouter = require("express").Router();
 
-apiRouter.get("/user", (req, res, next) => {});
+apiRouter.post("/user", async (req, res, next) => {
+  const { body } = req;
+  console.log(body);
+  res.status(200).json({ message: "Hello!" });
+  //   const user = await User.create(body);
+});
 
-module.exports = htmlRouter;
+module.exports = { htmlRouter, apiRouter };

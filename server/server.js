@@ -11,6 +11,7 @@ const app = express();
 const server = http.createServer(app);
 
 const db = require("./config/db");
+const { htmlRouter, apiRouter } = require("./routing/routes");
 
 const io = new Server(server, {
   cors: {
@@ -24,10 +25,12 @@ const PORT = process.env.PORT || 3001;
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(join(__dirname, "../client/dist")));
 } else {
-  app.get("*", (req, res) => {
-    res.sendFile(join(__dirname, "../client/index.html"));
-  });
+  app.use("/", htmlRouter);
 }
+
+app.use("/api", apiRouter);
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 io.on("connection", (socket) => {
   console.info("A socket user has connected.");
@@ -37,6 +40,7 @@ io.on("connection", (socket) => {
     if (!msg) {
       return;
     }
+
     try {
       socket.broadcast.emit("chat message", msg);
     } catch (err) {

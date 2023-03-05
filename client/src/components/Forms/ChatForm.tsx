@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
-import { handleSendMessage } from "../utils/events";
-import { SocketProp } from "../utils/hooks";
+import { handleSendMessage } from "../../utils/events";
+import { SocketProp } from "../../utils/hooks";
 
 interface ChatFormProps {
   socket: SocketProp;

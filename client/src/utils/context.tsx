@@ -21,7 +21,8 @@ const useUserContext = () => {
 };
 
 const userDefault = {
-  username: "",
+  firstName: "",
+  lastName: "",
   email: "",
   token: ""
 };
