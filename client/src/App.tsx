@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import "./App.css";
+import Auth from "./components/Auth";
 import ChatForm from "./components/Forms/ChatForm";
 import Register from "./components/Forms/Register";
 import Header from "./components/Header";
@@ -17,7 +18,7 @@ function App() {
 
   const { user } = useUserContext();
 
-  const AuthView = () => (
+  const AuthenticatedView = () => (
     <>
       <Messages
         socket={socket}
@@ -28,7 +29,7 @@ function App() {
     </>
   );
 
-  const authSwitch = () => (!user.token ? <Register /> : <AuthView />);
+  const authSwitch = () => (!user.token ? <Auth /> : <AuthenticatedView />);
 
   return (
     <div className="App">

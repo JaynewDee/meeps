@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { AuthHandle } from "../../api/auth";
 import { handleError } from "../../utils/errors";
-const Register = () => {
+import { SetAuthDisplay } from "../Auth";
+
+const Register = ({ setDisplay }: { setDisplay: SetAuthDisplay }) => {
   const [displayState, setDisplayState] = useState("register");
   const [inputState, setInputState] = useState({
     firstName: "",
@@ -28,7 +30,7 @@ const Register = () => {
     }
   };
 
-  const switchToLogin = () => {};
+  const switchToLogin = () => setDisplay("login");
 
   return (
     <form className="registration-form" onSubmit={handleSubmitRegistration}>
