@@ -14,7 +14,7 @@ const app = express();
 
 const db = require("./config/db");
 
-const { apiRouter } = require("./routing/routes");
+const { apiRouter } = require("./api/routes");
 
 const server = http.createServer(app);
 

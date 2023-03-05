@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { AuthHandle } from "./api/auth";
 
 import "./App.css";
 import Auth from "./components/Auth";
 import ChatForm from "./components/Forms/ChatForm";
-import Register from "./components/Forms/Register";
 import Header from "./components/Header";
 import Messages from "./components/Messages";
 import { useUserContext } from "./utils/context";
 import { useChatSocket } from "./utils/hooks";
 
 function App() {
-  const [dataStream, setDataStream] = useState([
-    `User <Guest> signed in @ ${new Date().toLocaleString()}`
-  ]);
+  const [dataStream, setDataStream] = useState<[] | string[]>([]);
 
   const socket = useChatSocket();
 
   const { user } = useUserContext();
+
+  useEffect(() => {
+    if (AuthHandle.validate()) {
+      const token = AuthHandle.getUser();
+      console.log(token);
+    }
+  }, []);
 
   const AuthenticatedView = () => (
     <>
@@ -29,7 +34,12 @@ function App() {
     </>
   );
 
-  const authSwitch = () => (!user.token ? <Auth /> : <AuthenticatedView />);
+  const authSwitch = () =>
+    !user.token ? (
+      <Auth socket={socket} setDataStream={setDataStream} />
+    ) : (
+      <AuthenticatedView />
+    );
 
   return (
     <div className="App">

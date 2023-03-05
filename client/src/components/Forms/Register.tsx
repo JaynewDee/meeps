@@ -1,16 +1,30 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { AuthHandle } from "../../api/auth";
+import { useUserContext } from "../../utils/context";
 import { handleError } from "../../utils/errors";
+import { broadcastSignin } from "../../utils/events";
+import { SocketProp } from "../../utils/hooks";
 import { SetAuthDisplay } from "../Auth";
 
-const Register = ({ setDisplay }: { setDisplay: SetAuthDisplay }) => {
-  const [displayState, setDisplayState] = useState("register");
-  const [inputState, setInputState] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: ""
-  });
+const defaultState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: ""
+};
+
+interface RegisterProps {
+  socket: SocketProp;
+  setDataStream: Dispatch<SetStateAction<string[]>>;
+  setDisplay: SetAuthDisplay;
+}
+
+const Register: React.FC<RegisterProps> = ({
+  setDisplay,
+  socket,
+  setDataStream
+}) => {
+  const [inputState, setInputState] = useState(defaultState);
   const [errorState, setErrorState] = useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,13 +35,29 @@ const Register = ({ setDisplay }: { setDisplay: SetAuthDisplay }) => {
     });
   };
 
+  const { login } = useUserContext();
+
   const handleSubmitRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
     const registerRes = await AuthHandle.register(inputState);
     const parsed = await registerRes.json();
+
     if (parsed.status === 208) {
       handleError("duplicateUser", setErrorState);
+      return;
+    } else if (parsed.status === 200 && parsed.token) {
+      AuthHandle.login(parsed.token);
     }
+
+    const userState = {
+      firstName: parsed.user.firstName,
+      lastName: parsed.user.lastName,
+      email: parsed.user.email,
+      token: parsed.token
+    };
+
+    login(userState);
+    broadcastSignin(socket, userState.email, setDataStream);
   };
 
   const switchToLogin = () => setDisplay("login");

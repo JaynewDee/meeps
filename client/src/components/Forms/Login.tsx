@@ -18,14 +18,15 @@ const Login = ({ setDisplay }: { setDisplay: SetAuthDisplay }) => {
     });
   };
 
-  const handleSubmitRegistration = async (e: React.FormEvent) => {
+  const handleSubmitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(inputState);
   };
 
   const switchToRegister = () => setDisplay("register");
 
   return (
-    <form className="registration-form" onSubmit={handleSubmitRegistration}>
+    <form className="registration-form" onSubmit={handleSubmitLogin}>
       {errorState && <p className="register-error">{errorState}</p>}
       <div className="registration-form-inputs">
         <input
@@ -51,7 +52,7 @@ const Login = ({ setDisplay }: { setDisplay: SetAuthDisplay }) => {
           fontSize: ".66rem"
         }}
       >
-        Already registered?
+        First time here?
       </p>
       <p className="register-form-switch" onClick={switchToRegister}>
         REGISTER

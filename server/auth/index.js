@@ -19,8 +19,8 @@ const jwtAuth = {
       console.error(err);
     }
   },
-  sign: (userCreds) =>
-    jwt.sign({ data: userCreds }, secret, { expiresIn: "6h" })
+  sign: ({ _id, email }) =>
+    jwt.sign({ data: { _id, email } }, secret, { expiresIn: "6h" })
 };
 
 module.exports = jwtAuth;

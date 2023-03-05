@@ -1,4 +1,3 @@
-import axios from "axios";
 import decode from "jwt-decode";
 
 type UserTransferEntity = {
@@ -10,11 +9,11 @@ type UserTransferEntity = {
 
 export class AuthHandle {
   public static getUser() {
-    decode(this.currentToken()!);
+    return decode(this.currentToken()!);
   }
   //
   static currentToken() {
-    localStorage.getItem("user_token") || "";
+    return sessionStorage.getItem("user_token") || "";
   }
   //
   public static validate() {
@@ -25,7 +24,7 @@ export class AuthHandle {
   static isFreshToken(token: string) {
     try {
       const decoded: { exp: number } = decode(token);
-      if (decoded.exp > Date.now() / 10000) return true;
+      if (decoded.exp > Date.now() / 1000) return true;
       else return false;
     } catch (err) {
       return false;
@@ -33,12 +32,11 @@ export class AuthHandle {
   }
   //
   public static login(token: string) {
-    localStorage.setItem("user_token", token);
-    window.location.assign("/");
+    sessionStorage.setItem("user_token", token);
   }
   //
   public static logout() {
-    localStorage.removeItem("user_token");
+    sessionStorage.removeItem("user_token");
     window.location.assign("/");
   }
   //
