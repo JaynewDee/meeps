@@ -1,12 +1,5 @@
 import decode from "jwt-decode";
 
-type UserTransferEntity = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
-
 export class AuthHandle {
   public static getUser() {
     try {
@@ -44,13 +37,4 @@ export class AuthHandle {
     window.location.assign("/");
   }
   //
-  public static async register(userEntity: UserTransferEntity) {
-    return await fetch(`http://localhost:3001/api/user/new`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(userEntity)
-    });
-  }
 }

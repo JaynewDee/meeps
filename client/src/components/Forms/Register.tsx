@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { AuthHandle } from "../../api/auth";
+import { API } from "../../api/api";
+import { AuthHandle } from "../../auth/auth";
 import { handleError } from "../../utils/errors";
 import { broadcastSignin } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
@@ -36,7 +37,7 @@ const Register: React.FC<RegisterProps> = ({
 
   const handleSubmitRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
-    const registerRes = await AuthHandle.register(inputState);
+    const registerRes = await API.register(inputState);
     const res = await registerRes.json();
 
     if (res.status === 208) {

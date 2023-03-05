@@ -7,12 +7,12 @@ import {
   useState
 } from "react";
 
-type UserAuth = {
+interface UserAuth {
   firstName: string;
   lastName: string;
   email: string;
-  token: string;
-};
+  memberships: any[];
+}
 
 interface UserContextType {
   user: UserAuth;
@@ -38,7 +38,7 @@ const userDefault: UserAuth = {
   firstName: "",
   lastName: "",
   email: "",
-  token: ""
+  memberships: []
 };
 
 interface ContextProps {
@@ -48,13 +48,16 @@ interface ContextProps {
 const UserContextProvider = ({ children }: ContextProps) => {
   const [user, setUser] = useState<any>(userDefault);
 
-  const login = useCallback((authenticatedUser: any) => {
-    setUser(authenticatedUser);
-  }, []);
+  const login = useCallback(
+    (authenticatedUser: UserAuth) => {
+      setUser(authenticatedUser);
+    },
+    [setUser]
+  );
 
   const logout = useCallback(() => {
     setUser(userDefault);
-  }, []);
+  }, [setUser]);
 
   const contextValue = useMemo(
     () => ({

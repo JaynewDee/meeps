@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { AuthHandle } from "./api/auth";
+import { useEffect, useState } from "react";
+import { AuthHandle } from "./auth/auth";
 
 import "./App.css";
 import Auth from "./components/Auth";
@@ -14,10 +14,13 @@ function App() {
 
   const socket = useChatSocket();
 
+  const { login } = useUserContext();
+
   useEffect(() => {
     if (AuthHandle.validate()) {
-      const token = AuthHandle.getUser();
-      console.log(token);
+      const { data } = AuthHandle.getUser() as any;
+      const { firstName, lastName, email, memberships } = data;
+      login({ firstName, lastName, email, memberships });
     }
   }, []);
 

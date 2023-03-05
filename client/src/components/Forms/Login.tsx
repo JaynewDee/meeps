@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthHandle } from "../../api/auth";
+import { AuthHandle } from "../../auth/auth";
 import { handleError } from "../../utils/errors";
 import { SetAuthDisplay } from "../Auth";
 

@@ -4,6 +4,16 @@ const { join } = require("path");
 
 const apiRouter = require("express").Router();
 
+apiRouter.post("/user", async (req, res, next) => {
+  const { body } = req;
+  try {
+    const user = await User.findOne({ email: body.email });
+    console.log(user);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 apiRouter.post("/user/new", async (req, res, next) => {
   const { body } = req;
   try {
