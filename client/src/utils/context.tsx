@@ -1,12 +1,26 @@
 import {
   createContext,
+  ReactNode,
   useCallback,
   useContext,
   useMemo,
   useState
 } from "react";
 
-const UserContext = createContext({});
+type UserAuth = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  token: string;
+};
+
+interface UserContextType {
+  user: UserAuth;
+  login: any;
+  logout: any;
+}
+
+const UserContext = createContext<UserContextType | any>({});
 
 const useUserContext = () => {
   const context = useContext(UserContext);
@@ -20,14 +34,18 @@ const useUserContext = () => {
   return context;
 };
 
-const userDefault = {
+const userDefault: UserAuth = {
   firstName: "",
   lastName: "",
   email: "",
   token: ""
 };
 
-const UserContextProvider = ({ children }: any) => {
+interface ContextProps {
+  children: ReactNode;
+}
+
+const UserContextProvider = ({ children }: ContextProps) => {
   const [user, setUser] = useState<any>(userDefault);
 
   const login = useCallback((authenticatedUser: any) => {

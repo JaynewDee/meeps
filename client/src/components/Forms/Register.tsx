@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { AuthHandle } from "../../api/auth";
 
 const Register = () => {
   const [formState, setFormState] = useState({
-    first: "",
-    last: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: ""
   });
@@ -16,32 +17,43 @@ const Register = () => {
     });
   };
 
+  const handleSubmitRegistration = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formState);
+    AuthHandle.register(formState);
+  };
+
   return (
-    <form>
+    <form className="registration-form" onSubmit={handleSubmitRegistration}>
       <input
         type="text"
-        name="first"
-        value={formState.first}
+        name="firstName"
+        placeholder="first name"
+        value={formState.firstName}
         onChange={handleInput}
       />
       <input
         type="text"
-        name="last"
-        value={formState.last}
+        name="lastName"
+        placeholder="last name"
+        value={formState.lastName}
         onChange={handleInput}
       />
       <input
         type="text"
         name="email"
+        placeholder="email"
         value={formState.email}
         onChange={handleInput}
       />
       <input
         type="password"
         name="password"
+        placeholder="password"
         value={formState.password}
         onChange={handleInput}
       />
+      <button type="submit">REGISTER</button>
     </form>
   );
 };

@@ -29,6 +29,22 @@ header {
   margin-top: 2rem;
 }
 
+.registration-form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.registration-form > input {
+  font-size: 1;
+  padding: 0.33rem 1rem;
+}
+.registration-form > input::placeholder {
+  text-align: center;
+}
+
 .scroll-wrapper {
   display: flex;
   flex-flow: column nowrap;
