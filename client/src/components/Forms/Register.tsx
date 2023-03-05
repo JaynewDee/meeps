@@ -17,10 +17,10 @@ const Register = () => {
     });
   };
 
-  const handleSubmitRegistration = (e: React.FormEvent) => {
+  const handleSubmitRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formState);
-    AuthHandle.register(formState);
+    await AuthHandle.register(formState);
   };
 
   return (

@@ -4,14 +4,17 @@ const { join } = require("path");
 
 const http = require("http");
 
+const cors = require("cors");
+
 const { Server } = require("socket.io");
 
 const app = express();
 
-const server = http.createServer(app);
-
 const db = require("./config/db");
-const { htmlRouter, apiRouter } = require("./routing/routes");
+
+const { apiRouter } = require("./routing/routes");
+
+const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
@@ -22,13 +25,18 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001;
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(join(__dirname, "../client/dist")));
-} else {
-  app.use("/", htmlRouter);
-}
+app.use(
+  "/",
+  express.static(
+    join(
+      __dirname,
+      process.env.NODE_ENV === "production"
+        ? "../client/dist"
+        : "../client/index.html"
+    )
+  )
+);
 
-app.use("/api", apiRouter);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -52,6 +60,8 @@ io.on("connection", (socket) => {
     console.warn("A socket user has disconnected.");
   });
 });
+
+app.use("/api", cors(), apiRouter);
 
 db.once("open", () => {
   server.listen(PORT, () => {

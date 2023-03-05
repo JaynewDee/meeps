@@ -13,7 +13,7 @@ export class AuthHandle {
     decode(this.currentToken()!);
   }
   //
-  public static currentToken() {
+  static currentToken() {
     localStorage.getItem("user_token") || "";
   }
   //
@@ -22,7 +22,7 @@ export class AuthHandle {
     return !!token && !this.isFreshToken(token);
   }
   //
-  public static isFreshToken(token: string) {
+  static isFreshToken(token: string) {
     try {
       const decoded: { exp: number } = decode(token);
       if (decoded.exp > Date.now() / 10000) return true;
@@ -37,11 +37,18 @@ export class AuthHandle {
     window.location.assign("/");
   }
   //
-  public static logout = () => {
+  public static logout() {
     localStorage.removeItem("user_token");
     window.location.assign("/");
-  };
+  }
   //
-  public static register = (userEntity: UserTransferEntity) =>
-    axios.post("/user/new", userEntity);
+  public static async register(userEntity: UserTransferEntity) {
+    return await fetch(`http://localhost:3001/api/user/new`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userEntity)
+    });
+  }
 }
