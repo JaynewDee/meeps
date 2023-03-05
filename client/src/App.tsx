@@ -14,8 +14,6 @@ function App() {
 
   const socket = useChatSocket();
 
-  const { user } = useUserContext();
-
   useEffect(() => {
     if (AuthHandle.validate()) {
       const token = AuthHandle.getUser();
@@ -35,7 +33,7 @@ function App() {
   );
 
   const authSwitch = () =>
-    !user.token ? (
+    !AuthHandle.getUser() ? (
       <Auth socket={socket} setDataStream={setDataStream} />
     ) : (
       <AuthenticatedView />

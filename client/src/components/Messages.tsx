@@ -25,7 +25,7 @@ const Messages: React.FC<MessageProps> = ({
 
   const scrollRef = useRef<any>(null);
 
-  useCallback(() => {
+  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView();
     }

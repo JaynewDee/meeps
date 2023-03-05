@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { AuthHandle } from "../../api/auth";
-import { useUserContext } from "../../utils/context";
 import { handleError } from "../../utils/errors";
 import { broadcastSignin } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
@@ -35,29 +34,19 @@ const Register: React.FC<RegisterProps> = ({
     });
   };
 
-  const { login } = useUserContext();
-
   const handleSubmitRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
     const registerRes = await AuthHandle.register(inputState);
-    const parsed = await registerRes.json();
+    const res = await registerRes.json();
 
-    if (parsed.status === 208) {
+    if (res.status === 208) {
       handleError("duplicateUser", setErrorState);
       return;
-    } else if (parsed.status === 200 && parsed.token) {
-      AuthHandle.login(parsed.token);
+    } else if (res.status === 200 && res.token) {
+      AuthHandle.login(res.token);
     }
 
-    const userState = {
-      firstName: parsed.user.firstName,
-      lastName: parsed.user.lastName,
-      email: parsed.user.email,
-      token: parsed.token
-    };
-
-    login(userState);
-    broadcastSignin(socket, userState.email, setDataStream);
+    broadcastSignin(socket, res.user.email, setDataStream);
   };
 
   const switchToLogin = () => setDisplay("login");

@@ -9,11 +9,15 @@ type UserTransferEntity = {
 
 export class AuthHandle {
   public static getUser() {
-    return decode(this.currentToken()!);
+    try {
+      return decode(this.currentToken()!);
+    } catch (err) {
+      return "";
+    }
   }
   //
   static currentToken() {
-    return sessionStorage.getItem("user_token") || "";
+    return sessionStorage.getItem("user_token");
   }
   //
   public static validate() {
