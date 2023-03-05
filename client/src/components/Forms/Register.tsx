@@ -1,57 +1,65 @@
 import React, { useState } from "react";
 import { AuthHandle } from "../../api/auth";
-
+import { handleError } from "../../utils/errors";
 const Register = () => {
-  const [formState, setFormState] = useState({
+  const [displayState, setDisplayState] = useState("register");
+  const [inputState, setInputState] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: ""
   });
+  const [errorState, setErrorState] = useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormState({
-      ...formState,
+    setInputState({
+      ...inputState,
       [name]: value
     });
   };
 
   const handleSubmitRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formState);
-    await AuthHandle.register(formState);
+    const registerRes = await AuthHandle.register(inputState);
+    const parsed = await registerRes.json();
+    if (parsed.status === 208) {
+      handleError("duplicateUser", setErrorState);
+    }
   };
+
+  const switchToLogin = () => {};
 
   return (
     <form className="registration-form" onSubmit={handleSubmitRegistration}>
+      {errorState && <p className="register-error">{errorState}</p>}
       <div className="registration-form-inputs">
         <input
           type="text"
           name="firstName"
           placeholder="first name"
-          value={formState.firstName}
+          value={inputState.firstName}
           onChange={handleInput}
         />
         <input
           type="text"
           name="lastName"
           placeholder="last name"
-          value={formState.lastName}
+          value={inputState.lastName}
           onChange={handleInput}
         />
         <input
           type="text"
           name="email"
           placeholder="email"
-          value={formState.email}
+          value={inputState.email}
           onChange={handleInput}
         />
         <input
           type="password"
           name="password"
           placeholder="password"
-          value={formState.password}
+          value={inputState.password}
           onChange={handleInput}
         />
       </div>
@@ -65,7 +73,9 @@ const Register = () => {
       >
         Already registered?
       </p>
-      <p className="login-form-switch">LOG IN</p>
+      <p className="login-form-switch" onClick={switchToLogin}>
+        LOG IN
+      </p>
     </form>
   );
 };

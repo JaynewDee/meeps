@@ -66,6 +66,12 @@ header {
 .login-form-switch:hover {
   cursor: pointer;
 }
+
+.register-error {
+  position: absolute;
+  top: 20%;
+}
+
 .scroll-wrapper {
   display: flex;
   flex-flow: column nowrap;
