@@ -10,6 +10,8 @@ const app = express();
 
 const server = http.createServer(app);
 
+const db = require("./config/db");
+
 const io = new Server(server, {
   cors: {
     origin: "*"
@@ -47,6 +49,8 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.info("Server listening @ ::: *:3001");
+db.once("open", () => {
+  server.listen(PORT, () => {
+    console.info("Server listening @ ::: *:3001");
+  });
 });

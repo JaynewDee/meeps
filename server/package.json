@@ -6,7 +6,9 @@
   "author": "Joshua Newell Diehl",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "express": "^4.18.2",
+    "mongoose": "^7.0.0",
     "socket.io": "^4.6.1"
   }
 }
