@@ -18,6 +18,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
     email: "",
     password: ""
   });
+
   const [errorState, setErrorState] = useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,22 +29,19 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
     });
   };
 
-  const handleSubmitLogin = async (e: React.FormEvent) => {
+  const handleSubmitLogin = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
     const registerRes = await API.login(inputState);
     const res = await registerRes.json();
-    console.log(res);
-    if (res.status === 208) {
-      handleError("duplicateUser", setErrorState);
-      return;
-    } else if (res.status === 403) {
-      handleError("wrongPassword", setErrorState);
-      return;
+    if (res.status === 403) {
+      return handleError("wrongPassword", setErrorState);
+    } else if (res.status === 208) {
+      return handleError("duplicateUser", setErrorState);
     } else if (res.status === 200 && res.token) {
       AuthHandle.login(res.token);
       broadcastSignin(socket, res.user.email, setDataStream);
     }
-  };
+  });
 
   const switchToRegister = () => setDisplay("register");
 

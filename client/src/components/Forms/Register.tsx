@@ -1,3 +1,4 @@
+import { catchAsync } from "catch-flow";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { API } from "../../api/api";
 import { AuthHandle } from "../../auth/auth";
@@ -35,7 +36,7 @@ const Register: React.FC<RegisterProps> = ({
     });
   };
 
-  const handleSubmitRegistration = async (e: React.FormEvent) => {
+  const handleSubmitRegistration = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
     const registerRes = await API.register(inputState);
     const res = await registerRes.json();
@@ -48,7 +49,7 @@ const Register: React.FC<RegisterProps> = ({
     }
 
     broadcastSignin(socket, res.user.email, setDataStream);
-  };
+  });
 
   const switchToLogin = () => setDisplay("login");
 

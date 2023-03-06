@@ -11,7 +11,7 @@ api.post("/user", async (req, res) => {
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(403).json({ status: 403, message: "Wrong password!" });
+      return res.json({ status: 403, message: "Wrong password!" });
     }
     const token = jwtAuth.sign(user);
     res.json({ status: 200, token, user });
@@ -22,6 +22,7 @@ api.post("/user", async (req, res) => {
 
 api.post("/user/new", async (req, res) => {
   const { body } = req;
+
   try {
     const user = await User.create(body);
 

@@ -112,13 +112,12 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.33rem;
-  color: rgba(255, 0, 0, 0.785);
+  color: wheat;
 }
 
 .chat-form {
   display: flex;
   position: fixed;
-  height: rem;
   width: 100vw;
   bottom: 2rem;
   left: 0;

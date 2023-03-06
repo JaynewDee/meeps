@@ -1,21 +1,9 @@
 import decode from "jwt-decode";
 
 export class AuthHandle {
-  public static getUser() {
-    try {
-      return decode(this.currentToken()!);
-    } catch (err) {
-      return "";
-    }
-  }
   //
   static currentToken() {
     return sessionStorage.getItem("user_token");
-  }
-  //
-  public static validate() {
-    const token = this.getUser() as string | void;
-    return !!token && !this.isFreshToken(token);
   }
   //
   static isFreshToken(token: string) {
@@ -26,6 +14,19 @@ export class AuthHandle {
     } catch (err) {
       return false;
     }
+  }
+  //
+  public static getUser() {
+    try {
+      return decode(this.currentToken()!);
+    } catch (err) {
+      return "";
+    }
+  }
+  //
+  public static validate() {
+    const token = this.getUser() as string | void;
+    return !!token && !this.isFreshToken(token);
   }
   //
   public static login(token: string) {
