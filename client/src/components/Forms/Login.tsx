@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { API } from "../../api/api";
 import { AuthHandle } from "../../auth/auth";
 import { handleError } from "../../utils/errors";
+import { broadcastSignin } from "../../utils/events";
+import { SocketProp } from "../../utils/hooks";
 import { SetAuthDisplay } from "../Auth";
 
-const Login = ({ setDisplay }: { setDisplay: SetAuthDisplay }) => {
+interface LoginProps {
+  socket: SocketProp;
+  setDataStream: Dispatch<SetStateAction<string[]>>;
+  setDisplay: SetAuthDisplay;
+}
+
+const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
   const [inputState, setInputState] = useState({
     email: "",
     password: ""
@@ -20,7 +29,17 @@ const Login = ({ setDisplay }: { setDisplay: SetAuthDisplay }) => {
 
   const handleSubmitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(inputState);
+    const registerRes = await API.login(inputState);
+    const res = await registerRes.json();
+
+    if (res.status === 208) {
+      handleError("duplicateUser", setErrorState);
+      return;
+    } else if (res.status === 200 && res.token) {
+      AuthHandle.login(res.token);
+    }
+
+    broadcastSignin(socket, res.user.email, setDataStream);
   };
 
   const switchToRegister = () => setDisplay("register");

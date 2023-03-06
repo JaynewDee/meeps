@@ -11,7 +11,7 @@ interface AuthProps {
 }
 
 const Auth: React.FC<AuthProps> = ({ socket, setDataStream }) => {
-  const [displayState, setDisplayState] = useState("register");
+  const [displayState, setDisplayState] = useState("login");
 
   return displayState === "register" ? (
     <Register
@@ -20,7 +20,11 @@ const Auth: React.FC<AuthProps> = ({ socket, setDataStream }) => {
       setDataStream={setDataStream}
     />
   ) : (
-    <Login setDisplay={setDisplayState} />
+    <Login
+      setDisplay={setDisplayState}
+      socket={socket}
+      setDataStream={setDataStream}
+    />
   );
 };
 

@@ -26,7 +26,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
     );
 
   return (
-    <form className="chat-form">
+    <form className="chat-form" autoComplete="off">
       <input
         type="text"
         name="message"

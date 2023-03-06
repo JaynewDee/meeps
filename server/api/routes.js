@@ -9,6 +9,13 @@ apiRouter.post("/user", async (req, res, next) => {
   try {
     const user = await User.findOne({ email: body.email });
     console.log(user);
+    const correctPw = await user.isCorrectPassword(body.password);
+
+    if (!correctPw) {
+      return res.status(400).json({ message: "Wrong password!" });
+    }
+    const token = jwtAuth.sign(user);
+    res.json({ status: 200, token, user });
   } catch (err) {
     console.log(err);
   }
