@@ -4,11 +4,11 @@ const { join } = require("path");
 
 const apiRouter = require("express").Router();
 
-apiRouter.post("/user", async (req, res, next) => {
+apiRouter.post("/user", async (req, res) => {
   const { body } = req;
   try {
     const user = await User.findOne({ email: body.email });
-    console.log(user);
+
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
@@ -21,7 +21,7 @@ apiRouter.post("/user", async (req, res, next) => {
   }
 });
 
-apiRouter.post("/user/new", async (req, res, next) => {
+apiRouter.post("/user/new", async (req, res) => {
   const { body } = req;
   try {
     const user = await User.create(body);

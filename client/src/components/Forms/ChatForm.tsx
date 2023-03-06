@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
 import { handleSendMessage } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
@@ -12,18 +12,28 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
   const [inputState, setInputState] = useState("");
   const [error, setError] = useState("");
 
+  const focusRef = useRef(null as any);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputState(e.target.value);
 
-  const sendMessage = (e: any) =>
-    handleSendMessage(
+  const sendMessage = async (e: any) => {
+    e.preventDefault();
+
+    await handleSendMessage(
       e,
       socket,
       inputState,
       setInputState,
       setDataStream,
       setError
-    );
+    ).catch((err) => console.error(err));
+  };
+
+  const reFocus = (e: any) => {
+    e.preventDefault();
+    focusRef.current.focus();
+  };
 
   return (
     <form className="chat-form" autoComplete="off">
@@ -34,9 +44,17 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
         placeholder="Meep at 'em"
         className="chat-msg-field"
         onChange={handleInputChange}
+        ref={focusRef}
       />
-      <button type="submit" className="msg-submit-btn" onClick={sendMessage}>
-        {Arrow({ size: "3rem" })}
+      <button
+        onPointerDown={(e) => e.preventDefault()}
+        className="msg-submit-btn"
+        onClick={(e) => {
+          sendMessage(e);
+        }}
+        onKeyDown={reFocus}
+      >
+        {Arrow({ size: "2rem" })}
       </button>
       {error && <div className="message-error">{error}</div>}
     </form>
