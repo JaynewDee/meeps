@@ -5,4 +5,4 @@ set -e
 cd client
 yarn dev &
 cd ../server
-node server.js
+nodemon server.js

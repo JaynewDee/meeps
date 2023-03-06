@@ -14,7 +14,7 @@ const app = express();
 
 const db = require("./config/db");
 
-const { apiRouter } = require("./api/routes");
+const { api } = require("./api/routes");
 
 const server = http.createServer(app);
 
@@ -25,6 +25,7 @@ const io = new Server(server, {
   perMessageDeflate: true
 });
 
+// ! Do not change !
 const PORT = process.env.PORT || 3001;
 
 app.use(
@@ -63,7 +64,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use("/api", cors(), apiRouter);
+app.use("/api", cors(), api);
 
 db.once("open", () => {
   server.listen(PORT, () => {

@@ -118,7 +118,7 @@ header {
 .chat-form {
   display: flex;
   position: fixed;
-  height: 3rem;
+  height: rem;
   width: 100vw;
   bottom: 2rem;
   left: 0;
@@ -132,6 +132,7 @@ header {
   font-size: 1.33rem;
   border-radius: 0 3px 0 0;
   border: none;
+  caret-color: cyan;
 }
 
 .chat-msg-field::placeholder {
@@ -145,7 +146,6 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3rem;
   border-radius: 9px;
   background-color: #181818;
   color: rgba(255, 255, 255, 0.874);
@@ -158,8 +158,7 @@ header {
   align-items: center;
   z-index: 3;
   width: 100vw;
-  border-bottom: 1px solid #181818;
-
+  background-color: #181818;
   position: fixed;
   bottom: 0;
   height: 2rem;
@@ -175,25 +174,11 @@ header {
   background: rgba(50, 50, 50, 0.8);
 }
 
+.msg-submit-btn {
+  border-radius: 0;
+}
 .msg-submit-btn:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.874);
   color: #181818;
-  border-radius: 50%;
-}
-
-.msg-submit-btn::after {
-  position: absolute;
-  z-index: -3;
-  content: "";
-  background-color: #181818;
-  height: 9%;
-  width: 4rem;
-  transition: all 0.3s;
-  border-radius: 50%;
-}
-
-.msg-submit-btn:hover::after {
-  transition: all 0.3s 0.3s;
-  border-radius: 0%;
 }

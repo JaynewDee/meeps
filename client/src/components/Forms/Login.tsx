@@ -5,6 +5,7 @@ import { handleError } from "../../utils/errors";
 import { broadcastSignin } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { SetAuthDisplay } from "../Auth";
+import { catchAsync } from "catch-flow";
 
 interface LoginProps {
   socket: SocketProp;
@@ -31,15 +32,17 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
     e.preventDefault();
     const registerRes = await API.login(inputState);
     const res = await registerRes.json();
-
+    console.log(res);
     if (res.status === 208) {
       handleError("duplicateUser", setErrorState);
       return;
+    } else if (res.status === 403) {
+      handleError("wrongPassword", setErrorState);
+      return;
     } else if (res.status === 200 && res.token) {
       AuthHandle.login(res.token);
+      broadcastSignin(socket, res.user.email, setDataStream);
     }
-
-    broadcastSignin(socket, res.user.email, setDataStream);
   };
 
   const switchToRegister = () => setDisplay("register");

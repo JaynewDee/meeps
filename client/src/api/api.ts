@@ -25,7 +25,9 @@ interface APIModule {
   register: (entity: RegisterEntity) => Promise<any>;
 }
 
-// ! Client dev server must be listening @ 5173 for requests to work in development
+// ! Client dev server must be listening @ 5173
+// !  in development for requests to land at server
+
 const baseByEnv =
   window.location.port === "5173"
     ? `http://localhost:3001`
@@ -41,21 +43,15 @@ export const API: APIModule = {
     body: JSON.stringify(body)
   }),
   login: async function (userEntity: LoginEntity) {
-    return await fetch(`${this.baseUrl}/user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(userEntity)
-    });
+    return await fetch(
+      `${this.baseUrl}/user`,
+      this.postOptions(userEntity)
+    ).catch((err) => console.log(err));
   },
   register: async function (userEntity: RegisterEntity) {
-    return await fetch(`${this.baseUrl}/user/new`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(userEntity)
-    });
+    return await fetch(
+      `${this.baseUrl}/user/new`,
+      this.postOptions(userEntity)
+    ).catch((err) => console.error(err));
   }
 };

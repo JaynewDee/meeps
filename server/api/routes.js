@@ -1,10 +1,9 @@
 const User = require("../models/User");
 const jwtAuth = require("../auth/index");
-const { join } = require("path");
 
-const apiRouter = require("express").Router();
+const api = require("express").Router();
 
-apiRouter.post("/user", async (req, res) => {
+api.post("/user", async (req, res) => {
   const { body } = req;
   try {
     const user = await User.findOne({ email: body.email });
@@ -12,7 +11,7 @@ apiRouter.post("/user", async (req, res) => {
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(400).json({ message: "Wrong password!" });
+      return res.status(403).json({ status: 403, message: "Wrong password!" });
     }
     const token = jwtAuth.sign(user);
     res.json({ status: 200, token, user });
@@ -21,7 +20,7 @@ apiRouter.post("/user", async (req, res) => {
   }
 });
 
-apiRouter.post("/user/new", async (req, res) => {
+api.post("/user/new", async (req, res) => {
   const { body } = req;
   try {
     const user = await User.create(body);
@@ -38,4 +37,4 @@ apiRouter.post("/user/new", async (req, res) => {
   }
 });
 
-module.exports = { apiRouter };
+module.exports = { api };
