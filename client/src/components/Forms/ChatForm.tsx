@@ -12,14 +12,12 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
   const [inputState, setInputState] = useState("");
   const [error, setError] = useState("");
 
-  const focusRef = useRef(null as any);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputState(e.target.value);
+  };
 
   const sendMessage = async (e: any) => {
     e.preventDefault();
-
     await handleSendMessage(
       e,
       socket,
@@ -30,30 +28,19 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
     ).catch((err) => console.error(err));
   };
 
-  const reFocus = (e: any) => {
-    e.preventDefault();
-    focusRef.current.focus();
-  };
-
   return (
-    <form className="chat-form" autoComplete="off">
+    <form className="chat-form">
       <input
         type="text"
         name="message"
         value={inputState}
+        autoFocus={true}
+        autoComplete="off"
         placeholder="Meep at 'em"
         className="chat-msg-field"
         onChange={handleInputChange}
-        ref={focusRef}
       />
-      <button
-        onPointerDown={(e) => e.preventDefault()}
-        className="msg-submit-btn"
-        onClick={(e) => {
-          sendMessage(e);
-        }}
-        onKeyDown={reFocus}
-      >
+      <button className="msg-submit-btn" type="submit" onClick={sendMessage}>
         {Arrow({ size: "2rem" })}
       </button>
       {error && <div className="message-error">{error}</div>}
