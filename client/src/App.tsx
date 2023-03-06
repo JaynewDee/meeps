@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { AuthHandle } from "./auth/auth";
 
 import "./App.css";
@@ -6,7 +6,6 @@ import Auth from "./components/Auth";
 import ChatForm from "./components/Forms/ChatForm";
 import Header from "./components/Header";
 import Messages from "./components/Messages";
-import { useUserContext } from "./utils/context";
 import { useChatSocket } from "./utils/hooks";
 import SessionUtils from "./components/SessionUtils";
 
@@ -25,8 +24,11 @@ const userDefault: UserAuth = {
 };
 
 function App() {
-  const [dataStream, setDataStream] = useState<[] | string[]>([]);
+  const [user, setUser] = useState(userDefault);
+
   const socket = useChatSocket();
+
+  const [dataStream, setDataStream] = useState<[] | string[]>([]);
 
   const AuthenticatedView = () => (
     <>
