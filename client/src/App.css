@@ -16,26 +16,18 @@ header {
   text-align: left;
   top: 0;
   margin: 0;
-  background-color: black;
+  background-color: #181818;
   border-left: 1px solid white;
   border-bottom: 3px solid white;
-  z-index: 3;
+  z-index: 0;
 }
 
 .app-title {
   margin-top: 0;
-  font-size: 3rem;
+  font-size: 2rem;
+  font-style: italic;
   margin-left: 2rem;
   margin-top: 2rem;
-}
-
-.session-utils-box {
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  width: 100vw;
-  z-index: 5;
-  top: 0;
 }
 
 .registration-form {
@@ -55,7 +47,7 @@ header {
 }
 .registration-form > button {
   margin-top: 0.66rem;
-  filter: drop-shadow(0px 6px 0px black);
+  filter: drop-shadow(0px 6px 0px #181818);
   background: none;
   border: none;
   font-size: 1rem;
@@ -71,7 +63,7 @@ header {
 
 .login-form-switch,
 .register-form-switch {
-  filter: drop-shadow(0px 6px 0px black);
+  filter: drop-shadow(0px 6px 0px #181818);
   margin-top: 0.66rem;
 }
 
@@ -100,8 +92,9 @@ header {
 
 .messages-container {
   overflow-y: auto;
-  font-size: 1.33rem;
+  font-size: 1rem;
   word-break: break-all;
+  text-align: left;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -114,11 +107,10 @@ header {
   padding-bottom: 7%;
 }
 
-.message-error {
+.error-box {
   position: absolute;
-  right: 1rem;
-  bottom: 9rem;
-  width: 13%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 1.33rem;
   color: rgba(255, 0, 0, 0.785);
 }
@@ -128,38 +120,65 @@ header {
   position: fixed;
   height: 3rem;
   width: 100vw;
-  bottom: 0;
+  bottom: 2rem;
   left: 0;
-  box-shadow: 0 -1px 12px 1px rgba(20, 20, 20, 0.5);
+  border-top: 1px solid #181818;
+  border-bottom: 1px solid #181818;
 }
 
 .chat-msg-field {
   width: 100%;
   padding-left: 2rem;
   font-size: 1.33rem;
-  border-radius: 0 3px 0 9px;
+  border-radius: 0 3px 0 0;
+  border: none;
 }
 
 .chat-msg-field::placeholder {
   text-align: center;
-  font-size: 1.66rem;
 }
-
+.chat-msg-field:focus,
+.chat-msg-field:active {
+  border-bottom: 1px solid rgba(0, 255, 255, 0.333);
+}
 .msg-submit-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 3rem;
   border-radius: 9px;
-  background-color: black;
+  background-color: #181818;
   color: rgba(255, 255, 255, 0.874);
   transition: all 0.3s;
+}
+
+.session-utils-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 3;
+  width: 100vw;
+  border-bottom: 1px solid #181818;
+
+  position: fixed;
+  bottom: 0;
+  height: 2rem;
+}
+
+.session-utils-box > button {
+  background: none;
+  border: none;
+  color: rgba(200, 200, 200);
+  height: 1.66rem;
+}
+.session-utils-box > button:hover {
+  background: rgba(50, 50, 50, 0.8);
 }
 
 .msg-submit-btn:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.874);
-  color: black;
+  color: #181818;
   border-radius: 50%;
 }
 
@@ -167,7 +186,7 @@ header {
   position: absolute;
   z-index: -3;
   content: "";
-  background-color: black;
+  background-color: #181818;
   height: 9%;
   width: 4rem;
   transition: all 0.3s;
@@ -177,24 +196,4 @@ header {
 .msg-submit-btn:hover::after {
   transition: all 0.3s 0.3s;
   border-radius: 0%;
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-  position: absolute;
-}
-
-::-webkit-scrollbar-track {
-  background-color: black;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 255, 255, 0.333);
-}
-
-@media screen and (max-width: 1024px) {
-  .scroll-wrapper {
-    width: 100%;
-    border: none;
-  }
 }

@@ -24,13 +24,13 @@ const userDefault: UserAuth = {
 };
 
 function App() {
-  const [user, setUser] = useState(userDefault);
+  // const [user, setUser] = useState(userDefault);
 
   const socket = useChatSocket();
 
   const [dataStream, setDataStream] = useState<[] | string[]>([]);
 
-  const AuthenticatedView = () => (
+  const ChatView = () => (
     <>
       <Messages
         socket={socket}
@@ -38,6 +38,7 @@ function App() {
         setDataStream={setDataStream}
       />
       <ChatForm socket={socket} setDataStream={setDataStream} />
+      <SessionUtils />
     </>
   );
 
@@ -46,8 +47,7 @@ function App() {
       <Auth socket={socket} setDataStream={setDataStream} />
     ) : (
       <>
-        <SessionUtils />
-        <AuthenticatedView />
+        <ChatView />
       </>
     );
 
