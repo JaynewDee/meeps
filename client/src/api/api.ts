@@ -12,8 +12,26 @@ type LoginEntity = {
 
 type PostBody = LoginEntity | RegisterEntity;
 
-export const API = {
-  baseUrl: "http://localhost:3001/api",
+type RequestObject = {
+  method: string;
+  headers: { [key: string]: string };
+  body: string;
+};
+
+interface APIModule {
+  baseUrl: string;
+  postOptions: (body: PostBody) => RequestObject;
+  login: (entity: LoginEntity) => Promise<any>;
+  register: (entity: RegisterEntity) => Promise<any>;
+}
+
+const baseByEnv =
+  window.location.port === "5173"
+    ? `http://localhost:3001`
+    : `//${window.location.host}`;
+
+export const API: APIModule = {
+  baseUrl: baseByEnv + "/api",
   postOptions: (body: PostBody) => ({
     method: "POST",
     headers: {
