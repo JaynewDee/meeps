@@ -9,7 +9,7 @@ const SessionUtils: React.FC<any> = ({}) => {
 
   return (
     <div className="session-utils-box">
-      {<button onClick={destroySession}>END SESSION</button>}
+      <button onClick={destroySession}>END SESSION</button>
     </div>
   );
 };
