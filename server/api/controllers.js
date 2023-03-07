@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const jwtAuth = require("../auth/index");
 
 async function loginUser(req, res) {
   const { body } = req;
@@ -33,3 +34,5 @@ async function createUser(req, res) {
     }
   }
 }
+
+module.exports = { loginUser, createUser };
