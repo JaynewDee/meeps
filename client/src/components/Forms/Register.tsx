@@ -38,8 +38,7 @@ const Register: React.FC<RegisterProps> = ({
 
   const handleSubmitRegistration = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
-    const registerRes = await API.register(inputState);
-    const res = await registerRes.json();
+    const res = await API.register(inputState);
 
     if (res.status === 208) {
       handleError("duplicateUser", setErrorState);

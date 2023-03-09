@@ -31,8 +31,8 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
 
   const handleSubmitLogin = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
-    const registerRes = await API.login(inputState);
-    const res = await registerRes.json();
+    const res = await API.login(inputState);
+
     if (res.status === 403) {
       return handleError("wrongPassword", setErrorState);
     } else if (res.status === 208) {

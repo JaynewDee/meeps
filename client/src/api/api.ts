@@ -43,10 +43,9 @@ export const API: APIModule = {
     body: JSON.stringify(body)
   }),
   login: async function (userEntity: LoginEntity) {
-    return await fetch(
-      `${this.baseUrl}/user`,
-      this.postOptions(userEntity)
-    ).catch((err) => console.log(err));
+    return await fetch(`${this.baseUrl}/user`, this.postOptions(userEntity))
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
   },
   register: async function (userEntity: RegisterEntity) {
     return await fetch(
