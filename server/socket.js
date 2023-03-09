@@ -8,6 +8,7 @@ const server = require("./server");
     },
     perMessageDeflate: true
   });
+
   io.on("connection", (socket) => {
     console.info("A socket user has connected.");
 
