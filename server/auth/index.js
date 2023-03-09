@@ -6,8 +6,6 @@ const jwtAuth = {
   middleware: (req, res, next) => {
     const { token } = req.body;
 
-    console.log(`TOKEN: ${token}`);
-
     if (!token) return res.json({ message: "NOT AUTHORIZED" });
 
     try {

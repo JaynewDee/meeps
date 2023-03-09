@@ -8,8 +8,6 @@ const http = require("http");
 
 const cors = require("cors");
 
-const { Server } = require("socket.io");
-
 const app = express();
 
 const db = require("./config/db");
@@ -18,14 +16,7 @@ const { api } = require("./api/routes");
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: "*"
-  },
-  perMessageDeflate: true
-});
-
-// ! Do not change !
+// ! Do not change from 3001 !
 const PORT = process.env.PORT || 3001;
 
 app.use(
@@ -43,27 +34,6 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-io.on("connection", (socket) => {
-  console.info("A socket user has connected.");
-
-  socket.on("chat message", (msg) => {
-    console.log(`Message from socket client: ${msg}`);
-    if (!msg) {
-      return;
-    }
-
-    try {
-      socket.broadcast.emit("chat message", msg);
-    } catch (err) {
-      console.error(err);
-    }
-  });
-
-  socket.on("disconnect", () => {
-    console.warn("A socket user has disconnected.");
-  });
-});
-
 app.use("/api", cors(), api);
 
 db.once("open", () => {
@@ -71,3 +41,5 @@ db.once("open", () => {
     console.info("Server listening @ ::: *:3001");
   });
 });
+
+module.exports = server;
