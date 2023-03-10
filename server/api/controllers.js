@@ -37,11 +37,11 @@ async function createUser(req, res) {
 
 async function updateRoomHistory(req, res) {
   const { roomId } = req.query;
-  const { email } = req.body;
+  const authorEmail = req.body.author;
   try {
-    console.log(email);
     console.log(roomId);
-    res.json({ status: 200, message: `Email: ${email}` });
+    console.log(authorEmail);
+    res.json({ status: 200, message: `Email: ${authorEmail}` });
   } catch (err) {
     console.error(err);
   }

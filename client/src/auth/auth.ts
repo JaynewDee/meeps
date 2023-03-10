@@ -18,7 +18,7 @@ export class AuthHandle {
 
   //
 
-  public static getUser(): {} {
+  public static getUser() {
     try {
       return decode(this.currentToken()!);
     } catch (err) {

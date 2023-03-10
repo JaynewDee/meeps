@@ -28,6 +28,7 @@ function App() {
 
   useEffect(() => {
     const user = AuthHandle.getUser() as any;
+    console.log(user);
     user ? setUser(user.data) : 1;
   }, []);
   const socket = useChatSocket();

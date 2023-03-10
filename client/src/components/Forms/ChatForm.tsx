@@ -18,8 +18,6 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream, user }) => {
     setInputState(e.target.value);
   };
 
-  console.log(user);
-
   const sendMessage = async (e: any) => {
     e.preventDefault();
     await handleSendMessage(

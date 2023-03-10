@@ -32,7 +32,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
   const handleSubmitLogin = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await API.login(inputState);
-
+    console.log(inputState);
     if (res.status === 403) {
       return handleError("wrongPassword", setErrorState);
     } else if (res.status === 208) {
