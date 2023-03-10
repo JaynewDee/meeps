@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthHandle } from "./auth/auth";
 
 import "./App.css";
@@ -16,7 +16,7 @@ interface UserAuth {
   memberships: any[];
 }
 
-const userDefault: UserAuth = {
+const userDefault: UserAuth | {} = {
   firstName: "",
   lastName: "",
   email: "",
@@ -24,8 +24,12 @@ const userDefault: UserAuth = {
 };
 
 function App() {
-  // const [user, setUser] = useState(userDefault);
+  const [user, setUser] = useState(userDefault);
 
+  useEffect(() => {
+    const user = AuthHandle.getUser() as any;
+    user ? setUser(user.data) : 1;
+  }, []);
   const socket = useChatSocket();
 
   const [dataStream, setDataStream] = useState<[] | string[]>([]);
@@ -37,7 +41,7 @@ function App() {
         dataStream={dataStream}
         setDataStream={setDataStream}
       />
-      <ChatForm socket={socket} setDataStream={setDataStream} />
+      <ChatForm socket={socket} setDataStream={setDataStream} user={user} />
       <SessionUtils />
     </>
   );

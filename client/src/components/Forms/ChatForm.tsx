@@ -1,20 +1,24 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
 import { handleSendMessage } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
+import { API } from "../../api/api";
 
 interface ChatFormProps {
   socket: SocketProp;
   setDataStream: Dispatch<SetStateAction<string[]>>;
+  user: any;
 }
 
-const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
+const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream, user }) => {
   const [inputState, setInputState] = useState("");
   const [error, setError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputState(e.target.value);
   };
+
+  console.log(user);
 
   const sendMessage = async (e: any) => {
     e.preventDefault();
@@ -26,6 +30,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream }) => {
       setDataStream,
       setError
     ).catch((err) => console.error(err));
+    await API.persistMsg({ text: inputState, author: user.email }, "central");
   };
 
   return (

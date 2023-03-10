@@ -10,7 +10,12 @@ type LoginEntity = {
   password: string;
 };
 
-type PostBody = LoginEntity | RegisterEntity;
+type MsgEntity = {
+  text: string;
+  author: string;
+};
+
+type PostBody = LoginEntity | RegisterEntity | MsgEntity;
 
 type RequestObject = {
   method: string;
@@ -23,6 +28,7 @@ interface APIModule {
   postOptions: (body: PostBody) => RequestObject;
   login: (entity: LoginEntity) => Promise<any>;
   register: (entity: RegisterEntity) => Promise<any>;
+  persistMsg: (entity: MsgEntity, roomId: string) => Promise<any>;
 }
 
 // ! Client dev server must be listening @ 5173
@@ -48,9 +54,16 @@ export const API: APIModule = {
       .catch((err) => console.log(err));
   },
   register: async function (userEntity: RegisterEntity) {
+    return await fetch(`${this.baseUrl}/user/new`, this.postOptions(userEntity))
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  },
+  persistMsg: async function (msgEntity: MsgEntity, roomId: string) {
     return await fetch(
-      `${this.baseUrl}/user/new`,
-      this.postOptions(userEntity)
-    ).catch((err) => console.error(err));
+      `${this.baseUrl}/user/history?roomId=${roomId}`,
+      this.postOptions(msgEntity)
+    )
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
   }
 };

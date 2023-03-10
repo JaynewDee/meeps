@@ -13,18 +13,16 @@ interface AuthProps {
 const Auth: React.FC<AuthProps> = ({ socket, setDataStream }) => {
   const [displayState, setDisplayState] = useState("login");
 
+  const formProps = {
+    setDisplay: setDisplayState,
+    socket: socket,
+    setDataStream: setDataStream
+  };
+
   return displayState === "register" ? (
-    <Register
-      setDisplay={setDisplayState}
-      socket={socket}
-      setDataStream={setDataStream}
-    />
+    <Register {...formProps} />
   ) : (
-    <Login
-      setDisplay={setDisplayState}
-      socket={socket}
-      setDataStream={setDataStream}
-    />
+    <Login {...formProps} />
   );
 };
 

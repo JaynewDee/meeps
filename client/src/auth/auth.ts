@@ -15,15 +15,19 @@ export class AuthHandle {
       return false;
     }
   }
+
   //
-  public static getUser() {
+
+  public static getUser(): {} {
     try {
       return decode(this.currentToken()!);
     } catch (err) {
       return "";
     }
   }
+
   //
+
   public static validate() {
     const token = this.getUser() as string | void;
     return !!token && !this.isFreshToken(token);

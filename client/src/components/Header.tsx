@@ -1,5 +1,3 @@
-import { useUserContext } from "../utils/context";
-
 const Header = () => {
   return (
     <header>

@@ -1,23 +1,21 @@
 require("dotenv").config();
-
-const express = require("express");
-
 const { join } = require("path");
 
+const express = require("express");
 const http = require("http");
-
 const cors = require("cors");
-
 const app = express();
 
 const db = require("./config/db");
-
 const { api } = require("./api/routes");
 
 const server = http.createServer(app);
 
 // ! Do not change from 3001 !
 const PORT = process.env.PORT || 3001;
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(
   "/",
@@ -30,9 +28,6 @@ app.use(
     )
   )
 );
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 app.use("/api", cors(), api);
 

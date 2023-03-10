@@ -35,4 +35,16 @@ async function createUser(req, res) {
   }
 }
 
-module.exports = { loginUser, createUser };
+async function updateRoomHistory(req, res) {
+  const { roomId } = req.query;
+  const { email } = req.body;
+  try {
+    console.log(email);
+    console.log(roomId);
+    res.json({ status: 200, message: `Email: ${email}` });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+module.exports = { loginUser, createUser, updateRoomHistory };
