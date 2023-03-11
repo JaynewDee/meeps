@@ -1,9 +1,11 @@
-const { loginUser, createUser, updateRoomHistory } = require("./controllers");
+const { loginUser, createUser, storeUserMsg } = require("./controllers");
+
 const api = require("express").Router();
 
 api.post("/user", loginUser);
 
 api.post("/user/new", createUser);
 
-api.post("/user/history", updateRoomHistory);
+api.post("/user/msg", storeUserMsg);
+
 module.exports = { api };

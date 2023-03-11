@@ -60,7 +60,7 @@ export const API: APIModule = {
   },
   persistMsg: async function (msgEntity: MsgEntity, roomId: string) {
     return await fetch(
-      `${this.baseUrl}/user/history?roomId=${roomId}`,
+      `${this.baseUrl}/user/msg?roomId=${roomId}`,
       this.postOptions(msgEntity)
     )
       .then((res) => res.json())

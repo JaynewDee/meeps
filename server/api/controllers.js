@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const jwtAuth = require("../auth/index");
+const jwtAuth = require("../auth");
 
 async function loginUser(req, res) {
   const { body } = req;
@@ -11,6 +11,7 @@ async function loginUser(req, res) {
     if (!correctPw) {
       return res.status(400).json({ message: "Wrong password!" });
     }
+
     const token = jwtAuth.sign(user);
     res.json({ status: 200, token, user });
   } catch (err) {
@@ -35,16 +36,12 @@ async function createUser(req, res) {
   }
 }
 
-async function updateRoomHistory(req, res) {
-  const { roomId } = req.query;
-  const authorEmail = req.body.author;
-  try {
-    console.log(roomId);
-    console.log(authorEmail);
-    res.json({ status: 200, message: `Email: ${authorEmail}` });
-  } catch (err) {
-    console.error(err);
-  }
+async function storeUserMsg(req, res) {
+  const { author, text } = req.body;
+  const roomId = req.query.roomId;
+  console.log(roomId);
+  console.log(author, text);
+  res.json({ status: 200, message: `Email: ${text}` });
 }
 
-module.exports = { loginUser, createUser, updateRoomHistory };
+module.exports = { loginUser, createUser, storeUserMsg };

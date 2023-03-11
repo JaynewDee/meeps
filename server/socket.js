@@ -12,11 +12,12 @@ const server = require("./server");
   io.on("connection", (socket) => {
     console.info("A socket user has connected.");
 
+    // On connection, join the main room `central`
+    socket.join("central");
+
     socket.on("chat message", (msg) => {
       console.log(`Message from socket client: ${msg}`);
-      if (!msg) {
-        return;
-      }
+      if (!msg) return;
 
       try {
         socket.broadcast.emit("chat message", msg);

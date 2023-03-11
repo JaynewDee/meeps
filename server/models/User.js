@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const ChatRoom = require("./ChatRoom");
+const Message = require("./Message");
 const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
@@ -22,7 +23,8 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
-  memberships: [ChatRoom.schema]
+  memberships: [ChatRoom.schema],
+  messages: [Message.schema]
 });
 
 // set up pre-save middleware to create password

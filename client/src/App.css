@@ -110,6 +110,7 @@ header {
   transform: translate(-50%, -50%);
   font-size: 1.33rem;
   color: wheat;
+  bottom: 100%;
 }
 
 .chat-form {
