@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const ChatRoom = require("../models/ChatRoom");
 const Message = require("../models/Message");
 const jwtAuth = require("../auth");
 
@@ -45,8 +46,13 @@ async function createUser(req, res) {
 async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
-  const newMsg = Message.create({});
+  const newMsg = await Message.create({ text, author, recipient: roomId });
   res.json({ status: 200, message: `Email: ${text}` });
 }
 
-module.exports = { loginUser, createUser, storeUserMsg };
+async function getAllRooms(req, res) {
+  const allRooms = await ChatRoom.find({});
+  res.json({ status: 200, data: allRooms });
+}
+
+module.exports = { loginUser, createUser, storeUserMsg, getAllRooms };

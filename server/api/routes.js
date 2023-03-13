@@ -1,4 +1,9 @@
-const { loginUser, createUser, storeUserMsg } = require("./controllers");
+const {
+  loginUser,
+  createUser,
+  storeUserMsg,
+  getAllRooms
+} = require("./controllers");
 
 const jwtAuth = require("../auth");
 
@@ -9,5 +14,7 @@ api.post("/user", loginUser);
 api.post("/user/new", createUser);
 
 api.post("/user/msg", jwtAuth.middleware, storeUserMsg);
+
+api.get("/rooms", getAllRooms);
 
 module.exports = { api };
