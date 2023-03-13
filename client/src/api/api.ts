@@ -13,6 +13,7 @@ type LoginEntity = {
 type MsgEntity = {
   text: string;
   author: string;
+  token: string;
 };
 
 type PostBody = LoginEntity | RegisterEntity | MsgEntity;

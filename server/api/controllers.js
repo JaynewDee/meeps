@@ -5,11 +5,13 @@ async function loginUser(req, res) {
   const { body } = req;
   try {
     const user = await User.findOne({ email: body.email });
-
+    if (!user) {
+      return res.status(400).json({ status: 400, message: "No user found." });
+    }
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(400).json({ message: "Wrong password!" });
+      return res.status(400).json({ status: 400, message: "Wrong password!" });
     }
 
     const token = jwtAuth.sign(user);

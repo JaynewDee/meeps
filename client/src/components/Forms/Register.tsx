@@ -50,7 +50,7 @@ const Register: React.FC<RegisterProps> = ({
       AuthHandle.login(res.token);
     }
 
-    broadcastSignin(socket, res.user.email, setDataStream);
+    broadcastSignin(socket, res.user.username, setDataStream);
   });
 
   const switchToLogin = () => setDisplay("login");

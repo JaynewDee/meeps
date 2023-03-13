@@ -32,14 +32,17 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
   const handleSubmitLogin = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await API.login(inputState);
+    const { status } = res;
     console.log(inputState);
-    if (res.status === 403) {
+    if (status === 403) {
       return handleError("wrongPassword", setErrorState);
-    } else if (res.status === 208) {
+    } else if (status === 400) {
+      return handleError("userNotFound", setErrorState);
+    } else if (status === 208) {
       return handleError("duplicateUser", setErrorState);
-    } else if (res.status === 200 && res.token) {
+    } else if (status === 200 && res.token) {
       AuthHandle.login(res.token);
-      broadcastSignin(socket, res.user.email, setDataStream);
+      broadcastSignin(socket, res.user.username, setDataStream);
     }
   });
 

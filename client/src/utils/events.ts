@@ -28,9 +28,7 @@ export const broadcastSignin = async (
   username: string,
   setData: DataDispatch
 ) => {
-  const notification = `User <${
-    username.split("@")[0]
-  }> signed in @ ${new Date().toLocaleString()}`;
+  const notification = `User <${username}> signed in @ ${new Date().toLocaleString()}`;
 
   setData((prev: any) => [...prev, notification]);
   socket!.emit("chat message", notification);

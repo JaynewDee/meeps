@@ -10,7 +10,9 @@ export const handleError = async (type: string, setter: ErrorDispatch) => {
     wrongPassword: "The password you entered appears to be incorrect...",
     badPassword:
       "Your password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character from the set @$!%*?",
-    badEmail: "The format of the input email fails validation!"
+    badEmail: "The format of the input email fails validation!",
+    userNotFound:
+      "That user doesn't appear to exist ...  Try again or register."
   };
   setter(errTypes[type]);
   return setTimeout(() => setter(""), 5000);

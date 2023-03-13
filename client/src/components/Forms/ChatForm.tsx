@@ -3,6 +3,7 @@ import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
 import { handleSendMessage } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { API } from "../../api/api";
+import { AuthHandle } from "../../auth/auth";
 
 interface ChatFormProps {
   socket: SocketProp;
@@ -28,7 +29,10 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream, user }) => {
       setDataStream,
       setError
     ).catch((err) => console.error(err));
-    await API.persistMsg({ text: inputState, author: user.email }, "central");
+    await API.persistMsg(
+      { text: inputState, author: user.email, token: AuthHandle.getUser() },
+      "central"
+    );
   };
 
   return (
