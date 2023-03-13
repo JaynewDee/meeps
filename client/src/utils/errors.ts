@@ -1,21 +1,56 @@
-export const handleError = async (type: string, setter: any) => {
+import { Dispatch, SetStateAction } from "react";
+
+type ErrorDispatch = Dispatch<SetStateAction<string>>;
+
+export const handleError = async (type: string, setter: ErrorDispatch) => {
   const errTypes: { [key: string]: string } = {
     length:
       "Your meep must be greater than 0 and fewer than 66 characters long.",
     duplicateUser: "A user is already registered under this email address!",
     wrongPassword: "The password you entered appears to be incorrect...",
+    badPassword:
+      "Your password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character from the set @$!%*?",
     badEmail: "The format of the input email fails validation!"
   };
   setter(errTypes[type]);
   return setTimeout(() => setter(""), 5000);
 };
 
-export const validators = async (type: string, input: string) => {
-  const types: { [key: string]: () => boolean } = {
-    email: () => {
-      const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      return re.test(input);
+interface ValidationInput {
+  firstName?: string;
+  lastName?: string;
+  username: string;
+  email?: string;
+  password: string;
+}
+
+const matchers = {
+  email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+  password:
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+};
+
+export const validateInput = async (
+  type: string,
+  input: ValidationInput,
+  setter: ErrorDispatch
+) => {
+  const checks: { [key: string]: () => string } = {
+    register: () => {
+      const { email, password } = matchers;
+      if (!email.test(input.email || "")) {
+        return "email";
+      }
+      if (!password.test(input.password)) {
+        return "password";
+      }
+      return "pass";
     }
   };
-  return types[type];
+  const failBy = checks[type]();
+
+  if (failBy === "email") return handleError("badEmail", setter);
+  if (failBy === "password") return handleError("badPassword", setter);
+
+  return;
 };
