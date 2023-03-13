@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Message = require("../models/Message");
 const jwtAuth = require("../auth");
 
 async function loginUser(req, res) {
@@ -25,6 +26,7 @@ async function loginUser(req, res) {
 
 async function createUser(req, res) {
   const { body } = req;
+
   try {
     const user = await User.create(body);
     console.log(user);
@@ -43,8 +45,7 @@ async function createUser(req, res) {
 async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
-  console.log(roomId);
-  console.log(author, text);
+  const newMsg = Message.create({});
   res.json({ status: 200, message: `Email: ${text}` });
 }
 

@@ -12,7 +12,8 @@
     "start": "node server/server.js",
     "build": "cd client && npm run build",
     "install": "cd client && npm install && cd ../server && npm install",
-    "refreshDb": "node server/dev_utils/refreshDb.js"
+    "refreshDb": "node server/dev_utils/refreshDb.js",
+    "seed": "node server/dev_utils/seed.js"
   },
   "dependencies": {
     "nodemon": "^2.0.21",

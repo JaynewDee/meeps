@@ -1,6 +1,9 @@
 const { Schema, model } = require("mongoose");
 
 const roomSchema = new Schema({
+  name: {
+    type: String
+  },
   createdAt: {
     type: Date,
     default: Date.now

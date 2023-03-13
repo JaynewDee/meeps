@@ -1,3 +1,7 @@
+// @ts-ignore
+import Cookies from "js-cookie";
+import { AuthHandle } from "../auth/auth";
+
 type RegisterEntity = {
   firstName: string;
   lastName: string;
@@ -28,11 +32,7 @@ interface APIModule {
   postOptions: (body: PostBody) => RequestObject;
   login: (entity: LoginEntity) => Promise<any>;
   register: (entity: RegisterEntity) => Promise<any>;
-  persistMsg: (
-    entity: MsgEntity,
-    token: string,
-    roomId: string
-  ) => Promise<any>;
+  persistMsg: (entity: MsgEntity, roomId: string) => Promise<any>;
 }
 
 // ! Client dev server must be listening @ 5173
@@ -68,10 +68,7 @@ export const API: APIModule = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${document.cookie.replace(
-          /(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/,
-          "$1"
-        )}`
+        Authorization: `Bearer ${AuthHandle.getToken()}`
       },
       body: JSON.stringify(msgEntity)
     })

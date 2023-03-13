@@ -36,7 +36,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
     }
     const res = await API.login(inputState);
     const { status } = res;
-
+    console.log(res);
     if (status === 401) {
       return handleError("wrongPassword", setErrorState);
     } else if (status === 400) {
