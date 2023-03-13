@@ -12,6 +12,7 @@ import SessionUtils from "./components/SessionUtils";
 interface UserAuth {
   firstName: string;
   lastName: string;
+  username: string;
   email: string;
   memberships: any[];
 }
@@ -19,6 +20,7 @@ interface UserAuth {
 const userDefault: UserAuth | {} = {
   firstName: "",
   lastName: "",
+  username: "",
   email: "",
   memberships: []
 };
@@ -31,6 +33,7 @@ function App() {
     console.log(user);
     user ? setUser(user.data) : 1;
   }, []);
+
   const socket = useChatSocket();
 
   const [dataStream, setDataStream] = useState<[] | string[]>([]);

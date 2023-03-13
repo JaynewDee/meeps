@@ -3,20 +3,31 @@ const ChatRoom = require("./ChatRoom");
 const Message = require("./Message");
 const bcrypt = require("bcrypt");
 
+const validateEmail = (email) => {
+  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return re.test(email);
+};
+
 const userSchema = new Schema({
   firstName: {
     type: String,
+    required: false,
     trim: true
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
     trim: true
+  },
+  username: {
+    type: String,
+    required: true
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    validate: [validateEmail, "E-mail address invalid!"]
   },
   password: {
     type: String,
