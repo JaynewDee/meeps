@@ -2,7 +2,7 @@ import { catchAsync } from "catch-flow";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { API } from "../../api/api";
 import { AuthHandle } from "../../auth/auth";
-import { handleError } from "../../utils/errors";
+import { handleError, validateInput } from "../../utils/errors";
 import { broadcastSignin } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { SetAuthDisplay } from "../Auth";
@@ -10,6 +10,7 @@ import { SetAuthDisplay } from "../Auth";
 const defaultState = {
   firstName: "",
   lastName: "",
+  username: "",
   email: "",
   password: ""
 };
@@ -38,6 +39,8 @@ const Register: React.FC<RegisterProps> = ({
 
   const handleSubmitRegistration = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateInput("register", inputState, setErrorState)) {
+    }
     const res = await API.register(inputState);
 
     if (res.status === 208) {
@@ -68,6 +71,13 @@ const Register: React.FC<RegisterProps> = ({
           name="lastName"
           placeholder="last name"
           value={inputState.lastName}
+          onChange={handleInput}
+        />
+        <input
+          type="text"
+          name="username"
+          placeholder="username"
+          value={inputState.username}
           onChange={handleInput}
         />
         <input

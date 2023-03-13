@@ -47,6 +47,7 @@ export const validateInput = async (
       return "pass";
     }
   };
+
   const failBy = checks[type]();
 
   if (failBy === "email") return handleError("badEmail", setter);
