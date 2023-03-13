@@ -39,7 +39,8 @@ const Register: React.FC<RegisterProps> = ({
 
   const handleSubmitRegistration = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateInput("register", inputState, setErrorState)) {
+    if (validateInput("auth", inputState, setErrorState) !== "pass") {
+      return;
     }
     const res = await API.register(inputState);
 

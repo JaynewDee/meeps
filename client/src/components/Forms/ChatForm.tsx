@@ -30,7 +30,8 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream, user }) => {
       setError
     ).catch((err) => console.error(err));
     await API.persistMsg(
-      { text: inputState, author: user.email, token: AuthHandle.getUser() },
+      { text: inputState, author: user.email },
+      AuthHandle.getUser(),
       "central"
     );
   };

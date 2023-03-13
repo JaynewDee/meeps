@@ -4,7 +4,8 @@ const secret = process.env.JWT_SECRET;
 
 const jwtAuth = {
   middleware: (req, res, next) => {
-    const { token } = req.body;
+    const token = req.headers.authorization.split("Bearer ")[1];
+    console.log(token);
 
     if (!token) return res.json({ message: "NOT AUTHORIZED" });
 

@@ -13,7 +13,6 @@ type LoginEntity = {
 type MsgEntity = {
   text: string;
   author: string;
-  token: string;
 };
 
 type PostBody = LoginEntity | RegisterEntity | MsgEntity;
@@ -29,7 +28,11 @@ interface APIModule {
   postOptions: (body: PostBody) => RequestObject;
   login: (entity: LoginEntity) => Promise<any>;
   register: (entity: RegisterEntity) => Promise<any>;
-  persistMsg: (entity: MsgEntity, roomId: string) => Promise<any>;
+  persistMsg: (
+    entity: MsgEntity,
+    token: string,
+    roomId: string
+  ) => Promise<any>;
 }
 
 // ! Client dev server must be listening @ 5173
@@ -42,10 +45,11 @@ const baseByEnv =
 
 export const API: APIModule = {
   baseUrl: baseByEnv + "/api",
-  postOptions: (body: PostBody) => ({
+  postOptions: (body: PostBody, token: string = "") => ({
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(body)
   }),
@@ -60,10 +64,17 @@ export const API: APIModule = {
       .catch((err) => console.error(err));
   },
   persistMsg: async function (msgEntity: MsgEntity, roomId: string) {
-    return await fetch(
-      `${this.baseUrl}/user/msg?roomId=${roomId}`,
-      this.postOptions(msgEntity)
-    )
+    return await fetch(`${this.baseUrl}/user/msg?roomId=${roomId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${document.cookie.replace(
+          /(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/,
+          "$1"
+        )}`
+      },
+      body: JSON.stringify(msgEntity)
+    })
       .then((res) => res.json())
       .catch((err) => console.error(err));
   }

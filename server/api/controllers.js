@@ -11,10 +11,12 @@ async function loginUser(req, res) {
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(400).json({ status: 400, message: "Wrong password!" });
+      return res.status(401).json({ status: 401, message: "Wrong password!" });
     }
 
     const token = jwtAuth.sign(user);
+
+    res.cookie("jwt", token, { httpOnly: true });
     res.json({ status: 200, token, user });
   } catch (err) {
     console.log(err);
@@ -25,7 +27,7 @@ async function createUser(req, res) {
   const { body } = req;
   try {
     const user = await User.create(body);
-
+    console.log(user);
     const token = jwtAuth.sign(user);
 
     res.json({ status: 200, token, user });

@@ -24,6 +24,10 @@ export class AuthHandle {
     }
   }
   //
+  public static getToken(): string | null {
+    return sessionStorage.getItem("user_token");
+  }
+  //
   public static validate(): boolean {
     const token = this.getUser() as string | void;
     return !!token && !this.isFreshToken(token);

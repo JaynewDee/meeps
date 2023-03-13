@@ -21,8 +21,8 @@ export const handleError = async (type: string, setter: ErrorDispatch) => {
 interface ValidationInput {
   firstName?: string;
   lastName?: string;
-  username: string;
-  email?: string;
+  username?: string;
+  email: string;
   password: string;
 }
 
@@ -32,13 +32,13 @@ const matchers = {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 };
 
-export const validateInput = async (
+export const validateInput = (
   type: string,
   input: ValidationInput,
   setter: ErrorDispatch
 ) => {
   const checks: { [key: string]: () => string } = {
-    register: () => {
+    auth: () => {
       const { email, password } = matchers;
       if (!email.test(input.email || "")) {
         return "email";
@@ -55,5 +55,5 @@ export const validateInput = async (
   if (failBy === "email") return handleError("badEmail", setter);
   if (failBy === "password") return handleError("badPassword", setter);
 
-  return;
+  return "pass";
 };

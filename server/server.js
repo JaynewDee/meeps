@@ -4,6 +4,7 @@ const { join } = require("path");
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 
 const db = require("./config/db");
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   "/",
