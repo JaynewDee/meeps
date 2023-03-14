@@ -35,6 +35,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
+  currentRoom: {
+    type: Schema.Types.ObjectId,
+    ref: "ChatRoom"
+  },
   rooms: [
     {
       type: Schema.Types.ObjectId,

@@ -140,6 +140,7 @@ header {
 .chat-msg-field:active {
   border-bottom: 1px solid rgba(0, 255, 255, 0.333);
 }
+
 .msg-submit-btn {
   display: flex;
   justify-content: center;
@@ -169,7 +170,9 @@ header {
   border: none;
   color: rgba(200, 200, 200);
   height: 1.66rem;
+  font-size: 0.66rem;
 }
+
 .session-utils-box > button:hover {
   background: rgba(30, 30, 30, 1);
 }
