@@ -28,11 +28,21 @@ const userDefault: UserAuth | {} = {
 function App() {
   const [user, setUser] = useState(userDefault);
 
+  const [connectionError, toggleConnectionError] = useState("");
+
   useEffect(() => {
+    ping();
     const user = AuthHandle.getUser() as any;
-    console.log(user);
     user ? setUser(user.data) : 1;
+    console.log(user);
   }, []);
+
+  const ping = (): void =>
+    navigator.onLine
+      ? toggleConnectionError("")
+      : toggleConnectionError(
+          "Your browser does not appear to have access to the internet."
+        );
 
   const socket = useChatSocket();
 
@@ -61,6 +71,7 @@ function App() {
 
   return (
     <div className="App">
+      {connectionError && <p>{connectionError}</p>}
       <Header />
       {authSwitch()}
     </div>

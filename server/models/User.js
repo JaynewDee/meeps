@@ -35,8 +35,18 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
-  memberships: [ChatRoom.schema],
-  messages: [Message.schema]
+  rooms: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ChatRoom"
+    }
+  ],
+  messages: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Message"
+    }
+  ]
 });
 
 // set up pre-save middleware to create password

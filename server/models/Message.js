@@ -9,7 +9,6 @@ const messageSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-
   recipient: {
     type: Schema.Types.ObjectId,
     ref: "ChatRoom"

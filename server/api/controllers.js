@@ -30,7 +30,6 @@ async function createUser(req, res) {
 
   try {
     const user = await User.create(body);
-    console.log(user);
     const token = jwtAuth.sign(user);
 
     res.json({ status: 200, token, user });
@@ -47,7 +46,7 @@ async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
   const newMsg = await Message.create({ text, author, recipient: roomId });
-  res.json({ status: 200, message: `Email: ${text}` });
+  res.json({ status: 200, message: `MESSAGE DEETS: ${newMsg}` });
 }
 
 async function getAllRooms(req, res) {
@@ -55,4 +54,6 @@ async function getAllRooms(req, res) {
   res.json({ status: 200, data: allRooms });
 }
 
-module.exports = { loginUser, createUser, storeUserMsg, getAllRooms };
+async function getMe(req, res) {}
+
+module.exports = { loginUser, createUser, storeUserMsg, getAllRooms, getMe };

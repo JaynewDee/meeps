@@ -33,6 +33,8 @@ interface APIModule {
   login: (entity: LoginEntity) => Promise<any>;
   register: (entity: RegisterEntity) => Promise<any>;
   persistMsg: (entity: MsgEntity, roomId: string) => Promise<any>;
+  getRooms: () => Promise<any>;
+  getMe: () => Promise<any>;
 }
 
 // ! Client dev server must be listening @ 5173
@@ -48,8 +50,7 @@ export const API: APIModule = {
   postOptions: (body: PostBody, token: string = "") => ({
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(body)
   }),
@@ -71,6 +72,28 @@ export const API: APIModule = {
         Authorization: `Bearer ${AuthHandle.getToken()}`
       },
       body: JSON.stringify(msgEntity)
+    })
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  },
+  getRooms: async function () {
+    return await fetch(`${this.baseUrl}/rooms`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${AuthHandle.getToken()}`
+      }
+    })
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  },
+  getMe: async function () {
+    return await fetch(`${this.baseUrl}/user/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${AuthHandle.getToken()}`
+      }
     })
       .then((res) => res.json())
       .catch((err) => console.error(err));
