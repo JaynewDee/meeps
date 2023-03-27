@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Messages from "./components/Messages";
 import { useChatSocket } from "./utils/hooks";
 import SessionUtils from "./components/SessionUtils";
+import React from "react";
 
 interface UserAuth {
   firstName: string;
@@ -34,7 +35,6 @@ function App() {
     ping();
     const user = AuthHandle.getUser() as any;
     user ? setUser(user.data) : 1;
-    console.log(user);
   }, []);
 
   const ping = (): void =>
@@ -78,4 +78,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);

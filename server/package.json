@@ -5,6 +5,9 @@
   "main": "server.js",
   "author": "Joshua Newell Diehl",
   "license": "MIT",
+  "scripts": {
+    "start": "set DEBUG=* && node --watch server.js"
+  },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",

@@ -31,7 +31,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream, user }) => {
 
     await API.persistMsg(
       { text: inputState, author: user._id },
-      "640ea2e82ccfcf6b2837b96e"
+      "642211298736c6c14a07df3e"
     );
   };
 

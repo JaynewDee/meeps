@@ -46,11 +46,15 @@ async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
   const newMsg = await Message.create({ text, author, recipient: roomId });
+  await ChatRoom.findOneAndUpdate(
+    { _id: roomId },
+    { $push: { messages: newMsg._id } }
+  );
   res.json({ status: 200, message: `MESSAGE DEETS: ${newMsg}` });
 }
 
 async function getAllRooms(req, res) {
-  const allRooms = await ChatRoom.find({});
+  const allRooms = await ChatRoom.find({}).populate("messages");
   res.json({ status: 200, data: allRooms });
 }
 

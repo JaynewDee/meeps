@@ -30,6 +30,6 @@ const server = require("./server");
       console.warn("A socket user has disconnected.");
     });
   });
-
+  console.log(io);
   return io;
 })();

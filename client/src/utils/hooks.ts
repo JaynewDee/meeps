@@ -16,9 +16,9 @@ export const useChatSocket = () => {
     /////////////////
 
     ///////////////////////////////
-    socket.on("connect", () => {
-      console.log("Socket.IO connected");
-    });
+    socket.on("connect", () =>
+      console.log(`Socket w/ id ${socket.id} connected`)
+    );
     ///////////////////////////////
 
     ///////////////////////////////
