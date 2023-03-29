@@ -45,7 +45,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
       return handleError("duplicateUser", setErrorState);
     } else if (status === 200 && res.token) {
       AuthHandle.login(res.token);
-      broadcastSignin(socket, res.user.username, setDataStream);
+      broadcastSignin(socket, res.user.username, setDataStream, res.user._id);
     }
   });
 

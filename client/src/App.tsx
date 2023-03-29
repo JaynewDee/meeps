@@ -6,7 +6,7 @@ import Auth from "./components/Auth";
 import ChatForm from "./components/Forms/ChatForm";
 import Header from "./components/Header";
 import Messages from "./components/Messages";
-import { useChatSocket } from "./utils/hooks";
+import { useChatSocket, useMessageFetch } from "./utils/hooks";
 import SessionUtils from "./components/SessionUtils";
 import React from "react";
 
@@ -37,6 +37,8 @@ function App() {
     user ? setUser(user.data) : 1;
   }, []);
 
+  const [msgs] = useMessageFetch();
+  console.log(msgs);
   const ping = (): void =>
     navigator.onLine
       ? toggleConnectionError("")

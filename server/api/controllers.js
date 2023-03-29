@@ -58,6 +58,23 @@ async function getAllRooms(req, res) {
   res.json({ status: 200, data: allRooms });
 }
 
+async function getRecentMessages(req, res) {
+  try {
+    const recentMsgs = await Message.find().sort({ createdAt: 1 }).limit(50);
+    console.log(recentMsgs);
+    res.json({ status: 200, data: recentMsgs });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 async function getMe(req, res) {}
 
-module.exports = { loginUser, createUser, storeUserMsg, getAllRooms, getMe };
+module.exports = {
+  loginUser,
+  createUser,
+  storeUserMsg,
+  getAllRooms,
+  getMe,
+  getRecentMessages
+};

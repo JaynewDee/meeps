@@ -3,7 +3,8 @@ const {
   createUser,
   storeUserMsg,
   getMe,
-  getAllRooms
+  getAllRooms,
+  getRecentMessages
 } = require("./controllers");
 
 const jwtAuth = require("../auth");
@@ -14,6 +15,7 @@ const api = require("express").Router();
   GET
 */
 api.get("/rooms", getAllRooms);
+api.get("/rooms/central", jwtAuth.middleware, getRecentMessages);
 api.get("/user/me", jwtAuth.middleware, getMe);
 
 /* 

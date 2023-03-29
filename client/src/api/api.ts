@@ -35,6 +35,7 @@ interface APIModule {
   persistMsg: (entity: MsgEntity, roomId: string) => Promise<any>;
   getRooms: () => Promise<any>;
   getMe: () => Promise<any>;
+  getRecentMessages: () => Promise<any>;
 }
 
 // ! Client dev server must be listening @ 5173
@@ -89,6 +90,17 @@ export const API: APIModule = {
   },
   getMe: async function () {
     return await fetch(`${this.baseUrl}/user/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${AuthHandle.getToken()}`
+      }
+    })
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  },
+  getRecentMessages: async function () {
+    return await fetch(`${this.baseUrl}/rooms/central`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

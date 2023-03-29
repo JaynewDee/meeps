@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { API } from "../api/api";
 import { handleError } from "./errors";
 import { SocketProp } from "./hooks";
 
@@ -26,10 +27,17 @@ export const handleSendMessage = async (
 export const broadcastSignin = async (
   socket: SocketProp,
   username: string,
-  setData: DataDispatch
+  setData: DataDispatch,
+  userId: string
 ) => {
   const notification = `User <${username}> signed in @ ${new Date().toLocaleString()}`;
 
   setData((prev: any) => [...prev, notification]);
+
+  await API.persistMsg(
+    { text: notification, author: userId },
+    "642211298736c6c14a07df3e"
+  );
+
   socket!.emit("chat message", notification);
 };

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import { API } from "../api/api";
 
 export type SocketProp = null | Socket<any, any>;
 
@@ -29,4 +30,14 @@ export const useChatSocket = () => {
   }, []);
 
   return socket;
+};
+
+export const useMessageFetch = () => {
+  const [messages, setMessages] = useState();
+  useMemo(async () => {
+    const msgs = await API.getRecentMessages();
+    setMessages(msgs);
+  }, [setMessages]);
+
+  return [messages];
 };

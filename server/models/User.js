@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
-const ChatRoom = require("./ChatRoom");
-const Message = require("./Message");
+
 const bcrypt = require("bcrypt");
 
 const validateEmail = (email) => {

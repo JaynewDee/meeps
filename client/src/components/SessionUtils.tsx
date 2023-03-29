@@ -17,6 +17,11 @@ const SessionUtils: React.FC<any> = ({}) => {
     console.log(res);
   };
 
+  const getRecentMsgs = async () => {
+    const res = await API.getRecentMessages();
+    console.log(res);
+  };
+
   const spacer = () => (
     <div style={{ width: 0, border: "1px solid black", height: "12px" }}></div>
   );
@@ -28,6 +33,8 @@ const SessionUtils: React.FC<any> = ({}) => {
       <button onClick={getAllRooms}>FETCH ROOMS</button>
       {spacer()}
       <button onClick={getOwnUser}>FETCH ME</button>
+      {spacer()}
+      <button onClick={getRecentMsgs}>FETCH MSGS</button>
     </div>
   );
 };
