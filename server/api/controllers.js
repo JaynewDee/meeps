@@ -46,10 +46,12 @@ async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
   const newMsg = await Message.create({ text, author, recipient: roomId });
+
   await ChatRoom.findOneAndUpdate(
     { _id: roomId },
     { $push: { messages: newMsg._id } }
   );
+
   res.json({ status: 200, message: `MESSAGE DEETS: ${newMsg}` });
 }
 
@@ -61,7 +63,6 @@ async function getAllRooms(req, res) {
 async function getRecentMessages(req, res) {
   try {
     const recentMsgs = await Message.find().sort({ createdAt: 1 }).limit(50);
-    console.log(recentMsgs);
     res.json({ status: 200, data: recentMsgs });
   } catch (err) {
     console.error(err);

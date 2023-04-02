@@ -35,7 +35,7 @@ interface APIModule {
   persistMsg: (entity: MsgEntity, roomId: string) => Promise<any>;
   getRooms: () => Promise<any>;
   getMe: () => Promise<any>;
-  getRecentMessages: () => Promise<any>;
+  getRecentMessages: () => any;
 }
 
 // ! Client dev server must be listening @ 5173
@@ -48,7 +48,7 @@ const baseByEnv =
 
 export const API: APIModule = {
   baseUrl: baseByEnv + "/api",
-  postOptions: (body: PostBody, token: string = "") => ({
+  postOptions: (body: PostBody) => ({
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -99,15 +99,16 @@ export const API: APIModule = {
       .then((res) => res.json())
       .catch((err) => console.error(err));
   },
-  getRecentMessages: async function () {
-    return await fetch(`${this.baseUrl}/rooms/central`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${AuthHandle.getToken()}`
+  getRecentMessages: function () {
+    return {
+      url: `${this.baseUrl}/rooms/central`,
+      options: {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${AuthHandle.getToken()}`
+        }
       }
-    })
-      .then((res) => res.json())
-      .catch((err) => console.error(err));
+    };
   }
 };

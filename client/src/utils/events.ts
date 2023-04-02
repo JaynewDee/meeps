@@ -15,8 +15,7 @@ export const handleSendMessage = async (
 ) => {
   e.preventDefault();
   if (input.length < 1 || input.length > 66) {
-    await handleError("length", errorSetter);
-    return;
+    return await handleError("length", errorSetter);
   } else {
     setData((prev: any) => [...prev, input]);
     socket!.emit("chat message", input);

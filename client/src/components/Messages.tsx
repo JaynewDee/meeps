@@ -3,8 +3,8 @@ import { SocketProp } from "../utils/hooks";
 
 interface MessageProps {
   socket: SocketProp;
-  dataStream: string[];
-  setDataStream: Dispatch<SetStateAction<string[]>>;
+  dataStream: any[];
+  setDataStream: Dispatch<SetStateAction<any[]>>;
 }
 
 const Messages: React.FC<MessageProps> = ({
@@ -43,9 +43,9 @@ const Messages: React.FC<MessageProps> = ({
   return (
     <div className="scroll-wrapper">
       <div className="messages-container">
-        {dataStream.map((message: string, idx: number) => {
-          return scrollSwitch(message, idx, scrollRef);
-        })}
+        {dataStream.map((message: string, idx: number) =>
+          scrollSwitch(message, idx, scrollRef)
+        )}
       </div>
     </div>
   );

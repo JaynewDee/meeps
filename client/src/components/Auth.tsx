@@ -7,7 +7,7 @@ export type SetAuthDisplay = Dispatch<SetStateAction<string>>;
 
 interface AuthProps {
   socket: SocketProp;
-  setDataStream: Dispatch<SetStateAction<string[]>>;
+  setDataStream: Dispatch<SetStateAction<any[]>>;
 }
 
 const Auth: React.FC<AuthProps> = ({ socket, setDataStream }) => {

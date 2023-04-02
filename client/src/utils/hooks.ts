@@ -31,13 +31,3 @@ export const useChatSocket = () => {
 
   return socket;
 };
-
-export const useMessageFetch = () => {
-  const [messages, setMessages] = useState();
-  useMemo(async () => {
-    const msgs = await API.getRecentMessages();
-    setMessages(msgs);
-  }, [setMessages]);
-
-  return [messages];
-};

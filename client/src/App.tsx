@@ -6,9 +6,11 @@ import Auth from "./components/Auth";
 import ChatForm from "./components/Forms/ChatForm";
 import Header from "./components/Header";
 import Messages from "./components/Messages";
-import { useChatSocket, useMessageFetch } from "./utils/hooks";
+import { useChatSocket } from "./utils/hooks";
 import SessionUtils from "./components/SessionUtils";
 import React from "react";
+import { useFetch } from "usehooks-ts";
+import { API } from "./api/api";
 
 interface UserAuth {
   firstName: string;
@@ -28,27 +30,10 @@ const userDefault: UserAuth | {} = {
 
 function App() {
   const [user, setUser] = useState(userDefault);
-
   const [connectionError, toggleConnectionError] = useState("");
-
-  useEffect(() => {
-    ping();
-    const user = AuthHandle.getUser() as any;
-    user ? setUser(user.data) : 1;
-  }, []);
-
-  const [msgs] = useMessageFetch();
-  console.log(msgs);
-  const ping = (): void =>
-    navigator.onLine
-      ? toggleConnectionError("")
-      : toggleConnectionError(
-          "Your browser does not appear to have access to the internet."
-        );
+  const [dataStream, setDataStream] = useState<[] | UserAuth[]>([]);
 
   const socket = useChatSocket();
-
-  const [dataStream, setDataStream] = useState<[] | string[]>([]);
 
   const ChatView = () => (
     <>
@@ -66,9 +51,7 @@ function App() {
     !AuthHandle.getUser() ? (
       <Auth socket={socket} setDataStream={setDataStream} />
     ) : (
-      <>
-        <ChatView />
-      </>
+      <>{<ChatView />}</>
     );
 
   return (

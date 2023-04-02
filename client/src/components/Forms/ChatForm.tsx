@@ -6,7 +6,7 @@ import { API } from "../../api/api";
 
 interface ChatFormProps {
   socket: SocketProp;
-  setDataStream: Dispatch<SetStateAction<string[]>>;
+  setDataStream: Dispatch<SetStateAction<any[]>>;
   user: any;
 }
 
