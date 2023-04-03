@@ -35,7 +35,7 @@ interface APIModule {
   persistMsg: (entity: MsgEntity, roomId: string) => Promise<any>;
   getRooms: () => Promise<any>;
   getMe: () => Promise<any>;
-  getRecentMessages: () => any;
+  getRecentMessages: (roomName: string) => any;
 }
 
 // ! Client dev server must be listening @ 5173
@@ -99,9 +99,9 @@ export const API: APIModule = {
       .then((res) => res.json())
       .catch((err) => console.error(err));
   },
-  getRecentMessages: function () {
-    return {
-      url: `${this.baseUrl}/rooms/central`,
+  getRecentMessages: async function (roomName: string) {
+    const options = {
+      url: `${this.baseUrl}/rooms/${roomName}`,
       options: {
         method: "GET",
         headers: {
@@ -110,5 +110,8 @@ export const API: APIModule = {
         }
       }
     };
+    return await fetch(options.url, options.options)
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
   }
 };

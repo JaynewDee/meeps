@@ -18,7 +18,7 @@ const SessionUtils: React.FC<any> = ({}) => {
   };
 
   const getRecentMsgs = async () => {
-    const res = await API.getRecentMessages();
+    const res = await API.getRecentMessages("central");
     console.log(res);
   };
 

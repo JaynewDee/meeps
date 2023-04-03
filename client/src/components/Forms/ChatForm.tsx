@@ -3,14 +3,13 @@ import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
 import { handleSendMessage } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { API } from "../../api/api";
+import { AuthHandle } from "../../auth/auth";
 
 interface ChatFormProps {
   socket: SocketProp;
-  setDataStream: Dispatch<SetStateAction<any[]>>;
-  user: any;
 }
 
-const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream, user }) => {
+const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
   const [inputState, setInputState] = useState("");
   const [error, setError] = useState("");
 
@@ -25,12 +24,14 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, setDataStream, user }) => {
       socket,
       inputState,
       setInputState,
-      setDataStream,
       setError
     ).catch((err) => console.error(err));
 
+    const user = AuthHandle.getUser();
+    const authorId = user.data._id;
+
     await API.persistMsg(
-      { text: inputState, author: user._id },
+      { text: inputState, author: authorId },
       "642211298736c6c14a07df3e"
     );
   };

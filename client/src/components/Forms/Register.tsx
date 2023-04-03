@@ -17,15 +17,10 @@ const defaultState = {
 
 interface RegisterProps {
   socket: SocketProp;
-  setDataStream: Dispatch<SetStateAction<string[]>>;
   setDisplay: SetAuthDisplay;
 }
 
-const Register: React.FC<RegisterProps> = ({
-  setDisplay,
-  socket,
-  setDataStream
-}) => {
+const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
   const [inputState, setInputState] = useState(defaultState);
   const [errorState, setErrorState] = useState("");
 
@@ -50,8 +45,6 @@ const Register: React.FC<RegisterProps> = ({
     } else if (res.status === 200 && res.token) {
       AuthHandle.login(res.token);
     }
-
-    broadcastSignin(socket, res.user.username, setDataStream);
   });
 
   const switchToLogin = () => setDisplay("login");

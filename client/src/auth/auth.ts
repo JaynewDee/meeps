@@ -1,5 +1,37 @@
 import decode from "jwt-decode";
 
+interface UserLocal {
+  data: {
+    _id: string;
+    __v?: number;
+    email: string;
+    username: string;
+    firstName: string;
+    lastName: string;
+    messages: string[];
+    password: string;
+    rooms: string[];
+  };
+  iat: number;
+  exp: number;
+}
+
+const UserDefault = {
+  data: {
+    _id: "",
+    email: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    messages: [""],
+    password: "",
+    rooms: [""],
+    __v: 0
+  },
+  iat: 0,
+  exp: 0
+};
+
 export class AuthHandle {
   //
   static currentToken(): string | null {
@@ -15,12 +47,12 @@ export class AuthHandle {
       return false;
     }
   }
-  //
-  public static getUser(): string {
+
+  public static getUser(): UserLocal {
     try {
       return decode(this.currentToken()!);
     } catch (err) {
-      return "";
+      return UserDefault;
     }
   }
   //
@@ -29,7 +61,7 @@ export class AuthHandle {
   }
   //
   public static validate(): boolean {
-    const token = this.getUser() as string | void;
+    const token = this.currentToken() as string;
     return !!token && !this.isFreshToken(token);
   }
   //

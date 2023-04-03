@@ -7,16 +7,14 @@ export type SetAuthDisplay = Dispatch<SetStateAction<string>>;
 
 interface AuthProps {
   socket: SocketProp;
-  setDataStream: Dispatch<SetStateAction<any[]>>;
 }
 
-const Auth: React.FC<AuthProps> = ({ socket, setDataStream }) => {
+const Auth: React.FC<AuthProps> = ({ socket }) => {
   const [displayState, setDisplayState] = useState("login");
 
   const formProps = {
     setDisplay: setDisplayState,
-    socket: socket,
-    setDataStream: setDataStream
+    socket: socket
   };
 
   return displayState === "register" ? (

@@ -5,6 +5,7 @@ const jwtAuth = require("../auth");
 
 async function loginUser(req, res) {
   const { body } = req;
+
   try {
     const user = await User.findOne({ email: body.email });
     if (!user) {
@@ -17,7 +18,7 @@ async function loginUser(req, res) {
     }
 
     const token = jwtAuth.sign(user);
-
+    console.log(token);
     res.cookie("jwt", token, { httpOnly: true });
     res.json({ status: 200, token, user });
   } catch (err) {

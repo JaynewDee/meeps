@@ -21,6 +21,7 @@ api.get("/user/me", jwtAuth.middleware, getMe);
 /* 
   POST
 */
+
 api.post("/user", loginUser);
 api.post("/user/new", createUser);
 api.post("/user/msg", jwtAuth.middleware, storeUserMsg);

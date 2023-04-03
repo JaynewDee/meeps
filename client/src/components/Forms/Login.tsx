@@ -1,19 +1,17 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { API } from "../../api/api";
 import { AuthHandle } from "../../auth/auth";
 import { handleError, validateInput } from "../../utils/errors";
 import { broadcastSignin } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { SetAuthDisplay } from "../Auth";
-import { catchAsync } from "catch-flow";
 
 interface LoginProps {
   socket: SocketProp;
-  setDataStream: Dispatch<SetStateAction<string[]>>;
   setDisplay: SetAuthDisplay;
 }
 
-const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
+const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
   const [inputState, setInputState] = useState({
     email: "",
     password: ""
@@ -29,11 +27,12 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
     });
   };
 
-  const handleSubmitLogin = catchAsync(async (e: React.FormEvent) => {
+  const handleSubmitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateInput("auth", inputState, setErrorState) !== "pass") {
       return;
     }
+
     const res = await API.login(inputState);
     const { status } = res;
 
@@ -44,10 +43,10 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket, setDataStream }) => {
     } else if (status === 208) {
       return handleError("duplicateUser", setErrorState);
     } else if (status === 200 && res.token) {
+      window.location.replace("/rooms/central");
       AuthHandle.login(res.token);
-      broadcastSignin(socket, res.user.username, setDataStream, res.user._id);
     }
-  });
+  };
 
   const switchToRegister = () => setDisplay("register");
 

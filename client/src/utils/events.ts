@@ -10,14 +10,12 @@ export const handleSendMessage = async (
   socket: SocketProp,
   input: string,
   setInput: Dispatch<SetStateAction<string>>,
-  setData: DataDispatch,
   errorSetter: any
 ) => {
   e.preventDefault();
   if (input.length < 1 || input.length > 66) {
     return await handleError("length", errorSetter);
   } else {
-    setData((prev: any) => [...prev, input]);
     socket!.emit("chat message", input);
     setInput("");
   }

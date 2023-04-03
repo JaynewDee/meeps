@@ -1,25 +1,24 @@
 import {
   createContext,
   ReactNode,
-  useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState
 } from "react";
+import { API } from "../api/api";
+import { AuthHandle } from "../auth/auth";
 
-interface UserContextType {
-  login: any;
-  logout: any;
-}
+interface RoomContextType {}
 
-const UserContext = createContext<UserContextType | any>({});
+const RoomContext = createContext<RoomContextType | any>({});
 
-const useUserContext = () => {
-  const context = useContext(UserContext);
+const useRoomContext = () => {
+  const context = useContext(RoomContext);
 
   if (context === undefined) {
     throw new Error(
-      "Attempted to use UserContext outside of the context's Provider."
+      "Attempted to use RoomContext outside of the context's Provider."
     );
   }
 
@@ -30,10 +29,29 @@ interface ContextProps {
   children: ReactNode;
 }
 
-const UserContextProvider = ({ children }: ContextProps) => {
-  const [user, setUser] = useState<any>();
+const RoomContextProvider = ({ children }: ContextProps) => {
+  const [roomState, setRoomState] = useState({
+    name: "",
+    messages: []
+  });
 
-  return <UserContext.Provider value={{}}>{children}</UserContext.Provider>;
+  useMemo(async () => {
+    const isLoggedIn = AuthHandle.validate();
+
+    if (!isLoggedIn) return;
+    const messages = await API.getRecentMessages("central");
+    setRoomState((prev) => ({ ...prev, messages }));
+  }, []);
+
+  const CtxValue = useMemo(
+    () => ({
+      roomState
+    }),
+    [roomState]
+  );
+  return (
+    <RoomContext.Provider value={CtxValue}>{children}</RoomContext.Provider>
+  );
 };
 
-export { useUserContext, UserContextProvider };
+export { useRoomContext, RoomContextProvider };
