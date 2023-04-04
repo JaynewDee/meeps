@@ -5,6 +5,7 @@ import { handleError, validateInput } from "../../utils/errors";
 import { broadcastSignin } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { SetAuthDisplay } from "../Auth";
+import { useUserContext } from "../../utils/context";
 
 interface LoginProps {
   socket: SocketProp;
@@ -27,6 +28,8 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
     });
   };
 
+  const { login } = useUserContext();
+
   const handleSubmitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateInput("auth", inputState, setErrorState) !== "pass") {
@@ -34,6 +37,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
     }
 
     const res = await API.login(inputState);
+
     const { status } = res;
 
     if (status === 401) {
@@ -43,8 +47,8 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
     } else if (status === 208) {
       return handleError("duplicateUser", setErrorState);
     } else if (status === 200 && res.token) {
-      window.location.replace("/rooms/central");
       AuthHandle.login(res.token);
+      login();
     }
   };
 
