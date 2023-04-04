@@ -3,6 +3,7 @@ import {
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState
 } from "react";
@@ -38,13 +39,18 @@ const RoomContextProvider = ({ children }: ContextProps) => {
     messages: []
   });
 
-  useMemo(async () => {
-    const isLoggedIn = AuthHandle.validate();
+  useEffect(() => {
+    if (roomState.messages.length === 0) {
+      populate();
+    }
+  }, []);
 
+  const populate = async () => {
+    const isLoggedIn = AuthHandle.validate();
     if (!isLoggedIn) return;
     const messages = await API.getRecentMessages("central");
-    setRoomState((prev) => ({ ...prev, messages }));
-  }, [setRoomState]);
+    setRoomState({ name: "central", messages: messages.data });
+  };
 
   const updateMessages = useCallback((newMsg: string) => {
     setRoomState((prev) => ({
@@ -53,12 +59,11 @@ const RoomContextProvider = ({ children }: ContextProps) => {
     }));
   }, []);
 
-  const CtxValue = useMemo(
-    () => ({
-      roomState
-    }),
-    [roomState]
-  );
+  const CtxValue = {
+    roomState,
+    populate
+  };
+
   return (
     <RoomContext.Provider value={CtxValue}>{children}</RoomContext.Provider>
   );
@@ -97,8 +102,8 @@ const UserContextProvider = ({ children }: ContextProps) => {
   });
 
   const login = () => setUserState({ isLoggedIn: true });
-
-  const CtxValue = { userState, login };
+  const logout = () => setUserState({ isLoggedIn: false });
+  const CtxValue = { userState, login, logout };
 
   return (
     <UserContext.Provider value={CtxValue}>{children}</UserContext.Provider>

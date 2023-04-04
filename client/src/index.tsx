@@ -6,10 +6,8 @@ import { RoomContextProvider, UserContextProvider } from "./utils/context";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <UserContextProvider>
-      <RoomContextProvider>
-        <App />
-      </RoomContextProvider>
-    </UserContextProvider>
+    <RoomContextProvider>
+      <App />
+    </RoomContextProvider>
   </React.StrictMode>
 );

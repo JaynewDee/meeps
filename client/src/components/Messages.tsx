@@ -1,13 +1,20 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import { SocketProp } from "../utils/hooks";
 import { useRoomContext } from "../utils/context";
 
 interface MessageProps {
   socket: SocketProp;
+  messages: string[];
 }
 
-const Messages: React.FC<MessageProps> = ({ socket }) => {
-  const { roomState } = useRoomContext();
+const Messages: React.FC<MessageProps> = ({ socket, messages }) => {
+  const { roomState, populate } = useRoomContext();
 
   socket?.on("chat message", (msg: string) => {});
 
@@ -17,17 +24,20 @@ const Messages: React.FC<MessageProps> = ({ socket }) => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView();
     }
+    if (!messages.length) {
+      populate();
+    }
   }, [roomState]);
 
-  const scrollSwitch = (msg: string, idx: number, ref: any) => {
-    const last = roomState.messages.length;
+  const scrollSwitch = (msg: any, idx: number, ref: any) => {
+    const last = messages.length;
     return idx === last ? (
       <div ref={ref} key={idx}>
-        <p>{msg}</p>
+        <p>{msg.text}</p>
       </div>
     ) : (
       <div key={idx}>
-        <p>{msg}</p>
+        <p>{msg.text}</p>
       </div>
     );
   };
@@ -37,7 +47,7 @@ const Messages: React.FC<MessageProps> = ({ socket }) => {
   return (
     <div className="scroll-wrapper">
       <div className="messages-container">
-        {roomState.messages.map((message: string, idx: number) =>
+        {messages.map((message: string, idx: number) =>
           scrollSwitch(message, idx, scrollRef)
         )}
       </div>
