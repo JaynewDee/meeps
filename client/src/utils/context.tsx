@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState
 } from "react";
 import { API } from "../api/api";
@@ -50,18 +51,20 @@ const RoomContextProvider = ({ children }: ContextProps) => {
     setRoomState({ name: "central", messages: messages.data.reverse() });
   };
 
-  const updateMessages = async (newMsg: string) => {
+  const updateMessages = (newMsg: string) =>
     setRoomState((prev) => ({
-      ...prev,
+      name: "central",
       messages: [...prev.messages, newMsg]
     }));
-  };
 
-  const CtxValue = {
-    roomState,
-    updateMessages,
-    populate
-  };
+  const CtxValue = useMemo(
+    () => ({
+      roomState,
+      updateMessages,
+      populate
+    }),
+    [roomState, updateMessages, populate]
+  );
 
   return (
     <RoomContext.Provider value={CtxValue}>{children}</RoomContext.Provider>

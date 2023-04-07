@@ -20,21 +20,3 @@ export const handleSendMessage = async (
     setInput("");
   }
 };
-
-export const broadcastSignin = async (
-  socket: SocketProp,
-  username: string,
-  setData: DataDispatch,
-  userId: string
-) => {
-  const notification = `User <${username}> signed in @ ${new Date().toLocaleString()}`;
-
-  setData((prev: any) => [...prev, notification]);
-
-  await API.persistMsg(
-    { text: notification, author: userId },
-    "642211298736c6c14a07df3e"
-  );
-
-  socket!.emit("chat message", notification);
-};

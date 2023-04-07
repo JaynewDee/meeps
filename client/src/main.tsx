@@ -1,29 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AuthHandle } from "./auth/auth";
 import Auth from "./components/Auth";
 import ChatView from "./components/ChatView";
-import { useRoomContext, useUserContext } from "./utils/context";
+import {
+  RoomContextProvider,
+  useRoomContext,
+  useUserContext
+} from "./utils/context";
+import { useChatSocket } from "./utils/hooks";
 
 type MainProps = {
   socket: any;
 };
 
-function Main({ socket }: MainProps) {
+function Main() {
   const { userState, login } = useUserContext();
+  const { updateMessages } = useRoomContext();
 
-  const { roomState } = useRoomContext();
+  const socket = useChatSocket(updateMessages);
 
   useEffect(() => {
     const isLoggedIn = AuthHandle.validate();
     if (isLoggedIn) {
       login();
     }
-  }, [roomState]);
+  }, []);
 
   return (
     <>
       {userState.isLoggedIn ? (
-        <ChatView socket={socket} messageData={roomState.messages} />
+        <ChatView socket={socket} />
       ) : (
         <Auth socket={socket} />
       )}

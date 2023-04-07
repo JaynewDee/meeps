@@ -7,8 +7,8 @@ interface MessageProps {
   messages: string[];
 }
 
-const Messages: React.FC<MessageProps> = ({ socket, messages }) => {
-  const { roomState, populate } = useRoomContext();
+const Messages: React.FC<MessageProps> = ({ messages }) => {
+  const { populate } = useRoomContext();
 
   const scrollRef = useRef<any>(null);
 
