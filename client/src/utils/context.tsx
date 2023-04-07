@@ -4,13 +4,15 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState
 } from "react";
 import { API } from "../api/api";
 import { AuthHandle } from "../auth/auth";
 
 interface RoomContextType {}
+interface ContextProps {
+  children: ReactNode;
+}
 
 const RoomContext = createContext<RoomContextType | any>({});
 
@@ -25,10 +27,6 @@ const useRoomContext = () => {
 
   return context;
 };
-
-interface ContextProps {
-  children: ReactNode;
-}
 
 const RoomContextProvider = ({ children }: ContextProps) => {
   const [roomState, setRoomState] = useState<{
@@ -49,18 +47,19 @@ const RoomContextProvider = ({ children }: ContextProps) => {
     const isLoggedIn = AuthHandle.validate();
     if (!isLoggedIn) return;
     const messages = await API.getRecentMessages("central");
-    setRoomState({ name: "central", messages: messages.data });
+    setRoomState({ name: "central", messages: messages.data.reverse() });
   };
 
-  const updateMessages = useCallback((newMsg: string) => {
+  const updateMessages = async (newMsg: string) => {
     setRoomState((prev) => ({
       ...prev,
-      messages: [...roomState.messages, newMsg]
+      messages: [...prev.messages, newMsg]
     }));
-  }, []);
+  };
 
   const CtxValue = {
     roomState,
+    updateMessages,
     populate
   };
 
@@ -70,6 +69,7 @@ const RoomContextProvider = ({ children }: ContextProps) => {
 };
 
 export { useRoomContext, RoomContextProvider };
+
 //////////////
 // END ROOM CONTEXT
 //////////////

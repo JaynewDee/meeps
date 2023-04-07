@@ -9,18 +9,16 @@ type MainProps = {
 };
 
 function Main({ socket }: MainProps) {
-  const [loading, setLoading] = useState(true);
-
   const { userState, login } = useUserContext();
 
-  const { roomState, populate } = useRoomContext();
+  const { roomState } = useRoomContext();
 
   useEffect(() => {
     const isLoggedIn = AuthHandle.validate();
     if (isLoggedIn) {
       login();
     }
-  }, []);
+  }, [roomState]);
 
   return (
     <>

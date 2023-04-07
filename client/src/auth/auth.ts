@@ -63,7 +63,6 @@ export class AuthHandle {
   public static validate(): boolean {
     const token = this.currentToken() as string;
     const isValid = !!token && this.isFreshToken(token);
-    console.log(isValid);
     return isValid;
   }
   //

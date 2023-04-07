@@ -63,7 +63,7 @@ async function getAllRooms(req, res) {
 
 async function getRecentMessages(req, res) {
   try {
-    const recentMsgs = await Message.find().sort({ createdAt: 1 }).limit(50);
+    const recentMsgs = await Message.find().sort({ createdAt: -1 }).limit(50);
     res.json({ status: 200, data: recentMsgs });
   } catch (err) {
     console.error(err);

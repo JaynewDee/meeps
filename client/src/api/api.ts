@@ -41,8 +41,9 @@ interface APIModule {
 // ! Client dev server must be listening @ 5173
 // !  in development for requests to land at server
 
+const currentPort = window.location.port;
 const baseByEnv =
-  window.location.port === "5173"
+  currentPort === "5173" || currentPort === "5174"
     ? `http://localhost:3001`
     : `//${window.location.host}`;
 

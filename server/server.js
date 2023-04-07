@@ -11,7 +11,35 @@ const db = require("./config/db");
 const { api } = require("./api/routes");
 
 const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: "*"
+  },
+  perMessageDeflate: false
+});
 
+io.on("connection", (socket) => {
+  console.info("A socket user has connected.");
+
+  // On connection, join the main room `central`
+  socket.join("central");
+
+  socket.on("chat message", (msg) => {
+    console.log(`Message from socket client: ${msg}`);
+    if (!msg) return;
+
+    try {
+      socket.broadcast.emit("chat message", msg);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.warn("A socket user has disconnected.");
+  });
+});
 // ! Do not change from 3001 !
 const PORT = process.env.PORT || 3001;
 

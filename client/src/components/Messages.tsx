@@ -1,10 +1,4 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState
-} from "react";
+import React, { useEffect, useRef } from "react";
 import { SocketProp } from "../utils/hooks";
 import { useRoomContext } from "../utils/context";
 
@@ -16,8 +10,6 @@ interface MessageProps {
 const Messages: React.FC<MessageProps> = ({ socket, messages }) => {
   const { roomState, populate } = useRoomContext();
 
-  socket?.on("chat message", (msg: string) => {});
-
   const scrollRef = useRef<any>(null);
 
   useEffect(() => {
@@ -27,7 +19,7 @@ const Messages: React.FC<MessageProps> = ({ socket, messages }) => {
     if (!messages.length) {
       populate();
     }
-  }, [roomState]);
+  }, []);
 
   const scrollSwitch = (msg: any, idx: number, ref: any) => {
     const last = messages.length;
