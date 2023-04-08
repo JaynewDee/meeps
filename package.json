@@ -6,7 +6,7 @@
   "author": "Joshua Newell Diehl",
   "license": "MIT",
   "engines": {
-    "node": ">=16<17"
+    "node": ">=16.0.0 <17"
   },
   "scripts": {
     "start": "start-dev.sh",
