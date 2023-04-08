@@ -61,4 +61,9 @@ button:hover {
   .message-content {
     border-right: unset;
   }
+
+  .msg-submit-btn {
+    border: 3px solid #181818;
+    width: 3rem;
+  }
 }
