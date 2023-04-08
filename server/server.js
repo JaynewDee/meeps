@@ -31,7 +31,7 @@ io.on("connection", (socket) => {
     if (!msg) return;
 
     try {
-      socket.emit("chat message", msg);
+      socket.broadcast.emit("chat message", msg);
     } catch (err) {
       console.error(err);
     }
