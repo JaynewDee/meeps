@@ -6,7 +6,8 @@
   "author": "Joshua Newell Diehl",
   "license": "MIT",
   "scripts": {
-    "start": "set DEBUG=* && nodemon server.js"
+    "start": "nodemon server.js",
+    "debug": "set DEBUG=* && nodemon server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

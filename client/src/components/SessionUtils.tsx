@@ -30,6 +30,7 @@ const SessionUtils: React.FC<any> = ({}) => {
     const res = await API.deleteAllMessages();
     console.log(res);
   };
+
   const spacer = () => (
     <div style={{ width: 0, border: "1px solid black", height: "12px" }}></div>
   );
@@ -42,7 +43,9 @@ const SessionUtils: React.FC<any> = ({}) => {
       {spacer()}
       <button onClick={getOwnUser}>FETCH ME</button>
       {spacer()}
-      <button onClick={getRecentMsgs}>FETCH MSGS</button>
+      <button onClick={getRecentMsgs}>FETCH MESSAGES</button>
+      {spacer()}
+      <button onClick={deleteAllMessages}>DELETE MESSAGES</button>
     </div>
   );
 };

@@ -35,6 +35,11 @@ async function createUser(req, res) {
     const user = await User.create(body);
     const token = jwtAuth.sign(user);
 
+    const updatedRoom = await ChatRoom.findOneAndUpdate(
+      { name: "central" },
+      { $push: { members: user._id } }
+    );
+
     res.json({ status: 200, token, user });
   } catch (err) {
     if (err.code === 11000) {
@@ -98,9 +103,14 @@ async function getRecentMessages(req, res) {
 /////////////////////////////////////////////////////////////////////////////////////
 
 async function getMe(req, res) {
-  const ownUser = await User.findOne({
-    email: "jdiehl2236@gmail.com"
-  }).populate({ path: "messages" });
+  const ownUser = await User.findOne(
+    {
+      email: "jdiehl2236@gmail.com"
+    },
+    ["email username firstName lastName"]
+  )
+    .populate({ path: "messages" })
+    .populate({ path: "rooms" });
   res.json({ status: 200, data: ownUser });
 }
 

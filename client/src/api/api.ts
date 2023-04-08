@@ -118,7 +118,7 @@ export const API: APIModule = {
   },
   deleteAllMessages: async function () {
     const options = {
-      url: `${this.baseUrl}`,
+      url: `${this.baseUrl}/user/msgs`,
       options: {
         method: "DELETE",
         headers: {
