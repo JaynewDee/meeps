@@ -35,7 +35,7 @@ async function createUser(req, res) {
     const user = await User.create(body);
     const token = jwtAuth.sign(user);
 
-    const updatedRoom = await ChatRoom.findOneAndUpdate(
+    await ChatRoom.findOneAndUpdate(
       { name: "central" },
       { $push: { members: user._id } }
     );
@@ -67,7 +67,7 @@ async function storeUserMsg(req, res) {
     { $push: { messages: newMsg._id } }
   );
 
-  ChatRoom.findOneAndUpdate(
+  await ChatRoom.findOneAndUpdate(
     { _id: roomId },
     { $push: { messages: newMsg._id } }
   );
