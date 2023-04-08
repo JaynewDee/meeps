@@ -39,13 +39,13 @@ const SessionUtils: React.FC<any> = ({}) => {
     <div className="session-utils-box">
       <button onClick={destroySession}>END SESSION</button>
       {spacer()}
-      <button onClick={getAllRooms}>FETCH ROOMS</button>
+      {/* <button onClick={getAllRooms}>FETCH ROOMS</button>
       {spacer()}
       <button onClick={getOwnUser}>FETCH ME</button>
       {spacer()}
       <button onClick={getRecentMsgs}>FETCH MESSAGES</button>
       {spacer()}
-      <button onClick={deleteAllMessages}>DELETE MESSAGES</button>
+      <button onClick={deleteAllMessages}>DELETE MESSAGES</button> */}
     </div>
   );
 };

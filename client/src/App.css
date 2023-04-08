@@ -117,7 +117,7 @@ header {
   word-break: break-all;
   text-align: left;
   padding-left: 3rem;
-  padding-right: 1rem;
+  padding-right: 3rem;
   padding-top: 6rem;
   padding-bottom: 4rem;
 }
@@ -132,7 +132,16 @@ header {
   color: var(--prime-blue);
 }
 
+.message-content {
+  border: 1px solid var(--prime-blue);
+  border-left: unset;
+  border-bottom: unset;
+  border-radius: 5%;
+  margin: 2rem auto;
+}
+
 .message-username {
+  font-size: 0.77rem;
 }
 
 .message-text::before {

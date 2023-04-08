@@ -40,7 +40,7 @@ const Messages: React.FC<MessageProps> = ({
     <div className="scroll-wrapper">
       <div ref={scrollRef} className="messages-container">
         {messages.map((message: any, idx: number) => (
-          <div key={message._id}>
+          <div className="message-content" key={message._id}>
             <p className="message-username">{message.author.username}</p>
             <p className="message-text">{message.text}</p>
           </div>
