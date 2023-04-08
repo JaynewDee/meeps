@@ -47,24 +47,13 @@ const RoomContextProvider = ({ children }: ContextProps) => {
   const populate = async () => {
     const isLoggedIn = AuthHandle.validate();
     if (!isLoggedIn) return;
-    const messages = await API.getRecentMessages("central");
-    setRoomState({ name: "central", messages: messages.data.reverse() });
   };
 
-  const updateMessages = (newMsg: string) =>
-    setRoomState((prev) => ({
-      name: "central",
-      messages: [...prev.messages, newMsg]
-    }));
-
-  const CtxValue = useMemo(
-    () => ({
-      roomState,
-      updateMessages,
-      populate
-    }),
-    [roomState, updateMessages, populate]
-  );
+  const CtxValue = {
+    roomState,
+    setRoomState,
+    populate
+  };
 
   return (
     <RoomContext.Provider value={CtxValue}>{children}</RoomContext.Provider>

@@ -1,22 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Messages from "./Messages";
 import ChatForm from "./Forms/ChatForm";
 import SessionUtils from "./SessionUtils";
 import { useRoomContext } from "../utils/context";
 
 const ChatView: React.FC<any> = ({ socket }) => {
-  const { roomState, updateMessages } = useRoomContext();
-  const [localMessageState, setLocalMessageState] = useState(
-    roomState.messages
-  );
+  const [localMessageState, setLocalMessageState] = useState<string[]>([]);
+  const { roomState } = useRoomContext();
 
-  socket.on("chat message", (msg: string) => {
+  useEffect(() => {
+    setLocalMessageState(roomState.messages);
+  }, []);
+
+  socket!.on("chat message", (msg: string) => {
     setLocalMessageState((prev: string[]) => [...prev, msg]);
   });
 
   return (
     <>
-      <Messages socket={socket} messages={roomState.messages} />
+      <Messages socket={socket} messages={localMessageState} />
       <ChatForm socket={socket} />
       <SessionUtils />
     </>

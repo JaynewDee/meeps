@@ -5,7 +5,7 @@ import { useRoomContext } from "./context";
 
 export type SocketProp = null | Socket<any, any>;
 
-export const useChatSocket = (updater: any) => {
+export const useChatSocket = () => {
   const [socket, setSocket] = useState<SocketProp>(null);
   useEffect(() => {
     // Init client-specific socket connection
@@ -19,7 +19,6 @@ export const useChatSocket = (updater: any) => {
     ///////////////////////////////
     socket.on("chat message", (msg) => {
       console.log(msg);
-      updater(msg);
     });
     ///////////////////////////////
     return () => {

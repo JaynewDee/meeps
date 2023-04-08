@@ -8,16 +8,11 @@ interface MessageProps {
 }
 
 const Messages: React.FC<MessageProps> = ({ messages }) => {
-  const { populate } = useRoomContext();
-
   const scrollRef = useRef<any>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView();
-    }
-    if (!messages.length) {
-      populate();
     }
   }, []);
 

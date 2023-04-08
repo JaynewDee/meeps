@@ -14,8 +14,6 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
   const [inputState, setInputState] = useState("");
   const [error, setError] = useState("");
 
-  const { updateMessages } = useRoomContext();
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputState(e.target.value);
   };
@@ -37,7 +35,6 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
       { text: inputState, author: authorId },
       "642211298736c6c14a07df3e"
     );
-    updateMessages(inputState);
   };
 
   return (
