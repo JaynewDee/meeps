@@ -10,7 +10,7 @@ const ChatView: React.FC<any> = ({ socket }) => {
 
   useEffect(() => {
     setLocalMessageState(roomState.messages);
-  }, []);
+  }, [roomState]);
 
   socket!.on("chat message", (msg: string) => {
     setLocalMessageState((prev: string[]) => [...prev, msg]);
