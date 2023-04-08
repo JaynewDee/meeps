@@ -43,11 +43,15 @@ async function createUser(req, res) {
   }
 }
 
+// Persist a new message
 async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
-  const newMsg = await Message.create({ text, author, recipient: roomId });
-
+  const created = await Message.create({ text, author, recipient: roomId });
+  const newMsg = await Message.findOne({ _id: created._id }).populate({
+    path: "author",
+    select: "email firstName lastName username"
+  });
   await ChatRoom.findOneAndUpdate(
     { _id: roomId },
     { $push: { messages: newMsg._id } }
@@ -61,9 +65,16 @@ async function getAllRooms(req, res) {
   res.json({ status: 200, data: allRooms });
 }
 
+// Send 50 most recent messages
 async function getRecentMessages(req, res) {
   try {
-    const recentMsgs = await Message.find().sort({ createdAt: -1 }).limit(50);
+    const recentMsgs = await Message.find()
+      .sort({ createdAt: -1 })
+      .limit(50)
+      .populate({
+        path: "author",
+        select: "email firstName lastName username"
+      });
     res.json({ status: 200, data: recentMsgs });
   } catch (err) {
     console.error(err);

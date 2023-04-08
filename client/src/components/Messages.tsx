@@ -20,36 +20,31 @@ const Messages: React.FC<MessageProps> = ({
   });
 
   useEffect(() => {
-    console.log(scrollRef.current);
-    setTimeout(() => {
-      scrollRef.current.scrollTo({ top: 2000, left: 0, behavior: "smooth" });
-    }, 1000);
+    if (scrollRef.current) {
+      setTimeout(() => {
+        scrollRef.current.scrollTo({
+          top: scrollRef.current.scrollHeight,
+          left: 0,
+          behavior: "smooth"
+        });
+      }, 333);
+    }
 
     const LSmsgs = new LSItemHandler("messages");
     LSmsgs.set(messages);
   }, [messages]);
-
-  const scrollSwitch = (msg: any, idx: number, ref: any) => {
-    const last = messages.length - 1;
-    return idx === last ? (
-      <div ref={ref} key={msg._id}>
-        <p>{msg.text}</p>
-      </div>
-    ) : (
-      <div key={msg._id}>
-        <p>{msg.text}</p>
-      </div>
-    );
-  };
 
   //
 
   return (
     <div className="scroll-wrapper">
       <div ref={scrollRef} className="messages-container">
-        {messages.map((message: string, idx: number) =>
-          scrollSwitch(message, idx, scrollRef)
-        )}
+        {messages.map((message: any, idx: number) => (
+          <div key={message._id}>
+            <p className="message-username">{message.author.username}</p>
+            <p className="message-text">{message.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
