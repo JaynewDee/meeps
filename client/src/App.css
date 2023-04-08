@@ -141,20 +141,26 @@ header {
 }
 
 .time-at {
-  margin: 0 1rem;
+  margin: 0 0.33rem;
 }
 
 .message-content {
-  border-right: 1px solid var(--prime-blue);
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
   border-top: 1px solid rgba(20, 20, 20, 0.9);
   padding: 0.33rem;
   border-radius: 0 7% 0 0;
   margin: 1rem auto;
+  box-shadow: 3px -3px 21px 1px rgba(20, 20, 20, 0.1);
+  border-radius: 6px;
 }
 
 .message-username,
 .datetime {
   font-size: 0.66rem;
+}
+
+.datetime {
+  margin-right: 1rem;
 }
 
 .message-text::before {
@@ -244,6 +250,7 @@ header {
 .msg-submit-btn {
   border-radius: 0;
 }
+
 .msg-submit-btn:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.874);
