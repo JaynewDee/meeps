@@ -51,3 +51,14 @@ button:hover {
     border: none;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .messages-container {
+    padding-left: 1rem;
+    padding-right: 0;
+  }
+
+  .message-content {
+    border-right: unset;
+  }
+}

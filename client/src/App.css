@@ -148,8 +148,8 @@ header {
   border-right: 1px solid var(--prime-blue);
   border-top: 1px solid rgba(20, 20, 20, 0.9);
   padding: 0.33rem;
-  border-radius: 5%;
-  margin: 2rem auto;
+  border-radius: 0 7% 0 0;
+  margin: 1rem auto;
 }
 
 .message-username,

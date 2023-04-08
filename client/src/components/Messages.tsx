@@ -27,7 +27,7 @@ const Messages: React.FC<MessageProps> = ({
           left: 0,
           behavior: "smooth"
         });
-      }, 333);
+      }, 200);
     }
 
     const LSmsgs = new LSItemHandler("messages");

@@ -57,6 +57,7 @@ async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
   const centralRoom = await ChatRoom.findOne({ name: "central" });
+  console.log(centralRoom);
   const created = await Message.create({
     text,
     author,
