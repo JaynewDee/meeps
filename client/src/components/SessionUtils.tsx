@@ -26,6 +26,10 @@ const SessionUtils: React.FC<any> = ({}) => {
     console.log(res);
   };
 
+  const deleteAllMessages = async () => {
+    const res = await API.deleteAllMessages();
+    console.log(res);
+  };
   const spacer = () => (
     <div style={{ width: 0, border: "1px solid black", height: "12px" }}></div>
   );

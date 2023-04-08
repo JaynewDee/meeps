@@ -36,6 +36,7 @@ interface APIModule {
   getRooms: () => Promise<any>;
   getMe: () => Promise<any>;
   getRecentMessages: (roomName: string) => any;
+  deleteAllMessages: () => any;
 }
 
 // ! Client dev server must be listening @ 5173
@@ -105,6 +106,21 @@ export const API: APIModule = {
       url: `${this.baseUrl}/rooms/${roomName}`,
       options: {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${AuthHandle.getToken()}`
+        }
+      }
+    };
+    return await fetch(options.url, options.options)
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  },
+  deleteAllMessages: async function () {
+    const options = {
+      url: `${this.baseUrl}`,
+      options: {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${AuthHandle.getToken()}`

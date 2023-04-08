@@ -109,6 +109,27 @@ header {
   padding-bottom: 4rem;
 }
 
+.message-username::before {
+  content: ":::[";
+  color: var(--prime-blue);
+}
+
+.message-username::after {
+  content: "]";
+  color: var(--prime-blue);
+}
+
+.message-username {
+}
+
+.message-text::before {
+  content: "";
+}
+
+.message-text {
+  padding-left: 2rem;
+}
+
 .error-box {
   position: absolute;
   left: 50%;

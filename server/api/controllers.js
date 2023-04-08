@@ -26,6 +26,8 @@ async function loginUser(req, res) {
   }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+
 async function createUser(req, res) {
   const { body } = req;
 
@@ -43,6 +45,8 @@ async function createUser(req, res) {
   }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+
 // Persist a new message
 async function storeUserMsg(req, res) {
   const { author, text } = req.body;
@@ -52,7 +56,13 @@ async function storeUserMsg(req, res) {
     path: "author",
     select: "email firstName lastName username"
   });
-  await ChatRoom.findOneAndUpdate(
+
+  await User.findOneAndUpdate(
+    { _id: author },
+    { $push: { messages: newMsg._id } }
+  );
+
+  ChatRoom.findOneAndUpdate(
     { _id: roomId },
     { $push: { messages: newMsg._id } }
   );
@@ -60,10 +70,14 @@ async function storeUserMsg(req, res) {
   res.json({ status: 200, message: newMsg });
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+
 async function getAllRooms(req, res) {
   const allRooms = await ChatRoom.find({}).populate("messages");
   res.json({ status: 200, data: allRooms });
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
 
 // Send 50 most recent messages
 async function getRecentMessages(req, res) {
@@ -81,7 +95,23 @@ async function getRecentMessages(req, res) {
   }
 }
 
-async function getMe(req, res) {}
+/////////////////////////////////////////////////////////////////////////////////////
+
+async function getMe(req, res) {
+  const ownUser = await User.findOne({
+    email: "jdiehl2236@gmail.com"
+  }).populate({ path: "messages" });
+  res.json({ status: 200, data: ownUser });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+async function deleteAllMessages(req, res) {
+  await Message.deleteMany({});
+  res.json({ status: 200, message: "All Messages deleted." });
+}
+
+//
 
 module.exports = {
   loginUser,
@@ -89,5 +119,6 @@ module.exports = {
   storeUserMsg,
   getAllRooms,
   getMe,
-  getRecentMessages
+  getRecentMessages,
+  deleteAllMessages
 };

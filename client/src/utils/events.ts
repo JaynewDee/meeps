@@ -2,13 +2,14 @@ import { Dispatch, SetStateAction } from "react";
 import { handleError } from "./errors";
 import { SocketProp } from "./hooks";
 
-type DataDispatch = Dispatch<SetStateAction<string[]>>;
+type DataDispatch<T> = Dispatch<SetStateAction<T>>;
+type ErrorDispatch<T> = DataDispatch<T>;
 
 export const handleSendMessage = async (
   e: React.MouseEvent<HTMLButtonElement>,
   input: string,
-  setInput: Dispatch<SetStateAction<string>>,
-  errorSetter: any
+  setInput: DataDispatch<string>,
+  errorSetter: ErrorDispatch<string>
 ) => {
   e.preventDefault();
   if (input.length < 1 || input.length > 66) {

@@ -3,7 +3,6 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { API } from "../../api/api";
 import { AuthHandle } from "../../auth/auth";
 import { handleError, validateInput } from "../../utils/errors";
-import { broadcastSignin } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { SetAuthDisplay } from "../Auth";
 

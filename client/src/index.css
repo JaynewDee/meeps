@@ -14,6 +14,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --prime-blue: rgba(0, 255, 255, 0.333);
 }
 
 input,
@@ -40,7 +42,7 @@ button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 255, 255, 0.333);
+  background-color: var(--prime-blue);
 }
 
 @media screen and (max-width: 1024px) {
