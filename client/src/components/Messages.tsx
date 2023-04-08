@@ -13,11 +13,13 @@ const Messages: React.FC<MessageProps> = ({
   messages,
   setMessageState
 }) => {
-  const scrollRef = useRef<any>(null);
-
   socket!.on("chat message", (msg: string) => {
     setMessageState([...messages, msg]);
   });
+
+  //
+
+  const scrollRef = useRef<any>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -35,6 +37,7 @@ const Messages: React.FC<MessageProps> = ({
   }, [messages]);
 
   //
+
   const symbolTime = (time: Date) => (
     <div className="datetime">
       <span style={{ color: "var(--prime-blue)" }}>{"<<<"}</span>
@@ -44,6 +47,7 @@ const Messages: React.FC<MessageProps> = ({
       <span style={{ color: "var(--prime-blue)" }}>{">>>"}</span>
     </div>
   );
+
   return (
     <div className="scroll-wrapper">
       <div ref={scrollRef} className="messages-container">

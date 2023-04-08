@@ -185,12 +185,15 @@ header {
 }
 
 .chat-msg-field {
+  height: 2.33rem;
   width: 100%;
   padding-left: 2rem;
   font-size: 1.33rem;
   border-radius: 0 3px 0 0;
   border: none;
   caret-color: cyan;
+  margin-bottom: -0.33rem;
+  z-index: 3;
 }
 
 .chat-msg-field::placeholder {
@@ -198,7 +201,7 @@ header {
 }
 .chat-msg-field:focus,
 .chat-msg-field:active {
-  border-bottom: 1px solid rgba(0, 255, 255, 0.333);
+  border-top: 1px solid rgba(0, 255, 255, 0.333);
 }
 
 .msg-submit-btn {
@@ -215,7 +218,7 @@ header {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  z-index: 3;
+  z-index: 0;
   width: 100vw;
   background-color: #181818;
   position: fixed;
@@ -223,6 +226,7 @@ header {
   padding-left: 1rem;
   padding-right: 1rem;
   height: 2rem;
+  border: none;
 }
 
 .session-utils-box > button {
