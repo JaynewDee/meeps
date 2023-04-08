@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import { UserContextProvider } from "./utils/context";
-import Main from "./Main";
+import Main from "./main";
 import { LSItemHandler } from "./storage";
 
 function App() {
