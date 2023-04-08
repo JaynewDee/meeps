@@ -5,6 +5,7 @@ import { AuthHandle } from "../../auth/auth";
 import { handleError, validateInput } from "../../utils/errors";
 import { SocketProp } from "../../utils/hooks";
 import { SetAuthDisplay } from "../Auth";
+import { useUserContext } from "../../utils/context";
 
 const defaultState = {
   firstName: "",
@@ -30,6 +31,7 @@ const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
       [name]: value
     });
   };
+  const { login } = useUserContext();
 
   const handleSubmitRegistration = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +45,7 @@ const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
       return;
     } else if (res.status === 200 && res.token) {
       AuthHandle.login(res.token);
+      login();
     }
   });
 
