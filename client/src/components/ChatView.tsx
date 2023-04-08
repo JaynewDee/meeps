@@ -15,7 +15,7 @@ const ChatView: React.FC<any> = ({ socket }) => {
       setLoading(false);
     };
     if (localMessageState.length === 0) {
-      console.log("Fetched from db again.");
+      // console.log("Fetched from db again.");
       getMessages();
     }
   }, []);

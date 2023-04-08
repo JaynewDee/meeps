@@ -10,7 +10,7 @@ export const useChatSocket = () => {
   useEffect(() => {
     // Init client-specific socket connection
     const socket = io("http://localhost:3001");
-    /////////////////
+    ///////////////////////////////
     setSocket(socket);
     ///////////////////////////////
     socket.on("connect", () =>

@@ -6,7 +6,6 @@ type DataDispatch = Dispatch<SetStateAction<string[]>>;
 
 export const handleSendMessage = async (
   e: React.MouseEvent<HTMLButtonElement>,
-  socket: SocketProp,
   input: string,
   setInput: Dispatch<SetStateAction<string>>,
   errorSetter: any
@@ -15,7 +14,6 @@ export const handleSendMessage = async (
   if (input.length < 1 || input.length > 66) {
     return await handleError("length", errorSetter);
   } else {
-    socket!.emit("chat message", input);
     setInput("");
   }
 };

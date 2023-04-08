@@ -16,21 +16,21 @@ const Messages: React.FC<MessageProps> = ({
   const scrollRef = useRef<any>(null);
 
   socket!.on("chat message", (msg: string) => {
-    console.log(msg);
-    setMessageState((prev: string[]) => [...prev, msg]);
+    setMessageState([...messages, msg]);
   });
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView();
-    }
+    console.log(scrollRef.current);
+    setTimeout(() => {
+      scrollRef.current.scrollTo({ top: 2000, left: 0, behavior: "smooth" });
+    }, 1000);
 
     const LSmsgs = new LSItemHandler("messages");
     LSmsgs.set(messages);
   }, [messages]);
 
   const scrollSwitch = (msg: any, idx: number, ref: any) => {
-    const last = messages.length;
+    const last = messages.length - 1;
     return idx === last ? (
       <div ref={ref} key={msg._id}>
         <p>{msg.text}</p>
@@ -46,7 +46,7 @@ const Messages: React.FC<MessageProps> = ({
 
   return (
     <div className="scroll-wrapper">
-      <div className="messages-container">
+      <div ref={scrollRef} className="messages-container">
         {messages.map((message: string, idx: number) =>
           scrollSwitch(message, idx, scrollRef)
         )}

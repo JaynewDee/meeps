@@ -53,7 +53,7 @@ async function storeUserMsg(req, res) {
     { $push: { messages: newMsg._id } }
   );
 
-  res.json({ status: 200, message: `MESSAGE DEETS: ${newMsg}` });
+  res.json({ status: 200, message: newMsg });
 }
 
 async function getAllRooms(req, res) {

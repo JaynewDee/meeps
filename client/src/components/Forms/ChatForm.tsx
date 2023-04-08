@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
 import { handleSendMessage } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
@@ -19,21 +19,20 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
 
   const sendMessage = async (e: any) => {
     e.preventDefault();
-    await handleSendMessage(
-      e,
-      socket,
-      inputState,
-      setInputState,
-      setError
-    ).catch((err) => console.error(err));
+
+    await handleSendMessage(e, inputState, setInputState, setError).catch(
+      (err) => console.error(err)
+    );
 
     const user = AuthHandle.getUser();
     const authorId = user.data._id;
 
-    await API.persistMsg(
+    const res = await API.persistMsg(
       { text: inputState, author: authorId },
       "642211298736c6c14a07df3e"
     );
+
+    socket!.emit("chat message", res.message);
   };
 
   return (
