@@ -5,6 +5,9 @@
   "main": "./server/server.js",
   "author": "Joshua Newell Diehl",
   "license": "MIT",
+  "engines": {
+    "node": ">=16<17"
+  },
   "scripts": {
     "start": "start-dev.sh",
     "build": "cd client && npm run build",
