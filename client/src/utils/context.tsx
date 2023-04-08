@@ -1,13 +1,10 @@
 import {
   createContext,
   ReactNode,
-  useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState
 } from "react";
-import { API } from "../api/api";
 import { AuthHandle } from "../auth/auth";
 
 interface RoomContextType {}

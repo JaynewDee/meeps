@@ -4,7 +4,6 @@ import { handleSendMessage } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { API } from "../../api/api";
 import { AuthHandle } from "../../auth/auth";
-import { useRoomContext } from "../../utils/context";
 
 interface ChatFormProps {
   socket: SocketProp;
@@ -45,7 +44,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
         value={inputState}
         autoFocus={true}
         autoComplete="off"
-        placeholder="Meep at 'em"
+        placeholder="..."
         className="chat-msg-field"
         onChange={handleInputChange}
       />

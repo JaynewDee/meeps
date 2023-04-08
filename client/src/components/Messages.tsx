@@ -5,29 +5,38 @@ import { LSItemHandler } from "../storage";
 interface MessageProps {
   socket: SocketProp;
   messages: string[];
+  setMessageState: any;
 }
 
-const Messages: React.FC<MessageProps> = ({ messages }) => {
+const Messages: React.FC<MessageProps> = ({
+  socket,
+  messages,
+  setMessageState
+}) => {
   const scrollRef = useRef<any>(null);
+
+  socket!.on("chat message", (msg: string) => {
+    console.log(msg);
+    setMessageState((prev: string[]) => [...prev, msg]);
+  });
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView();
     }
+
     const LSmsgs = new LSItemHandler("messages");
     LSmsgs.set(messages);
-    const msgs = LSmsgs.get();
-    console.log(msgs);
-  }, []);
+  }, [messages]);
 
   const scrollSwitch = (msg: any, idx: number, ref: any) => {
     const last = messages.length;
     return idx === last ? (
-      <div ref={ref} key={idx}>
+      <div ref={ref} key={msg._id}>
         <p>{msg.text}</p>
       </div>
     ) : (
-      <div key={idx}>
+      <div key={msg._id}>
         <p>{msg.text}</p>
       </div>
     );

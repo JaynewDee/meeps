@@ -2,20 +2,39 @@ import React, { useEffect, useState } from "react";
 import Messages from "./Messages";
 import ChatForm from "./Forms/ChatForm";
 import SessionUtils from "./SessionUtils";
-import { useRoomContext } from "../utils/context";
+import { API } from "../api/api";
 
 const ChatView: React.FC<any> = ({ socket }) => {
+  const [loading, setLoading] = useState(true);
   const [localMessageState, setLocalMessageState] = useState<string[]>([]);
 
-  socket!.on("chat message", (msg: string) => {
-    setLocalMessageState((prev: string[]) => [...prev, msg]);
-  });
+  useEffect(() => {
+    const getMessages = async () => {
+      const messages = await API.getRecentMessages("central");
+      setLocalMessageState(messages.data.reverse());
+      setLoading(false);
+    };
+    if (localMessageState.length === 0) {
+      console.log("Fetched from db again.");
+      getMessages();
+    }
+  }, []);
 
   return (
     <>
-      <Messages socket={socket} messages={localMessageState} />
-      <ChatForm socket={socket} />
-      <SessionUtils />
+      {loading ? (
+        <div className="messages-loading">Fetching messages ... </div>
+      ) : (
+        <>
+          <Messages
+            socket={socket}
+            messages={localMessageState}
+            setMessageState={setLocalMessageState}
+          />
+          <ChatForm socket={socket} />
+          <SessionUtils />
+        </>
+      )}
     </>
   );
 };

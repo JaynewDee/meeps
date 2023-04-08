@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from "react";
-import { API } from "../api/api";
 import { handleError } from "./errors";
 import { SocketProp } from "./hooks";
 

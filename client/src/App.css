@@ -80,6 +80,10 @@ header {
   max-width: 66%;
 }
 
+.messages-loading {
+  margin-top: 50%;
+}
+
 .scroll-wrapper {
   position: relative;
   display: flex;
