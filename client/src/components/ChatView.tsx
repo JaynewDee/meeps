@@ -6,11 +6,6 @@ import { useRoomContext } from "../utils/context";
 
 const ChatView: React.FC<any> = ({ socket }) => {
   const [localMessageState, setLocalMessageState] = useState<string[]>([]);
-  const { roomState } = useRoomContext();
-
-  useEffect(() => {
-    setLocalMessageState(roomState.messages);
-  }, [roomState]);
 
   socket!.on("chat message", (msg: string) => {
     setLocalMessageState((prev: string[]) => [...prev, msg]);
@@ -24,4 +19,5 @@ const ChatView: React.FC<any> = ({ socket }) => {
     </>
   );
 };
+
 export default ChatView;

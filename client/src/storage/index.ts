@@ -1,4 +1,4 @@
-const { indexedDB } = window;
+const { indexedDB, localStorage } = window;
 
 export class IDB {
   name: string;
@@ -30,5 +30,26 @@ export class IDB {
     deleteRequest.onsuccess = () => {
       console.log(`Database ${this.name} successfully deleted.`);
     };
+  }
+}
+
+export class LSItemHandler {
+  item: string;
+
+  constructor(item: string) {
+    this.item = item;
+  }
+
+  get() {
+    const data = localStorage.getItem(this.item);
+    return data ? JSON.parse(data) : [];
+  }
+
+  set(value: any) {
+    localStorage.setItem(this.item, JSON.stringify(value));
+  }
+
+  delete() {
+    localStorage.removeItem(this.item);
   }
 }

@@ -2,9 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 
 import "./App.css";
 import Header from "./components/Header";
-import { UserContextProvider, useRoomContext } from "./utils/context";
+import { UserContextProvider } from "./utils/context";
 import Main from "./Main";
-import { API } from "./api/api";
 
 function App() {
   const [errorState, toggleErrorState] = useState("");

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { SocketProp } from "../utils/hooks";
-import { useRoomContext } from "../utils/context";
+import { LSItemHandler } from "../storage";
 
 interface MessageProps {
   socket: SocketProp;
@@ -14,6 +14,10 @@ const Messages: React.FC<MessageProps> = ({ messages }) => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView();
     }
+    const LSmsgs = new LSItemHandler("messages");
+    LSmsgs.set(messages);
+    const msgs = LSmsgs.get();
+    console.log(msgs);
   }, []);
 
   const scrollSwitch = (msg: any, idx: number, ref: any) => {

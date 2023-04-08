@@ -5,10 +5,6 @@ import ChatView from "./components/ChatView";
 import { useUserContext } from "./utils/context";
 import { useChatSocket } from "./utils/hooks";
 
-type MainProps = {
-  socket: any;
-};
-
 function Main() {
   const { userState, login } = useUserContext();
 
