@@ -56,7 +56,13 @@ async function createUser(req, res) {
 async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
-  const created = await Message.create({ text, author, recipient: roomId });
+  const centralRoom = await ChatRoom.findOne({ name: "central" });
+  const created = await Message.create({
+    text,
+    author,
+    recipient: centralRoom._id
+  });
+
   const newMsg = await Message.findOne({ _id: created._id }).populate({
     path: "author",
     select: "email firstName lastName username"
@@ -68,7 +74,7 @@ async function storeUserMsg(req, res) {
   );
 
   await ChatRoom.findOneAndUpdate(
-    { _id: roomId },
+    { name: "central" },
     { $push: { messages: newMsg._id } }
   );
 

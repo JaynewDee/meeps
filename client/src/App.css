@@ -132,16 +132,29 @@ header {
   color: var(--prime-blue);
 }
 
+.name-and-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.66rem;
+  height: 1rem;
+}
+
+.time-at {
+  margin: 0 1rem;
+}
+
 .message-content {
-  border: 1px solid var(--prime-blue);
-  border-left: unset;
-  border-bottom: unset;
+  border-right: 1px solid var(--prime-blue);
+  border-top: 1px solid rgba(20, 20, 20, 0.9);
+  padding: 0.33rem;
   border-radius: 5%;
   margin: 2rem auto;
 }
 
-.message-username {
-  font-size: 0.77rem;
+.message-username,
+.datetime {
+  font-size: 0.66rem;
 }
 
 .message-text::before {

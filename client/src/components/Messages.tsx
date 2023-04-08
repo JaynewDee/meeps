@@ -35,13 +35,26 @@ const Messages: React.FC<MessageProps> = ({
   }, [messages]);
 
   //
-
+  const symbolTime = (time: Date) => (
+    <div className="datetime">
+      <span style={{ color: "var(--prime-blue)" }}>{"<<<"}</span>
+      <span>{time.toLocaleDateString()}</span>
+      <span className="time-at">{"@"}</span>
+      <span>{time.toLocaleTimeString()}</span>
+      <span style={{ color: "var(--prime-blue)" }}>{">>>"}</span>
+    </div>
+  );
   return (
     <div className="scroll-wrapper">
       <div ref={scrollRef} className="messages-container">
         {messages.map((message: any, idx: number) => (
           <div className="message-content" key={message._id}>
-            <p className="message-username">{message.author.username}</p>
+            <div className="name-and-date">
+              <span className="message-username">
+                {message.author.username}
+              </span>
+              {symbolTime(new Date(message.createdAt))}
+            </div>
             <p className="message-text">{message.text}</p>
           </div>
         ))}
