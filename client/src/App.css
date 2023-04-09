@@ -22,7 +22,8 @@ header {
 }
 
 .menu-options {
-  margin: auto 0.66rem 0.33rem auto;
+  display: flex;
+  margin: auto 0.33rem 0.33rem auto;
 }
 
 .menu-options > span {
@@ -30,8 +31,13 @@ header {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  margin: auto 0 0 0.33rem;
 }
+
 .settings-icon {
+}
+.settings-icon:hover,
+.help-icon:hover {
   color: var(--prime-blue);
 }
 
@@ -110,7 +116,7 @@ header {
   text-align: left;
   padding-left: 3rem;
   padding-right: 3rem;
-  padding-top: 6rem;
+  margin-top: 6rem;
   padding-bottom: 4rem;
   font-family: var(--mono);
 }
@@ -123,18 +129,6 @@ header {
 .message-username::after {
   content: "]";
   color: var(--prime-blue);
-}
-
-.name-and-date {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0.66rem auto;
-  height: 1rem;
-}
-
-.time-at {
-  margin: 0 0.33rem;
 }
 
 .message-content {
@@ -162,8 +156,20 @@ header {
 
 .message-text {
   padding-left: 2rem;
+  padding-bottom: 1rem;
 }
 
+.name-and-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.66rem auto;
+  height: 1rem;
+}
+
+.time-at {
+  margin: 0 0.33rem;
+}
 .error-box {
   position: absolute;
   left: 50%;
@@ -233,7 +239,7 @@ header {
   color: rgba(200, 200, 200);
   height: 1.66rem;
   font-size: 0.66rem;
-  padding: 0 1rem;
+  padding: 0 0.33rem;
 }
 
 .session-utils-box > button:hover {

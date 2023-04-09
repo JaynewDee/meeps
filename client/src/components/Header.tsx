@@ -1,4 +1,4 @@
-import { BsFillGearFill as Gear } from "react-icons/bs";
+import { BsGear as Gear, BsQuestionCircle as Question } from "react-icons/bs";
 
 const Header = () => {
   return (
@@ -7,7 +7,7 @@ const Header = () => {
       <div className="menu-options">
         {/* On click, display settings modal */}
         <span className="settings-icon">{Gear({})}</span>
-        <span className="help-icon">{Gear({})}</span>
+        <span className="help-icon">{Question({})}</span>
       </div>
     </header>
   );

@@ -16,6 +16,7 @@
   -webkit-text-size-adjust: 100%;
 
   --prime-blue: rgba(0, 255, 255, 0.666);
+  overflow: hidden;
 }
 
 #root {
@@ -26,7 +27,6 @@
 body {
   margin: 0;
   height: 100%;
-  overflow: clip;
 }
 
 input,
@@ -61,6 +61,11 @@ button:hover {
   .scroll-wrapper {
     width: 100%;
     border: none;
+    margin-right: 0;
+  }
+  .messages-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
@@ -69,6 +74,7 @@ button:hover {
     padding-left: 1rem;
     padding-right: 0;
     padding-bottom: 6rem;
+    margin-top: 3rem;
   }
 
   .message-content {
@@ -81,5 +87,8 @@ button:hover {
   }
   .datetime {
     font-size: 0.5rem;
+  }
+  .app-title {
+    margin-top: 1rem;
   }
 }
