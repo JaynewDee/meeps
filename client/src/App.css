@@ -48,6 +48,7 @@ header {
   align-items: center;
   width: 100vw;
   height: 100vh;
+  font-family: var(--mono);
 }
 
 .registration-form > div > input {

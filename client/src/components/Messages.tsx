@@ -34,7 +34,7 @@ const Messages: React.FC<MessageProps> = ({
 
     const LSmsgs = new LSItemHandler("messages");
     LSmsgs.set(messages);
-  }, [messages]);
+  }, [messages, socket]);
 
   //
 

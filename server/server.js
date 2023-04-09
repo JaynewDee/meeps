@@ -27,7 +27,7 @@ io.on("connection", (socket) => {
   socket.join("central");
 
   socket.on("chat message", (msg) => {
-    console.log(`Message from socket client: ${msg}`);
+    console.log(`Message from socket client: ${msg.toString()}`);
     if (!msg) return;
 
     try {
