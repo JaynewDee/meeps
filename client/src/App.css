@@ -105,7 +105,7 @@ header {
   border-right: 1px solid white;
   height: 100vh;
   width: 66vw;
-  margin: 0 auto;
+  /* margin: 3rem auto; */
   box-shadow: inset 0px 1rem 12px 3px rgba(0, 0, 0, 0.5);
   z-index: 0;
 }
@@ -117,8 +117,6 @@ header {
   text-align: left;
   padding-left: 3rem;
   padding-right: 3rem;
-  margin-top: 6rem;
-  padding-bottom: 4rem;
   font-family: var(--mono);
 }
 
@@ -140,6 +138,13 @@ header {
   margin: 1rem auto;
   box-shadow: 5px -5px 21px 1px rgba(25, 25, 25, 0.01);
   border-radius: 6px;
+}
+
+.message-content:first-child {
+  margin-top: 6rem;
+}
+.message-content:last-child {
+  margin-bottom: 6rem;
 }
 
 .message-username,
