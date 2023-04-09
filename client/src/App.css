@@ -103,14 +103,13 @@ header {
   justify-content: flex-end;
   border-left: 1px solid white;
   border-right: 1px solid white;
-  height: 100vh;
   width: 66vw;
-  /* margin: 3rem auto; */
   box-shadow: inset 0px 1rem 12px 3px rgba(0, 0, 0, 0.5);
   z-index: 0;
 }
 
 .messages-container {
+  height: 100vh;
   overflow-y: auto;
   font-size: 1rem;
   word-break: break-all;
@@ -213,14 +212,17 @@ header {
 .chat-msg-field:focus,
 .chat-msg-field:active {
   border-top: 1px solid rgba(0, 255, 255, 0.333);
+  background-color: black;
 }
 
 .msg-submit-btn {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 3rem;
+  height: 2.33rem;
   border-radius: 9px;
-  background-color: #181818;
+  background-color: black;
   color: rgba(255, 255, 255, 0.874);
 }
 
