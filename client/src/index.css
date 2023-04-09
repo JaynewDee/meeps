@@ -70,11 +70,16 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
+  .scroll-wrapper {
+    top: 4rem;
+    bottom: 4rem;
+  }
   .messages-container {
     padding-left: 1rem;
     padding-right: 0;
   }
-
+  .message-content:last-child {
+  }
   .message-content {
     border-right: unset;
   }

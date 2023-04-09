@@ -143,10 +143,10 @@ header {
 }
 
 .message-content:first-child {
-  margin-top: 9rem;
+  margin-top: 1rem;
 }
 .message-content:last-child {
-  margin-bottom: 9rem;
+  margin-bottom: 1rem;
 }
 
 .message-username,
@@ -177,6 +177,7 @@ header {
 
 .time-at {
   margin: 0 0.33rem;
+  color: rgba(0, 255, 255, 0.7);
 }
 .error-box {
   position: absolute;
