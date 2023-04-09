@@ -6,7 +6,8 @@ const Header = () => {
       <h1 className="app-title">ROOMY</h1>
       <div className="menu-options">
         {/* On click, display settings modal */}
-        <span>{Gear({})}</span>
+        <span className="settings-icon">{Gear({})}</span>
+        <span className="help-icon">{Gear({})}</span>
       </div>
     </header>
   );

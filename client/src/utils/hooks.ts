@@ -3,7 +3,6 @@ import { io, Socket } from "socket.io-client";
 
 const currentProto = window.location.protocol;
 const protoByEnv = currentProto === "http:" ? `http://localhost:3001` : ``;
-console.log(protoByEnv);
 
 export type SocketProp = null | Socket<any, any>;
 
@@ -19,9 +18,9 @@ export const useChatSocket = () => {
       console.log(`Socket w/ id ${socket.id} connected`)
     );
     ///////////////////////////////
-    socket.on("chat message", (msg) => {
-      console.log(msg);
-    });
+    // socket.on("chat message", (msg) => {
+    //   console.log(msg);
+    // });
     ///////////////////////////////
     return () => {
       socket.disconnect();

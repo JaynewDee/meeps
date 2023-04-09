@@ -8,9 +8,11 @@ async function loginUser(req, res) {
 
   try {
     const user = await User.findOne({ email: body.email });
+
     if (!user) {
       return res.status(400).json({ status: 400, message: "No user found." });
     }
+
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
@@ -18,11 +20,10 @@ async function loginUser(req, res) {
     }
 
     const token = jwtAuth.sign(user);
-    console.log(token);
     res.cookie("jwt", token, { httpOnly: true });
     res.json({ status: 200, token, user });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -57,7 +58,7 @@ async function storeUserMsg(req, res) {
   const { author, text } = req.body;
   const roomId = req.query.roomId;
   const centralRoom = await ChatRoom.findOne({ name: "central" });
-  console.log(centralRoom);
+
   const created = await Message.create({
     text,
     author,

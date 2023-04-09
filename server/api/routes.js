@@ -24,6 +24,7 @@ api.post("/user", loginUser);
 api.post("/user/new", createUser);
 api.post("/user/msg", jwtAuth.middleware, storeUserMsg);
 api.delete("/user/msgs", jwtAuth.middleware, deleteAllMessages);
+
 //
 
 module.exports = { api };

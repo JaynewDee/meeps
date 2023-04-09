@@ -42,6 +42,9 @@ header {
   justify-content: center;
   cursor: pointer;
 }
+.settings-icon {
+  color: var(--prime-blue);
+}
 
 .registration-form {
   display: flex;
@@ -120,6 +123,7 @@ header {
   padding-right: 3rem;
   padding-top: 6rem;
   padding-bottom: 4rem;
+  font-family: var(--mono);
 }
 
 .message-username::before {
@@ -147,10 +151,10 @@ header {
 .message-content {
   border-right: 2px solid rgba(0, 0, 0, 0.5);
   border-top: 1px solid rgba(20, 20, 20, 0.9);
-  padding: 0.33rem;
+  padding: 1re;
   border-radius: 0 7% 0 0;
   margin: 1rem auto;
-  box-shadow: 5px -5px 21px 1px rgba(20, 20, 20, 0.1);
+  box-shadow: 5px -5px 21px 1px rgba(25, 25, 25, 0.01);
   border-radius: 6px;
 }
 
@@ -217,7 +221,6 @@ header {
   border-radius: 9px;
   background-color: #181818;
   color: rgba(255, 255, 255, 0.874);
-  transition: all 0.3s;
 }
 
 .session-utils-box {

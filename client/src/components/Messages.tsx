@@ -40,11 +40,20 @@ const Messages: React.FC<MessageProps> = ({
 
   const symbolTime = (time: Date) => (
     <div className="datetime">
-      <span style={{ color: "var(--prime-blue)" }}>{"<<<"}</span>
+      <span style={{ color: "var(--prime-blue)", paddingRight: ".33rem" }}>
+        {"<<<"}
+      </span>
       <span>{time.toLocaleDateString()}</span>
       <span className="time-at">{"@"}</span>
-      <span>{time.toLocaleTimeString()}</span>
-      <span style={{ color: "var(--prime-blue)" }}>{">>>"}</span>
+      <span>
+        {time.toLocaleTimeString(navigator.language, {
+          hour: "2-digit",
+          minute: "2-digit"
+        })}
+      </span>
+      <span style={{ color: "var(--prime-blue)", paddingLeft: ".33rem" }}>
+        {">>>"}
+      </span>
     </div>
   );
 
