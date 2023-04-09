@@ -97,15 +97,18 @@ header {
 }
 
 .scroll-wrapper {
-  position: relative;
+  position: fixed;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-end;
   border-left: 1px solid white;
   border-right: 1px solid white;
+  left: 50%;
+  transform: translateX(-50%);
   width: 66vw;
   box-shadow: inset 0px 1rem 12px 3px rgba(0, 0, 0, 0.5);
   z-index: 0;
+  margin: 0 auto;
 }
 
 .messages-container {
@@ -140,10 +143,10 @@ header {
 }
 
 .message-content:first-child {
-  margin-top: 6rem;
+  margin-top: 9rem;
 }
 .message-content:last-child {
-  margin-bottom: 6rem;
+  margin-bottom: 9rem;
 }
 
 .message-username,
