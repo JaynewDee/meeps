@@ -109,6 +109,8 @@ header {
   box-shadow: inset 0px 1rem 12px 3px rgba(0, 0, 0, 0.5);
   z-index: 0;
   margin: 0 auto;
+  top: 6rem;
+  bottom: 4rem;
 }
 
 .messages-container {
