@@ -16,6 +16,8 @@
   -webkit-text-size-adjust: 100%;
 
   --prime-blue: rgba(0, 255, 255, 0.666);
+  --madder: rgba(164, 22, 35, 1);
+  --tert: rgba(240, 246, 0);
   overflow: hidden;
 }
 
@@ -88,5 +90,8 @@ button:hover {
   }
   .app-title {
     margin-top: 1rem;
+  }
+  .menu-icon {
+    font-size: 1.66rem;
   }
 }

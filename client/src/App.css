@@ -31,14 +31,22 @@ header {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin: auto 0 0 0.33rem;
+  margin: auto 0 0 0.66rem;
 }
 
+.menu-icon {
+  font-size: 1.33rem;
+}
 .settings-icon {
 }
-.settings-icon:hover,
-.help-icon:hover {
+.settings-icon:hover {
   color: var(--prime-blue);
+}
+.help-icon:hover {
+  color: var(--tert);
+}
+.exit-icon:hover {
+  color: var(--madder);
 }
 
 .registration-form {
