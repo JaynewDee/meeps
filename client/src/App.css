@@ -1,14 +1,3 @@
-#root {
-  height: 100%;
-  text-align: center;
-}
-
-body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
 header {
   display: flex;
   justify-content: space-between;
@@ -140,7 +129,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.66rem;
+  margin: 0.66rem auto;
   height: 1rem;
 }
 
@@ -244,6 +233,7 @@ header {
   color: rgba(200, 200, 200);
   height: 1.66rem;
   font-size: 0.66rem;
+  padding: 0 1rem;
 }
 
 .session-utils-box > button:hover {
@@ -252,10 +242,4 @@ header {
 
 .msg-submit-btn {
   border-radius: 0;
-}
-
-.msg-submit-btn:hover {
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.874);
-  color: #181818;
 }
