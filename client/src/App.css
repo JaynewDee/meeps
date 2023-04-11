@@ -143,9 +143,8 @@ header {
 }
 
 .message-content {
-  border-right: 2px solid rgba(0, 0, 0, 0.5);
   border-top: 1px solid rgba(20, 20, 20, 0.9);
-  padding: 1re;
+  padding: 0.66rem 0.33rem;
   border-radius: 0 7% 0 0;
   margin: 1rem auto;
   box-shadow: 5px -5px 21px 1px rgba(25, 25, 25, 0.01);
