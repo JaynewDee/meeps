@@ -20,13 +20,6 @@ const SessionUtils: React.FC<any> = ({}) => {
       {spacer()}
       <button onClick={destroySession}>END SESSION</button>
       {spacer()}
-      {/* <button onClick={getAllRooms}>FETCH ROOMS</button>
-      {spacer()}
-      <button onClick={getOwnUser}>FETCH ME</button>
-      {spacer()}
-      <button onClick={getRecentMsgs}>FETCH MESSAGES</button>
-      {spacer()}
-      <button onClick={deleteAllMessages}>DELETE MESSAGES</button> */}
     </div>
   );
 };

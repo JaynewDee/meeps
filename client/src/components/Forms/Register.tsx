@@ -31,13 +31,16 @@ const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
       [name]: value
     });
   };
+
   const { login } = useUserContext();
 
   const handleSubmitRegistration = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (validateInput("auth", inputState, setErrorState) !== "pass") {
       return;
     }
+
     const res = await API.register(inputState);
 
     if (res.status === 208) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { MutableRefObject, useEffect, useRef } from "react";
 import { SocketProp } from "../utils/hooks";
 import { LSItemHandler } from "../storage";
 
@@ -19,13 +19,13 @@ const Messages: React.FC<MessageProps> = ({
 
   //
 
-  const scrollRef = useRef<any>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
       setTimeout(() => {
-        scrollRef.current.scrollTo({
-          top: scrollRef.current.scrollHeight,
+        scrollRef.current!.scrollTo({
+          top: scrollRef.current!.scrollHeight,
           left: 0,
           behavior: "smooth"
         });
