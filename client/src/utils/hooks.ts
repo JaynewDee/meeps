@@ -18,10 +18,6 @@ export const useChatSocket = () => {
       console.log(`Socket w/ id ${socket.id} connected`)
     );
     ///////////////////////////////
-    // socket.on("chat message", (msg) => {
-    //   console.log(msg);
-    // });
-    ///////////////////////////////
     return () => {
       socket.disconnect();
     };

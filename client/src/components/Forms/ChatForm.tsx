@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
-import { handleSendMessage } from "../../utils/events";
+import { validateMessage } from "../../utils/events";
 import { SocketProp } from "../../utils/hooks";
 import { API } from "../../api/api";
 import { AuthHandle } from "../../auth/auth";
@@ -20,9 +20,17 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
   const sendMessage = async (e: any) => {
     e.preventDefault();
 
-    await handleSendMessage(e, inputState, setInputState, setError).catch(
-      (err) => console.error(err)
-    );
+    try {
+      const isValid = await validateMessage(
+        e,
+        inputState,
+        setInputState,
+        setError
+      );
+      if (!isValid) return;
+    } catch (err) {
+      console.error(err);
+    }
 
     const user = AuthHandle.getUser();
     const authorId = user.data._id;

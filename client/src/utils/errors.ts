@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 type ErrorDispatch = Dispatch<SetStateAction<string>>;
 
-export const handleError = async (type: string, setter: ErrorDispatch) => {
+export const handleError = (type: string, setter: ErrorDispatch) => {
   const errTypes: { [key: string]: string } = {
     length:
       "Your meep must be greater than 0 and fewer than 66 characters long.",
@@ -15,7 +15,8 @@ export const handleError = async (type: string, setter: ErrorDispatch) => {
       "That user doesn't appear to exist ...  Try again or register."
   };
   setter(errTypes[type]);
-  return setTimeout(() => setter(""), 5000);
+  setTimeout(() => setter(""), 5000);
+  return false;
 };
 
 interface ValidationInput {
