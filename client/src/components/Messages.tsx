@@ -2,9 +2,24 @@ import React, { MutableRefObject, useEffect, useRef } from "react";
 import { SocketProp } from "../utils/hooks";
 import { LSItemHandler } from "../storage";
 
+type Author = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+};
+
+type Message = {
+  _id: string;
+  text: string;
+  author: Author;
+  createdAt: string;
+  recipient: string;
+};
+
 interface MessageProps {
   socket: SocketProp;
-  messages: string[];
+  messages: Message[];
   setMessageState: any;
 }
 
@@ -13,7 +28,8 @@ const Messages: React.FC<MessageProps> = ({
   messages,
   setMessageState
 }) => {
-  socket!.on("chat message", (msg: string) => {
+  socket!.on("chat message", (msg: Message) => {
+    console.log(msg);
     setMessageState([...messages, msg]);
   });
 
@@ -60,7 +76,7 @@ const Messages: React.FC<MessageProps> = ({
   return (
     <div className="scroll-wrapper">
       <div ref={scrollRef} className="messages-container">
-        {messages.map((message: any, idx: number) => (
+        {messages.map((message: Message) => (
           <div className="message-content" key={message._id}>
             <div className="name-and-date">
               <span className="message-username">

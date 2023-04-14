@@ -11,9 +11,11 @@ function Main() {
   const socket = useChatSocket();
 
   useEffect(() => {
+    // Synchronize state with session token
     const isLoggedIn = AuthHandle.validate();
     if (isLoggedIn) {
       login();
+      return;
     }
   }, []);
 

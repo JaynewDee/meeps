@@ -36,7 +36,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
     const authorId = user.data._id;
 
     const res = await API.persistMsg(
-      { text: inputState, author: authorId },
+      { text: inputState.trim(), author: authorId },
       "642211298736c6c14a07df3e"
     );
 

@@ -12,7 +12,7 @@ export const handleError = (type: string, setter: ErrorDispatch) => {
       "Your password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character from the set @$!%*?",
     badEmail: "The format of the input email fails validation!",
     userNotFound:
-      "That user doesn't appear to exist ...  Try again or register."
+      "That user doesn't appear to exist ...  Try again or register.  Hint: All credentials are case-sensitive."
   };
   setter(errTypes[type]);
   setTimeout(() => setter(""), 5000);
