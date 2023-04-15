@@ -56,7 +56,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
   return (
     <form className="registration-form" onSubmit={handleSubmitLogin}>
       {errorState && <p className="register-error">{errorState}</p>}
-      <div className="registration-form-inputs">
+      <div className="auth-form-inputs">
         <input
           type="text"
           name="email"
@@ -72,7 +72,9 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
           onChange={handleInput}
         />
       </div>
-      <button type="submit">LOGIN</button>
+      <button type="submit" className="auth-submit">
+        LOGIN
+      </button>
       <p
         style={{
           marginBottom: "0",

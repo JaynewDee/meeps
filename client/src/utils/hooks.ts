@@ -47,3 +47,55 @@ export const useMessageValidation = async (
     return true;
   }
 };
+
+export const useThemeSettings = (currentTheme: string) => {
+  const themes: { [key: string]: any } = {
+    "Mono Ocean": {
+      foreground: "#181818",
+      background: "#1f1f1f",
+      light: "rgba(255,255,255,0.87)",
+      prime: "rgba(0, 255, 255, 0.666)",
+      harsh: "rgba(164, 22, 35, 1)",
+      variant: "rgba(240, 246, 0)",
+      msgField: "black",
+      utilsBar: "rgba(15, 15, 15, .9)",
+      fontPrimary: `"Anonymous Pro", monospace`
+    },
+    "Falling Star": {
+      foreground: "#181818",
+      background: "#1f1f1f",
+      light: "rgba(255,255,255,0.87)",
+      prime: "rgba(255, 0, 255, 0.666)",
+      harsh: "rgba(164, 22, 35, 1)",
+      variant: "rgba(240, 246, 0)",
+      msgField: "black",
+      utilsBar: "rgba(15, 15, 15, .9)",
+      fontPrimary: `"Anonymous Pro", monospace`
+    },
+    "Summer Jungle": {}
+  };
+
+  const {
+    foreground,
+    background,
+    light,
+    prime,
+    harsh,
+    variant,
+    msgField,
+    utilsBar,
+    fontPrimary
+  } = themes[currentTheme];
+
+  return {
+    "--foreground": foreground,
+    "--background": background,
+    "--light": light,
+    "--prime": prime,
+    "--harsh": harsh,
+    "--variant": variant,
+    "--msg-field": msgField,
+    "--utils-bar": utilsBar,
+    "--font-primary": fontPrimary
+  } as React.CSSProperties;
+};

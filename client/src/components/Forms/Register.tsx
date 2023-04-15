@@ -57,7 +57,7 @@ const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
   return (
     <form className="registration-form" onSubmit={handleSubmitRegistration}>
       {errorState && <p className="register-error">{errorState}</p>}
-      <div className="registration-form-inputs">
+      <div className="auth-form-inputs">
         <input
           type="text"
           name="firstName"
@@ -94,7 +94,9 @@ const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
           onChange={handleInput}
         />
       </div>
-      <button type="submit">REGISTER</button>
+      <button type="submit" className="auth-submit">
+        REGISTER
+      </button>
       <p
         style={{
           marginBottom: "0",

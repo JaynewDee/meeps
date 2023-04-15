@@ -11,6 +11,7 @@ type Settings = {
   displayName: string;
   hideRealName: boolean;
   currentRoom: string;
+  currentTheme: string;
 };
 
 interface SettingsProp {
@@ -20,12 +21,7 @@ interface SettingsProp {
   setModalState: Dispatch<SetStateAction<string>>;
 }
 
-const Header: React.FC<SettingsProp> = ({
-  userSettings,
-  setUserSettings,
-  modalState,
-  setModalState
-}) => {
+const Header: React.FC<SettingsProp> = ({ modalState, setModalState }) => {
   const { logout } = useUserContext();
 
   const destroySession = () => {

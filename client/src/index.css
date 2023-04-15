@@ -5,25 +5,32 @@
   line-height: 1.5;
   font-weight: 400;
   --mono: "Anonymous Pro", monospace;
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   color: rgba(255, 255, 255, 0.87);
-  background-color: #1f1f1f;
 
+  background-color: #1f1f1f;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-  --prime-blue: rgba(0, 255, 255, 0.666);
-  --madder: rgba(164, 22, 35, 1);
-  --tert: rgba(240, 246, 0);
+  /* --foreground: #181818;
+  --background: #1f1f1f;
+  --light: rgba(255, 255, 255, 0.87);
+  --prime: rgba(0, 255, 255, 0.666);
+  --harsh: rgba(164, 22, 35, 1);
+  --variant: rgba(240, 246, 0);
+  --msg-field: black;
+  --utils-bar: rgba(15, 15, 15, 0.9);
+  --font-primary: "Anonymous Pro", monospace; */
+  --font-secondary: "";
   overflow: hidden;
 }
 
 #root {
   height: 100%;
   text-align: center;
+  background-color: var(--);
 }
 
 body {
@@ -33,8 +40,13 @@ body {
 
 input,
 button {
-  font-family: "Anonymous Pro", monospace;
+  font-family: var(--font-primary);
   padding: 0.33rem;
+}
+
+input {
+  background-color: var(--foreground);
+  color: var(--light);
 }
 
 input:focus,
@@ -56,7 +68,7 @@ button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--prime-blue);
+  background-color: var(--prime);
 }
 
 @media screen and (max-width: 1024px) {
@@ -64,10 +76,6 @@ button:hover {
     width: 100%;
     border: none;
     margin-right: 0;
-  }
-  .messages-container {
-    padding-left: 1rem;
-    padding-right: 0;
   }
 }
 
@@ -77,8 +85,9 @@ button:hover {
     bottom: 4rem;
   }
   .messages-container {
-    padding-left: 1rem;
-    padding-right: 0;
+    padding-left: 0rem;
+    padding-right: 1rem;
+    width: 100%;
   }
   .message-content:last-child {
   }

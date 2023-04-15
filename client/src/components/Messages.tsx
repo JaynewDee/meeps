@@ -15,7 +15,7 @@ type Author = {
   username: string;
 };
 
-type Message = {
+type MessageType = {
   _id: string;
   text: string;
   author: Author;
@@ -23,11 +23,11 @@ type Message = {
   recipient: string;
 };
 
-export type MessageArray = Message[];
+export type MessageArray = MessageType[];
 
 interface MessageProps {
   socket: SocketProp;
-  messages: Message[];
+  messages: MessageArray;
   setMessageState: Dispatch<SetStateAction<MessageArray>>;
 }
 
@@ -36,7 +36,7 @@ const Messages: React.FC<MessageProps> = ({
   messages,
   setMessageState
 }) => {
-  socket!.on("chat message", (msg: Message) => {
+  socket!.on("chat message", (msg: MessageType) => {
     setMessageState([...messages, msg]);
   });
 
@@ -61,9 +61,24 @@ const Messages: React.FC<MessageProps> = ({
 
   //
 
+  const MemoAllMessages = useMemo(
+    () => messages.map((message: MessageType) => Message(message)),
+    [messages]
+  );
+
+  return (
+    <div ref={scrollRef} className="scroll-wrapper">
+      <div className="messages-container">{MemoAllMessages}</div>
+    </div>
+  );
+};
+
+export default Messages;
+
+const Message: React.FC<MessageType> = ({ _id, author, createdAt, text }) => {
   const symbolTime = (time: Date) => (
     <div className="datetime">
-      <span style={{ color: "var(--prime-blue)", paddingRight: ".33rem" }}>
+      <span style={{ color: "var(--prime)", paddingRight: ".33rem" }}>
         {"<"}
       </span>
       <span>{time.toLocaleDateString()}</span>
@@ -74,33 +89,19 @@ const Messages: React.FC<MessageProps> = ({
           minute: "2-digit"
         })}
       </span>
-      <span style={{ color: "var(--prime-blue)", paddingLeft: ".33rem" }}>
+      <span style={{ color: "var(--prime)", paddingLeft: ".33rem" }}>
         {">"}
       </span>
     </div>
   );
 
-  const MemoizedMessages = useMemo(
-    () =>
-      messages.map((message: Message) => (
-        <div className="message-content" key={message._id}>
-          <div className="name-and-date">
-            <span className="message-username">{message.author.username}</span>
-            {symbolTime(new Date(message.createdAt))}
-          </div>
-          <p className="message-text">{message.text}</p>
-        </div>
-      )),
-    [messages]
-  );
-
   return (
-    <div className="scroll-wrapper">
-      <div ref={scrollRef} className="messages-container">
-        {MemoizedMessages}
+    <div className="message-content" key={_id}>
+      <div className="name-and-date">
+        <span className="message-username">{author.username}</span>
+        {symbolTime(new Date(createdAt))}
       </div>
+      <p className="message-text">{text}</p>
     </div>
   );
 };
-
-export default Messages;
