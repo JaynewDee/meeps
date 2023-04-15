@@ -139,6 +139,11 @@ header {
   font-size: 1rem;
   word-break: break-all;
   text-align: left;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: space-between;
+  width: 100%;
   padding-left: 3rem;
   padding-right: 3rem;
   font-family: var(--mono);
@@ -158,7 +163,7 @@ header {
   border-top: 1px solid rgba(20, 20, 20, 0.9);
   padding: 0.66rem 0.33rem;
   border-radius: 0 7% 0 0;
-  margin: 1rem auto;
+  margin: 1rem;
   box-shadow: 5px -5px 21px 1px rgba(25, 25, 25, 0.01);
   border-radius: 6px;
   word-break: keep-all;

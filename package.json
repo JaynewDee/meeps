@@ -10,8 +10,9 @@
   },
   "scripts": {
     "start": "start-dev.sh",
-    "build": "cd client && npm run build",
+    "debug": "start-debug.sh",
     "install": "cd client && npm install && cd ../server && npm install",
+    "build": "cd client && npm run build",
     "refreshDb": "node server/dev_utils/refreshDb.js"
   },
   "dependencies": {

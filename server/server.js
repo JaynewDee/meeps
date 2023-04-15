@@ -23,9 +23,6 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.info("A socket user has connected.");
 
-  // On connection, join the main room `central`
-  // socket.join("central");
-
   // Listen for new message type called `notification`
   // emit notifications for `login` and `logout` events
 
