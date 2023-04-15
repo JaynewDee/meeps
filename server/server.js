@@ -24,7 +24,14 @@ io.on("connection", (socket) => {
   console.info("A socket user has connected.");
 
   // On connection, join the main room `central`
-  socket.join("central");
+  // socket.join("central");
+
+  // Listen for new message type called `notification`
+  // emit notifications for `login` and `logout` events
+
+  socket.on("join room", (roomName) => {
+    socket.join(roomName);
+  });
 
   socket.on("chat message", (msg) => {
     console.log(`Message from socket client: ${msg.toString()}`);
@@ -41,6 +48,7 @@ io.on("connection", (socket) => {
     console.warn("A socket user has disconnected.");
   });
 });
+
 // ! Do not change from 3001 !
 const PORT = process.env.PORT || 3001;
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Messages from "./Messages";
+import Messages, { MessageArray } from "./Messages";
 import ChatForm from "./Forms/ChatForm";
 import SessionUtils from "./SessionUtils";
 import { API } from "../api/api";
 
 const ChatView: React.FC<any> = ({ socket }) => {
   const [loading, setLoading] = useState(true);
-  const [localMessageState, setLocalMessageState] = useState<string[]>([]);
+  const [localMessageState, setLocalMessageState] = useState<MessageArray>([]);
 
   useEffect(() => {
     const getMessages = async () => {

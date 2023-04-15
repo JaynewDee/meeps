@@ -23,7 +23,7 @@ type Message = {
   recipient: string;
 };
 
-type MessageArray = Message[];
+export type MessageArray = Message[];
 
 interface MessageProps {
   socket: SocketProp;

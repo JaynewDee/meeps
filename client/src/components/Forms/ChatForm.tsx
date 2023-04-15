@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
-import { validateMessage } from "../../utils/events";
+import { useMessageValidation } from "../../utils/hooks";
 import { SocketProp } from "../../utils/hooks";
 import { API } from "../../api/api";
 import { AuthHandle } from "../../auth/auth";
@@ -13,15 +13,14 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
   const [inputState, setInputState] = useState("");
   const [error, setError] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputState(e.target.value);
-  };
 
   const sendMessage = async (e: any) => {
     e.preventDefault();
 
     try {
-      const isValid = await validateMessage(
+      const isValid = await useMessageValidation(
         e,
         inputState,
         setInputState,
