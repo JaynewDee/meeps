@@ -5,21 +5,25 @@ import {
 } from "react-icons/bs";
 import { AuthHandle } from "../auth/auth";
 import { useUserContext } from "../utils/context";
-import { Dispatch, SetStateAction, MouseEvent, useState } from "react";
-import { createPortal } from "react-dom";
+import { Dispatch, SetStateAction, MouseEvent } from "react";
 
 type Settings = {
   displayName: string;
   hideRealName: boolean;
+  currentRoom: string;
 };
 
 interface SettingsProp {
   userSettings: Settings;
   setUserSettings: Dispatch<SetStateAction<Settings>>;
+  setModalState: Dispatch<SetStateAction<string>>;
 }
 
-const Header: React.FC<SettingsProp> = ({ userSettings, setUserSettings }) => {
-  const [modalState, setModalState] = useState("");
+const Header: React.FC<SettingsProp> = ({
+  userSettings,
+  setUserSettings,
+  setModalState
+}) => {
   const { logout } = useUserContext();
 
   const destroySession = () => {
@@ -28,8 +32,7 @@ const Header: React.FC<SettingsProp> = ({ userSettings, setUserSettings }) => {
   };
 
   const handleModalDisplay = (e: MouseEvent<HTMLSpanElement>) => {
-    const target = e.currentTarget;
-    const type = target.getAttribute("data-modal") as string;
+    const type = e.currentTarget.getAttribute("data-modal") as string;
     setModalState(type);
   };
 
@@ -55,43 +58,9 @@ const Header: React.FC<SettingsProp> = ({ userSettings, setUserSettings }) => {
           {ExitDoor({})}
         </span>
       </div>
-      <>{modalState && Modal({ display: modalState, setter: setModalState })}</>
+      <></>
     </header>
   );
 };
 
 export default Header;
-
-interface ModalProps {
-  display: string;
-  setter: Dispatch<SetStateAction<string>>;
-}
-
-const Modal: React.FC<ModalProps> = ({ display, setter }) => {
-  const SettingsContent = () => {
-    return <div>SETTINGS MODAL</div>;
-  };
-
-  const HelpContent = () => {
-    return <div>HELP MODAL</div>;
-  };
-
-  const handleClose = () => setter("");
-
-  const contentSwitch = () =>
-    display === "settings" ? (
-      SettingsContent()
-    ) : display === "help" ? (
-      HelpContent()
-    ) : (
-      <></>
-    );
-
-  return createPortal(
-    <div className="modal-container">
-      <button onClick={handleClose}>X</button>
-      <div>{contentSwitch()}</div>
-    </div>,
-    document.getElementById("modal-root") as HTMLElement
-  );
-};

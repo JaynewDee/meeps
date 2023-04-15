@@ -5,8 +5,7 @@ import ChatView from "./components/ChatView";
 import { useUserContext } from "./utils/context";
 import { useChatSocket } from "./utils/hooks";
 
-function Main() {
-  const [currentRoom, setCurrentRoom] = useState("central");
+function Main({ currentRoom }: { currentRoom: string }) {
   const { userState, login, logout } = useUserContext();
 
   const socket = useChatSocket(currentRoom);
