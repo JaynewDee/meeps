@@ -16,12 +16,14 @@ type Settings = {
 interface SettingsProp {
   userSettings: Settings;
   setUserSettings: Dispatch<SetStateAction<Settings>>;
+  modalState: string;
   setModalState: Dispatch<SetStateAction<string>>;
 }
 
 const Header: React.FC<SettingsProp> = ({
   userSettings,
   setUserSettings,
+  modalState,
   setModalState
 }) => {
   const { logout } = useUserContext();
@@ -33,7 +35,7 @@ const Header: React.FC<SettingsProp> = ({
 
   const handleModalDisplay = (e: MouseEvent<HTMLSpanElement>) => {
     const type = e.currentTarget.getAttribute("data-modal") as string;
-    setModalState(type);
+    setModalState(type === modalState ? "" : type);
   };
 
   return (

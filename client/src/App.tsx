@@ -17,14 +17,30 @@ const Modal: React.FC<ModalProps> = ({
   displaySetter,
   setUserSettings
 }) => {
+  const [selectRoomState, setSelectRoomState] = useState("");
+
   const handleClose = () => {
     displaySetter("");
   };
-  const selectInputRef = useRef<HTMLSelectElement>(null);
 
-  const SettingsContent = () => {};
+  const handleRoomSelect = (e: any) =>
+    setSelectRoomState(e.currentTarget.value);
+
+  const handleSwitchRooms = (e: any) => {
+    setUserSettings((prev: any) => ({ ...prev, currentRoom: selectRoomState }));
+  };
+
+  const SettingsContent = () => (
+    <div>
+      <select onChange={handleRoomSelect} value={selectRoomState}>
+        <option value="central">Central</option>
+      </select>
+      <button onClick={handleSwitchRooms}>SWITCH</button>
+    </div>
+  );
 
   const HelpContent = () => {};
+
   return createPortal(
     !display ? (
       <></>
@@ -36,7 +52,7 @@ const Modal: React.FC<ModalProps> = ({
         >
           X
         </button>
-        <div></div>
+        <div>{display === "settings" ? SettingsContent() : <></>}</div>
       </div>
     ),
 
@@ -53,18 +69,14 @@ function App() {
 
   const [modalState, setModalState] = useState("");
 
-  const localStore = new LSItemHandler("settings");
+  // const localStore = new LSItemHandler("settings");
 
   useEffect(() => {
-    const store = localStore.get();
-    if (store.length === 0) return;
-
-    setUserSettings(store);
+    console.log(userSettings);
+    // const store = localStore.get();
+    // if (store == userSettings || store.length === 0) return;
+    // setUserSettings(store);
   }, []);
-
-  useEffect(() => {
-    localStore.set(userSettings);
-  }, [userSettings]);
 
   return (
     <UserContextProvider>
@@ -72,6 +84,7 @@ function App() {
         <Header
           userSettings={userSettings}
           setUserSettings={setUserSettings}
+          modalState={modalState}
           setModalState={setModalState}
         />
         <Main currentRoom={userSettings.currentRoom} />

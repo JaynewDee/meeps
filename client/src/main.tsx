@@ -20,6 +20,9 @@ function Main({ currentRoom }: { currentRoom: string }) {
     logout();
   }, []);
 
+  useEffect(() => {
+    socket?.emit("join room", currentRoom);
+  }, [currentRoom]);
   return (
     <>
       {userState.isLoggedIn ? (
