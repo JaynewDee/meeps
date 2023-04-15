@@ -67,8 +67,8 @@ export const API: APIModule = {
       .then((res) => res.json())
       .catch((err) => console.error(err));
   },
-  persistMsg: async function (msgEntity: MsgEntity, roomId: string) {
-    return await fetch(`${this.baseUrl}/user/msg?roomId=${roomId}`, {
+  persistMsg: async function (msgEntity: MsgEntity, roomName: string) {
+    return await fetch(`${this.baseUrl}/user/msg?roomName=${roomName}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

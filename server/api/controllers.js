@@ -36,11 +36,6 @@ async function createUser(req, res) {
     const user = await User.create(body);
     const token = jwtAuth.sign(user);
 
-    await ChatRoom.findOneAndUpdate(
-      { name: "central" },
-      { $push: { members: user._id } }
-    );
-
     res.json({ status: 200, token, user });
   } catch (err) {
     if (err.code === 11000) {
@@ -56,13 +51,13 @@ async function createUser(req, res) {
 // Persist a new message
 async function storeUserMsg(req, res) {
   const { author, text } = req.body;
-  const roomId = req.query.roomId;
-  const centralRoom = await ChatRoom.findOne({ name: "central" });
+  const roomName = req.query.roomName;
+  const toRoom = await ChatRoom.findOne({ name: roomName });
 
   const created = await Message.create({
     text,
     author,
-    recipient: centralRoom._id
+    recipient: toRoom._id
   });
 
   const newMsg = await Message.findOne({ _id: created._id }).populate({
@@ -76,7 +71,7 @@ async function storeUserMsg(req, res) {
   );
 
   await ChatRoom.findOneAndUpdate(
-    { name: "central" },
+    { name: roomName },
     { $push: { messages: newMsg._id } }
   );
 

@@ -37,7 +37,6 @@ const Messages: React.FC<MessageProps> = ({
   setMessageState
 }) => {
   socket!.on("chat message", (msg: Message) => {
-    console.log(msg);
     setMessageState([...messages, msg]);
   });
 

@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+const ChatRoom = require("./ChatRoom");
 const bcrypt = require("bcrypt");
 
 const validateEmail = (email) => {
@@ -58,6 +58,10 @@ userSchema.pre("save", async function (next) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
+  await ChatRoom.findOneAndUpdate(
+    { name: "central" },
+    { $push: { members: this._id }, unique: true }
+  );
   next();
 });
 

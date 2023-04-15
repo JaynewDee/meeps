@@ -69,15 +69,6 @@ function App() {
 
   const [modalState, setModalState] = useState("");
 
-  // const localStore = new LSItemHandler("settings");
-
-  useEffect(() => {
-    console.log(userSettings);
-    // const store = localStore.get();
-    // if (store == userSettings || store.length === 0) return;
-    // setUserSettings(store);
-  }, []);
-
   return (
     <UserContextProvider>
       <div className="App">

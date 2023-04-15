@@ -22,6 +22,7 @@ db.once("open", async () => {
   try {
     await db.dropDatabase();
     const { _id } = await ChatRoom.create(central);
+    console.log(_id);
     await User.create(admin(_id));
     process.exit(0);
   } catch (err) {

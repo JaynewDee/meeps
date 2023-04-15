@@ -15,10 +15,16 @@ const SessionUtils: React.FC<any> = ({}) => {
     <div style={{ width: 0, border: "1px solid black", height: "12px" }}></div>
   );
 
+  const fetchRooms = async () => {
+    const res = await API.getRooms();
+    console.log(res);
+  };
   return (
     <div className="session-utils-box">
       {spacer()}
       <button onClick={destroySession}>END SESSION</button>
+      {spacer()}
+      <button onClick={fetchRooms}>FETCH ROOMS</button>
       {spacer()}
     </div>
   );

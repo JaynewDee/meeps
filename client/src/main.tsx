@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AuthHandle } from "./auth/auth";
 import Auth from "./components/Auth";
 import ChatView from "./components/ChatView";
@@ -23,6 +23,7 @@ function Main({ currentRoom }: { currentRoom: string }) {
   useEffect(() => {
     socket?.emit("join room", currentRoom);
   }, [currentRoom]);
+
   return (
     <>
       {userState.isLoggedIn ? (
