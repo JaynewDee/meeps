@@ -16,7 +16,6 @@ export class IDB {
     };
 
     request.onsuccess = (event: any) => {
-      console.log(event.target.result);
       return event.target.result;
     };
   }
@@ -34,22 +33,22 @@ export class IDB {
 }
 
 export class LSItemHandler {
-  item: string;
+  key: string;
 
-  constructor(item: string) {
-    this.item = item;
+  constructor(key: string) {
+    this.key = key;
   }
 
   get() {
-    const data = localStorage.getItem(this.item);
-    return data ? JSON.parse(data) : [];
+    const data = localStorage.getItem(this.key);
+    return data ? JSON.parse(data) : {};
   }
 
   set(value: any) {
-    localStorage.setItem(this.item, JSON.stringify(value));
+    localStorage.setItem(this.key, JSON.stringify(value));
   }
 
   delete() {
-    localStorage.removeItem(this.item);
+    localStorage.removeItem(this.key);
   }
 }

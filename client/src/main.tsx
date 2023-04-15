@@ -6,7 +6,7 @@ import { useUserContext } from "./utils/context";
 import { useChatSocket } from "./utils/hooks";
 
 function Main() {
-  const { userState, login } = useUserContext();
+  const { userState, login, logout } = useUserContext();
 
   const socket = useChatSocket();
 
@@ -17,6 +17,7 @@ function Main() {
       login();
       return;
     }
+    logout();
   }, []);
 
   return (

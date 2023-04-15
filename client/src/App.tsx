@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-
 import "./App.css";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
-import { UserContextProvider } from "./utils/context";
 import Main from "./main";
+import { UserContextProvider } from "./utils/context";
 import { LSItemHandler } from "./storage";
 
 function App() {
@@ -28,7 +27,7 @@ function App() {
   return (
     <UserContextProvider>
       <div className="App">
-        <Header />
+        <Header userSettings={userSettings} setUserSettings={setUserSettings} />
         <Main />
       </div>
     </UserContextProvider>

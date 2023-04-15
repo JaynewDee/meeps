@@ -1,4 +1,10 @@
-import React, { MutableRefObject, useEffect, useRef } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef
+} from "react";
 import { SocketProp } from "../utils/hooks";
 import { LSItemHandler } from "../storage";
 
@@ -17,10 +23,12 @@ type Message = {
   recipient: string;
 };
 
+type MessageArray = Message[];
+
 interface MessageProps {
   socket: SocketProp;
   messages: Message[];
-  setMessageState: any;
+  setMessageState: Dispatch<SetStateAction<MessageArray>>;
 }
 
 const Messages: React.FC<MessageProps> = ({
@@ -73,20 +81,24 @@ const Messages: React.FC<MessageProps> = ({
     </div>
   );
 
+  const MemoizedMessages = useMemo(
+    () =>
+      messages.map((message: Message) => (
+        <div className="message-content" key={message._id}>
+          <div className="name-and-date">
+            <span className="message-username">{message.author.username}</span>
+            {symbolTime(new Date(message.createdAt))}
+          </div>
+          <p className="message-text">{message.text}</p>
+        </div>
+      )),
+    [messages]
+  );
+
   return (
     <div className="scroll-wrapper">
       <div ref={scrollRef} className="messages-container">
-        {messages.map((message: Message) => (
-          <div className="message-content" key={message._id}>
-            <div className="name-and-date">
-              <span className="message-username">
-                {message.author.username}
-              </span>
-              {symbolTime(new Date(message.createdAt))}
-            </div>
-            <p className="message-text">{message.text}</p>
-          </div>
-        ))}
+        {MemoizedMessages}
       </div>
     </div>
   );
