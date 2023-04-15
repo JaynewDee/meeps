@@ -103,7 +103,7 @@ export const API: APIModule = {
   },
   getRecentMessages: async function (roomName: string) {
     const options = {
-      url: `${this.baseUrl}/rooms/${roomName}`,
+      url: `${this.baseUrl}/rooms/msgs?roomName=${roomName}`,
       options: {
         method: "GET",
         headers: {

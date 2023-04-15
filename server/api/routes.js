@@ -15,7 +15,7 @@ const api = require("express").Router();
 //
 
 api.get("/rooms", getAllRooms);
-api.get("/rooms/central", getRecentMessages);
+api.get("/rooms/msgs", getRecentMessages);
 api.get("/user/me", jwtAuth.middleware, getMe);
 
 //

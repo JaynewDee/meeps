@@ -27,7 +27,7 @@ function Main({ currentRoom }: { currentRoom: string }) {
   return (
     <>
       {userState.isLoggedIn ? (
-        <ChatView socket={socket} />
+        <ChatView socket={socket} currentRoom={currentRoom} />
       ) : (
         <Auth socket={socket} />
       )}

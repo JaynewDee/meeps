@@ -19,6 +19,7 @@ const SessionUtils: React.FC<any> = ({}) => {
     const res = await API.getRooms();
     console.log(res);
   };
+
   return (
     <div className="session-utils-box">
       {spacer()}

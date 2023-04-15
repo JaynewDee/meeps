@@ -31,6 +31,7 @@ function App() {
         {Modal({
           display: modalState,
           displaySetter: setModalState,
+          userSettings,
           setUserSettings
         })}
       </div>

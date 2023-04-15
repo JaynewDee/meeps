@@ -4,26 +4,30 @@ import { createPortal } from "react-dom";
 interface ModalProps {
   display: string;
   displaySetter: Dispatch<SetStateAction<string>>;
+  userSettings: any;
   setUserSettings: Dispatch<SetStateAction<any>>;
 }
 
 const Modal: React.FC<ModalProps> = ({
   display,
   displaySetter,
+  userSettings,
   setUserSettings
 }) => {
-  const [selectRoomState, setSelectRoomState] = useState("");
-
-  const handleClose = () => {
-    displaySetter("");
-  };
+  const [selectRoomState, setSelectRoomState] = useState(
+    userSettings.currentRoom
+  );
 
   const handleRoomSelect = (e: any) => {
-    setSelectRoomState(e.currentTarget.value);
+    setSelectRoomState(e.target.value);
   };
 
   const handleSwitchRooms = (e: any) => {
     setUserSettings((prev: any) => ({ ...prev, currentRoom: selectRoomState }));
+  };
+
+  const handleClose = () => {
+    displaySetter("");
   };
 
   const SettingsContent = () => (
@@ -32,6 +36,7 @@ const Modal: React.FC<ModalProps> = ({
         <label style={{ textAlign: "center" }}>Traverse Rooms</label>
         <select onChange={handleRoomSelect} value={selectRoomState}>
           <option value="central">Central</option>
+          <option value="super cool room">Super Cool Room</option>
         </select>
         <button onClick={handleSwitchRooms}>SWITCH</button>
       </div>

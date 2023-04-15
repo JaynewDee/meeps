@@ -3,6 +3,15 @@ const ChatRoom = require("../models/ChatRoom");
 const Message = require("../models/Message");
 const jwtAuth = require("../auth");
 
+///////////////////////////////////////////////////////////////////////////////////
+
+async function getAllRooms(req, res) {
+  const allRooms = await ChatRoom.find({}).populate("messages");
+  res.json({ status: 200, data: allRooms });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+
 async function loginUser(req, res) {
   const { body } = req;
 
@@ -80,17 +89,20 @@ async function storeUserMsg(req, res) {
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-async function getAllRooms(req, res) {
-  const allRooms = await ChatRoom.find({}).populate("messages");
-  res.json({ status: 200, data: allRooms });
-}
-
-/////////////////////////////////////////////////////////////////////////////////////
-
 // Send 50 most recent messages
 async function getRecentMessages(req, res) {
+  const roomName = req.query.roomName;
+
+  const fromRoom = await ChatRoom.findOne({ name: roomName });
+
+  if (!fromRoom)
+    return res.json({
+      status: 404,
+      message: "That room doesn't seem to exist!"
+    });
+
   try {
-    const recentMsgs = await Message.find()
+    const recentMsgs = await Message.find({ recipient: fromRoom._id })
       .sort({ createdAt: -1 })
       .limit(50)
       .populate({

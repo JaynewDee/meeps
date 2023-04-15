@@ -22,11 +22,17 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.info("A socket user has connected.");
+  console.log(socket.rooms);
 
   // Listen for new message type called `notification`
   // emit notifications for `login` and `logout` events
 
+  socket.on("notification", (data) => {
+    console.log(data);
+  });
+
   socket.on("join room", (roomName) => {
+    console.log(roomName);
     socket.join(roomName);
   });
 

@@ -73,8 +73,7 @@ header {
 .menu-icon {
   font-size: 1.33rem;
 }
-.settings-icon {
-}
+
 .settings-icon:hover {
   color: var(--prime);
 }
@@ -156,9 +155,9 @@ header {
   position: fixed;
   display: flex;
   flex-flow: column nowrap;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
-  justify-content: flex-end;
+  justify-content: flex-start;
   border-left: 1px solid white;
   border-right: 1px solid white;
   left: 50%;
@@ -172,7 +171,6 @@ header {
 }
 
 .messages-container {
-  min-height: 99vh;
   font-size: 1rem;
   word-break: break-all;
   text-align: left;
@@ -203,11 +201,11 @@ header {
 }
 
 .message-content:first-child {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
-.message-content:last-child {
-  margin-bottom: 1rem;
-}
+/* .message-content:last-child {
+  margin-bottom: 2rem;
+} */
 
 .message-username,
 .datetime {
