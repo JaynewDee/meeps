@@ -18,7 +18,7 @@ function App() {
     displayName: "",
     hideRealName: true,
     currentRoom: "central",
-    currentTheme: "Falling Star"
+    currentTheme: "Comet"
   });
 
   const [modalState, setModalState] = useState("");

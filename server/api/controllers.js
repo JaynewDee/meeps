@@ -89,7 +89,7 @@ async function storeUserMsg(req, res) {
 
   const newMsg = await Message.findOne({ _id: created._id }).populate({
     path: "author",
-    select: "email firstName lastName username"
+    select: "email firstName lastName username rooms"
   });
 
   await User.findOneAndUpdate(

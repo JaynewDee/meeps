@@ -51,7 +51,7 @@ const Modal: React.FC<ModalProps> = ({
       <div className="change-theme-container">
         <label style={{ textAlign: "center" }}>THEME</label>
         <select onChange={handleThemeSelect} value={userSettings.currentTheme}>
-          {["Mono Ocean", "Falling Star", "Summer Jungle"].map((opt) => (
+          {["Mono Ocean", "Comet", "Summer Jungle"].map((opt) => (
             <option key={opt} value={opt}>
               {opt}
             </option>
