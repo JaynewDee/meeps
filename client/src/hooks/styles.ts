@@ -12,7 +12,6 @@ export const useThemeSettings = (currentTheme: string) => {
       fontPrimary: `"Anonymous Pro", monospace`,
       baseFontSize: "16px"
     },
-
     Comet: {
       foreground: "#0A100D",
       background: "#0A100D",
@@ -23,7 +22,7 @@ export const useThemeSettings = (currentTheme: string) => {
       msgField: "black",
       utilsBar: "",
       fontPrimary: `"Dongle", sans-serif`,
-      baseFontSize: "28px"
+      baseFontSize: "26px"
     },
     "Summer Jungle": {
       foreground: "#181818",

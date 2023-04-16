@@ -1,36 +1,4 @@
-const { indexedDB, localStorage } = window;
-
-export class IDB {
-  name: string;
-  version: number;
-
-  constructor(name: string, version: number) {
-    this.name = name;
-    this.version = version;
-  }
-
-  public open() {
-    const request = indexedDB.open(this.name, this.version);
-    request.onerror = () => {
-      console.error(`Error loading database ${this.name}`);
-    };
-
-    request.onsuccess = (event: any) => {
-      return event.target.result;
-    };
-  }
-
-  public destroy() {
-    const deleteRequest = indexedDB.deleteDatabase(this.name);
-    deleteRequest.onerror = () => {
-      console.error(`Error deleting database ${this.name}`);
-    };
-
-    deleteRequest.onsuccess = () => {
-      console.log(`Database ${this.name} successfully deleted.`);
-    };
-  }
-}
+const { localStorage } = window;
 
 export class LSItemHandler {
   key: string;
@@ -46,6 +14,13 @@ export class LSItemHandler {
 
   set(value: any) {
     localStorage.setItem(this.key, JSON.stringify(value));
+  }
+
+  update(value: any) {
+    const current = this.get();
+    console.log(current);
+    if (Object.keys(current).length === 0) {
+    }
   }
 
   delete() {

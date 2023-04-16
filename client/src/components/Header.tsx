@@ -30,27 +30,34 @@ const Header: React.FC<SettingsProp> = ({ modalState, setModalState }) => {
     setModalState(type === modalState ? "" : type);
   };
 
+  const isLoggedIn = SessionAuthHandle.validate();
+
   return (
     <header>
       <h1 className="app-title">ROOMY</h1>
       <div className="menu-options">
-        <span
-          className="settings-icon menu-icon"
-          data-modal="settings"
-          onClick={handleModalDisplay}
-        >
-          {Gear({})}
-        </span>
-        <span
-          className="help-icon menu-icon"
-          data-modal="help"
-          onClick={handleModalDisplay}
-        >
-          {Question({})}
-        </span>
-        <span className="exit-icon menu-icon" onClick={destroySession}>
-          {ExitDoor({})}
-        </span>
+        {isLoggedIn && (
+          <>
+            {" "}
+            <span
+              className="settings-icon menu-icon"
+              data-modal="settings"
+              onClick={handleModalDisplay}
+            >
+              {Gear({})}
+            </span>
+            <span
+              className="help-icon menu-icon"
+              data-modal="help"
+              onClick={handleModalDisplay}
+            >
+              {Question({})}
+            </span>
+            <span className="exit-icon menu-icon" onClick={destroySession}>
+              {ExitDoor({})}
+            </span>
+          </>
+        )}
       </div>
       <></>
     </header>

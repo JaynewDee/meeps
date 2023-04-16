@@ -1,10 +1,11 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Main from "./main";
 import Modal from "./components/Modal";
 import { UserContextProvider } from "./context";
 import { useThemeSettings } from "./hooks";
+import { LSItemHandler } from "./storage";
 
 export type Settings = {
   displayName: string;
@@ -20,6 +21,11 @@ function App() {
     currentRoom: "central",
     currentTheme: "Comet"
   });
+
+  useEffect(() => {
+    const storage = new LSItemHandler("settings");
+    storage.update({});
+  }, []);
 
   const [modalState, setModalState] = useState("");
 

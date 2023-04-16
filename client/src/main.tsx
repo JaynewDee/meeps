@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { SessionAuthHandle } from "./auth/auth";
 import Auth from "./components/Auth";
 import ChatView from "./components/ChatView";
