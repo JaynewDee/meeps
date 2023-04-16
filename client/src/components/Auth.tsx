@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { SocketProp } from "../hooks";
 import Login from "./Forms/Login";
 import Register from "./Forms/Register";
@@ -12,10 +12,13 @@ interface AuthProps {
 const Auth: React.FC<AuthProps> = ({ socket }) => {
   const [displayState, setDisplayState] = useState("login");
 
-  const formProps = {
-    setDisplay: setDisplayState,
-    socket: socket
-  };
+  const formProps = useMemo(
+    () => ({
+      setDisplay: setDisplayState,
+      socket: socket
+    }),
+    [socket, setDisplayState]
+  );
 
   return displayState === "register" ? (
     <Register {...formProps} />

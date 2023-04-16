@@ -5,7 +5,7 @@ import {
 } from "react-icons/bs";
 import { SessionAuthHandle } from "../auth/auth";
 import { useUserContext } from "../context";
-import { Dispatch, SetStateAction, MouseEvent } from "react";
+import { Dispatch, SetStateAction, MouseEvent, memo } from "react";
 import { Settings } from "../App";
 
 //
@@ -57,4 +57,4 @@ const Header: React.FC<SettingsProp> = ({ modalState, setModalState }) => {
   );
 };
 
-export default Header;
+export default memo(Header);

@@ -49,6 +49,7 @@ header {
   display: flex;
   flex-flow: column nowrap;
   width: 15rem;
+  margin: 1rem auto;
 }
 
 .app-title {

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { createPortal, flushSync } from "react-dom";
+import { createPortal } from "react-dom";
 
 interface ModalProps {
   display: string;
@@ -18,10 +18,6 @@ const Modal: React.FC<ModalProps> = ({
     userSettings.currentRoom
   );
 
-  const [selectThemeState, setSelectThemeState] = useState(
-    userSettings.currentTheme
-  );
-
   const handleRoomSelect = (e: any) => {
     setSelectRoomState(e.target.value);
   };
@@ -37,13 +33,9 @@ const Modal: React.FC<ModalProps> = ({
     setUserSettings((prev: any) => ({ ...prev, currentRoom: selectRoomState }));
   };
 
-  const handleSwitchTheme = () => {};
-
   const handleClose = () => {
     setDisplay("");
   };
-
-  console.log(selectThemeState);
 
   const SettingsContent = () => (
     <div className="settings-container">
@@ -65,12 +57,13 @@ const Modal: React.FC<ModalProps> = ({
             </option>
           ))}
         </select>
-        <button onClick={handleSwitchTheme}>CHANGE</button>
       </div>
     </div>
   );
 
-  const HelpContent = () => {};
+  const HelpContent = () => {
+    return <div>HELP</div>;
+  };
 
   return createPortal(
     !display ? (
@@ -80,7 +73,7 @@ const Modal: React.FC<ModalProps> = ({
         <button className="close-modal-btn" onClick={handleClose}>
           X
         </button>
-        <div>{display === "settings" ? SettingsContent() : <></>}</div>
+        <div>{display === "settings" ? SettingsContent() : HelpContent()}</div>
       </div>
     ),
     document.getElementById("modal-root") as HTMLElement
