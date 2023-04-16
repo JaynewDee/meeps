@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { BsFillArrowUpCircleFill as Arrow } from "react-icons/bs";
-import { useMessageValidation } from "../../utils/hooks";
-import { SocketProp } from "../../utils/hooks";
+import { useMessageValidation } from "../../hooks";
+import { SocketProp } from "../../hooks";
 import { API } from "../../api/api";
-import { AuthHandle } from "../../auth/auth";
+import { SessionAuthHandle } from "../../auth/auth";
 
 interface ChatFormProps {
   socket: SocketProp;
+  currentRoom: string;
 }
 
-const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
+const ChatForm: React.FC<ChatFormProps> = ({ socket, currentRoom }) => {
   const [inputState, setInputState] = useState("");
   const [error, setError] = useState("");
 
@@ -29,14 +30,15 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket }) => {
       if (!isValid) return;
     } catch (err) {
       console.error(err);
+      return;
     }
 
-    const user = AuthHandle.getUser();
+    const user = SessionAuthHandle.getUser();
     const authorId = user.data._id;
 
     const res = await API.persistMsg(
       { text: inputState.trim(), author: authorId },
-      "central"
+      currentRoom
     );
 
     socket!.emit("chat message", res.message);

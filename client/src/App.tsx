@@ -3,11 +3,18 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Main from "./main";
 import Modal from "./components/Modal";
-import { UserContextProvider } from "./utils/context";
-import { useThemeSettings } from "./utils/hooks";
+import { UserContextProvider } from "./context";
+import { useThemeSettings } from "./hooks";
+
+export type Settings = {
+  displayName: string;
+  hideRealName: boolean;
+  currentRoom: string;
+  currentTheme: string;
+};
 
 function App() {
-  const [userSettings, setUserSettings] = useState({
+  const [userSettings, setUserSettings] = useState<Settings>({
     displayName: "",
     hideRealName: true,
     currentRoom: "central",
@@ -30,7 +37,7 @@ function App() {
         <Main currentRoom={userSettings.currentRoom} />
         {Modal({
           display: modalState,
-          displaySetter: setModalState,
+          setDisplay: setModalState,
           userSettings,
           setUserSettings
         })}

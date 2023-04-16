@@ -1,11 +1,10 @@
 import { catchAsync } from "catch-flow";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { API } from "../../api/api";
-import { AuthHandle } from "../../auth/auth";
-import { handleError, validateInput } from "../../utils/errors";
-import { SocketProp } from "../../utils/hooks";
+import { SessionAuthHandle } from "../../auth/auth";
+import { handleError, useAuthValidation, SocketProp } from "../../hooks";
 import { SetAuthDisplay } from "../Auth";
-import { useUserContext } from "../../utils/context";
+import { useUserContext } from "../../context";
 
 const defaultState = {
   firstName: "",
@@ -37,7 +36,7 @@ const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
   const handleSubmitRegistration = catchAsync(async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (validateInput("auth", inputState, setErrorState) !== "pass") {
+    if (useAuthValidation("auth", inputState, setErrorState) !== "pass") {
       return;
     }
 
@@ -47,7 +46,7 @@ const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
       handleError("duplicateUser", setErrorState);
       return;
     } else if (res.status === 200 && res.token) {
-      AuthHandle.login(res.token);
+      SessionAuthHandle.login(res.token);
       login();
     }
   });

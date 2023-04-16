@@ -3,6 +3,19 @@ const ChatRoom = require("../models/ChatRoom");
 const Message = require("../models/Message");
 const jwtAuth = require("../auth");
 
+//////////////////////////////////////////////////////////////////////////////////
+
+async function getUserRooms(req, res) {
+  const userId = req.query.userId;
+
+  const user = await User.findOne({ _id: userId }).populate({
+    path: "rooms",
+    select: "_id name members"
+  });
+
+  res.json({ status: 200, data: user.rooms });
+}
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 async function getAllRooms(req, res) {
@@ -29,7 +42,9 @@ async function loginUser(req, res) {
     }
 
     const token = jwtAuth.sign(user);
+
     res.cookie("jwt", token, { httpOnly: true });
+
     res.json({ status: 200, token, user });
   } catch (err) {
     console.error(err);
@@ -43,6 +58,7 @@ async function createUser(req, res) {
 
   try {
     const user = await User.create(body);
+
     const token = jwtAuth.sign(user);
 
     res.json({ status: 200, token, user });
@@ -60,7 +76,9 @@ async function createUser(req, res) {
 // Persist a new message
 async function storeUserMsg(req, res) {
   const { author, text } = req.body;
+
   const roomName = req.query.roomName;
+
   const toRoom = await ChatRoom.findOne({ name: roomName });
 
   const created = await Message.create({
@@ -109,6 +127,7 @@ async function getRecentMessages(req, res) {
         path: "author",
         select: "email firstName lastName username"
       });
+
     res.json({ status: 200, data: recentMsgs });
   } catch (err) {
     console.error(err);
@@ -126,6 +145,7 @@ async function getMe(req, res) {
   )
     .populate({ path: "messages" })
     .populate({ path: "rooms" });
+
   res.json({ status: 200, data: ownUser });
 }
 
@@ -133,6 +153,7 @@ async function getMe(req, res) {
 
 async function deleteAllMessages(req, res) {
   await Message.deleteMany({});
+
   res.json({ status: 200, message: "All Messages deleted." });
 }
 
@@ -142,6 +163,7 @@ module.exports = {
   loginUser,
   createUser,
   storeUserMsg,
+  getUserRooms,
   getAllRooms,
   getMe,
   getRecentMessages,

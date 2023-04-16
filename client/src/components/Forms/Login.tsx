@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { API } from "../../api/api";
-import { AuthHandle } from "../../auth/auth";
-import { handleError, validateInput } from "../../utils/errors";
-import { SocketProp } from "../../utils/hooks";
+import { SessionAuthHandle } from "../../auth/auth";
+import { useAuthValidation, SocketProp, handleError } from "../../hooks";
 import { SetAuthDisplay } from "../Auth";
-import { useUserContext } from "../../utils/context";
+import { useUserContext } from "../../context";
 
 interface LoginProps {
   socket: SocketProp;
@@ -31,7 +30,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
 
   const handleSubmitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateInput("auth", inputState, setErrorState) !== "pass") {
+    if (useAuthValidation("auth", inputState, setErrorState) !== "pass") {
       return;
     }
 
@@ -46,7 +45,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
     } else if (status === 208) {
       return handleError("duplicateUser", setErrorState);
     } else if (status === 200 && res.token) {
-      AuthHandle.login(res.token);
+      SessionAuthHandle.login(res.token);
       login();
     }
   };

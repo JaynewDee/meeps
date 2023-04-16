@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useRef
 } from "react";
-import { SocketProp } from "../utils/hooks";
+import { SocketProp } from "../hooks";
 import { LSItemHandler } from "../storage";
 
 type Author = {
@@ -73,8 +73,6 @@ const Messages: React.FC<MessageProps> = ({
   );
 };
 
-export default Messages;
-
 const Message: React.FC<MessageType> = ({ _id, author, createdAt, text }) => {
   const symbolTime = (time: Date) => (
     <div className="datetime">
@@ -105,3 +103,5 @@ const Message: React.FC<MessageType> = ({ _id, author, createdAt, text }) => {
     </div>
   );
 };
+
+export default Messages;

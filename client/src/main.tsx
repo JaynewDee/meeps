@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { AuthHandle } from "./auth/auth";
+import { useCallback, useEffect } from "react";
+import { SessionAuthHandle } from "./auth/auth";
 import Auth from "./components/Auth";
 import ChatView from "./components/ChatView";
-import { useUserContext } from "./utils/context";
-import { useChatSocket } from "./utils/hooks";
+import { useUserContext } from "./context";
+import { useChatSocket } from "./hooks";
 
 function Main({ currentRoom }: { currentRoom: string }) {
   const { userState, login, logout } = useUserContext();
@@ -12,11 +12,15 @@ function Main({ currentRoom }: { currentRoom: string }) {
 
   useEffect(() => {
     // Synchronize state with session token
-    const isLoggedIn = AuthHandle.validate();
+    const isLoggedIn = SessionAuthHandle.validate();
+
+    //
     if (isLoggedIn) {
       login();
       return;
     }
+    //
+
     logout();
   }, []);
 

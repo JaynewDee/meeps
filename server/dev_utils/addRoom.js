@@ -1,5 +1,6 @@
 const db = require("../config/db");
 const ChatRoom = require("../models/ChatRoom");
+const User = require("../models/User");
 
 const superCoolRoom = {
   name: "Super Cool Room",
@@ -10,7 +11,9 @@ const superCoolRoom = {
 db.once("open", async () => {
   try {
     const { _id } = await ChatRoom.create(superCoolRoom);
-    await ChatRoom.findOneAndUpdate({ _id }, { $push: { members } });
+    const admin = await User.findOne({ email: "jdiehl2236@gmail.com" });
+
+    await ChatRoom.findOneAndUpdate({ _id }, { $push: { members: admin._id } });
     process.exit(0);
   } catch (err) {
     console.error(err);

@@ -3,16 +3,12 @@ import {
   BsQuestionCircle as Question,
   BsDoorOpen as ExitDoor
 } from "react-icons/bs";
-import { AuthHandle } from "../auth/auth";
-import { useUserContext } from "../utils/context";
+import { SessionAuthHandle } from "../auth/auth";
+import { useUserContext } from "../context";
 import { Dispatch, SetStateAction, MouseEvent } from "react";
+import { Settings } from "../App";
 
-type Settings = {
-  displayName: string;
-  hideRealName: boolean;
-  currentRoom: string;
-  currentTheme: string;
-};
+//
 
 interface SettingsProp {
   userSettings: Settings;
@@ -25,7 +21,7 @@ const Header: React.FC<SettingsProp> = ({ modalState, setModalState }) => {
   const { logout } = useUserContext();
 
   const destroySession = () => {
-    AuthHandle.logout();
+    SessionAuthHandle.logout();
     logout();
   };
 

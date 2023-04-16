@@ -1,13 +1,13 @@
 import React from "react";
 import { API } from "../api/api";
-import { AuthHandle } from "../auth/auth";
-import { useUserContext } from "../utils/context";
+import { SessionAuthHandle } from "../auth/auth";
+import { useUserContext } from "../context";
 
 const SessionUtils: React.FC<any> = ({}) => {
   const { logout } = useUserContext();
 
   const destroySession = () => {
-    AuthHandle.logout();
+    SessionAuthHandle.logout();
     logout();
   };
 
@@ -20,12 +20,20 @@ const SessionUtils: React.FC<any> = ({}) => {
     console.log(res);
   };
 
+  const fetchUserRooms = async () => {
+    const { data } = SessionAuthHandle.getUser();
+    const res = await API.getUserRooms(data._id);
+    console.log(res);
+  };
+
   return (
     <div className="session-utils-box">
       {spacer()}
       <button onClick={destroySession}>END SESSION</button>
       {spacer()}
       <button onClick={fetchRooms}>FETCH ROOMS</button>
+      {spacer()}
+      <button onClick={fetchUserRooms}>FETCH USER'S ROOMS</button>
       {spacer()}
     </div>
   );

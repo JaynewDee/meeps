@@ -1,6 +1,5 @@
 // @ts-ignore
-import Cookies from "js-cookie";
-import { AuthHandle } from "../auth/auth";
+import { SessionAuthHandle } from "../auth/auth";
 
 type RegisterEntity = {
   firstName: string;
@@ -29,10 +28,12 @@ type RequestObject = {
 
 interface APIModule {
   baseUrl: string;
+  token: string | null;
   postOptions: (body: PostBody) => RequestObject;
   login: (entity: LoginEntity) => Promise<any>;
   register: (entity: RegisterEntity) => Promise<any>;
   persistMsg: (entity: MsgEntity, roomId: string) => Promise<any>;
+  getUserRooms: (userId: string) => Promise<any>;
   getRooms: () => Promise<any>;
   getMe: () => Promise<any>;
   getRecentMessages: (roomName: string) => any;
@@ -50,6 +51,7 @@ const baseByEnv =
 
 export const API: APIModule = {
   baseUrl: baseByEnv + "/api",
+  token: SessionAuthHandle.getToken(),
   postOptions: (body: PostBody) => ({
     method: "POST",
     headers: {
@@ -72,9 +74,20 @@ export const API: APIModule = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${AuthHandle.getToken()}`
+        Authorization: `Bearer ${this.token}`
       },
       body: JSON.stringify(msgEntity)
+    })
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  },
+  getUserRooms: async function (userId: string) {
+    return await fetch(`${this.baseUrl}/rooms/user?userId=${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`
+      }
     })
       .then((res) => res.json())
       .catch((err) => console.error(err));
@@ -84,7 +97,7 @@ export const API: APIModule = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${AuthHandle.getToken()}`
+        Authorization: `Bearer ${this.token}`
       }
     })
       .then((res) => res.json())
@@ -95,7 +108,7 @@ export const API: APIModule = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${AuthHandle.getToken()}`
+        Authorization: `Bearer ${this.token}`
       }
     })
       .then((res) => res.json())
@@ -108,10 +121,11 @@ export const API: APIModule = {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${AuthHandle.getToken()}`
+          Authorization: `Bearer ${this.token}`
         }
       }
     };
+
     return await fetch(options.url, options.options)
       .then((res) => res.json())
       .catch((err) => console.error(err));
@@ -123,7 +137,7 @@ export const API: APIModule = {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${AuthHandle.getToken()}`
+          Authorization: `Bearer ${this.token}`
         }
       }
     };

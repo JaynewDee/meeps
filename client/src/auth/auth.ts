@@ -32,7 +32,11 @@ const UserDefault = {
   exp: 0
 };
 
-export class AuthHandle {
+/* 
+  Manages Session Storage
+*/
+
+export class SessionAuthHandle {
   //
   static currentToken(): string | null {
     return sessionStorage.getItem("user_token");
@@ -47,7 +51,7 @@ export class AuthHandle {
       return false;
     }
   }
-
+  //
   public static getUser(): UserLocal {
     try {
       return decode(this.currentToken()!);

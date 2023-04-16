@@ -34,6 +34,7 @@ io.on("connection", (socket) => {
   socket.on("join room", (roomName) => {
     console.log(roomName);
     socket.join(roomName);
+    socket.emit("joined room", `Joined room ${roomName}`);
   });
 
   socket.on("chat message", (msg) => {

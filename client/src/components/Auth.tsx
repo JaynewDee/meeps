@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { SocketProp } from "../utils/hooks";
+import { SocketProp } from "../hooks";
 import Login from "./Forms/Login";
 import Register from "./Forms/Register";
 
