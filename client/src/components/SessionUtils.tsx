@@ -33,7 +33,16 @@ const SessionUtils: React.FC<any> = ({ currentRoom }) => {
         <button onClick={fetchUserRooms}>FETCH USER'S ROOMS</button>
         {spacer()} */}
       </div>
-      <div className="status-bar">{currentRoom.toUpperCase()}</div>
+      <div className="status-bar">
+        <div>
+          <button className="location-btn">
+            <span className="location-decor">{"["}</span>
+            {currentRoom}
+            <span className="location-decor">{"]"}:::</span>
+          </button>
+          {/* <span>{currentRoom}</span> */}
+        </div>
+      </div>
     </div>
   );
 };

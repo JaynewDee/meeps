@@ -33,7 +33,7 @@ export const useThemeSettings = (currentTheme: string): React.CSSProperties => {
       prime: "#CF5C36",
       harsh: "rgba(164, 22, 35, 1)",
       variant: "rgba(240, 246, 0)",
-      scrollbarColor: "#CF5C36",
+      scrollbarColor: "rgba(207, 92, 54, .66)",
       msgField: "black",
       utilsBar: "rgba(15, 15, 15, .9)",
       fontPrimary: `"Nova Oval", cursive`,

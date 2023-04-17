@@ -22,7 +22,7 @@ export type MessageArray = MessageType[];
 interface MessageProps {
   socket: SocketProp;
   messages: MessageArray;
-  setMessageState: Dispatch<SetStateAction<MessageArray>>;
+  setMessageState: (msgData: MessageArray) => any;
 }
 
 const Messages: React.FC<MessageProps> = ({

@@ -6,7 +6,7 @@
 select,
 option,
 label {
-  padding: 0.66rem 0.33rem;
+  padding: 0.11rem 0.33rem;
   font-size: 1.66em;
 }
 
@@ -26,6 +26,7 @@ select {
   background-color: var(--foreground);
   color: var(--light);
 }
+
 .change-room-container > button:hover {
   background-color: var(--light);
   color: var(--background);

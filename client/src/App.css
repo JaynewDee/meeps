@@ -75,10 +75,12 @@ header {
 }
 
 .menu-icon {
+  opacity: 0.75;
   font-size: 1.33rem;
 }
 .menu-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.06);
+  opacity: 1;
 }
 
 .registration-form {
@@ -199,9 +201,10 @@ header {
   word-break: keep-all;
 }
 
-.message-content:hover {
+.message-content:hover > .name-and-date {
   mix-blend-mode: screen;
-  transform: scale(1.003);
+  transform: scale(1.006);
+  opacity: 1;
 }
 
 .message-content:first-child {
@@ -232,6 +235,7 @@ header {
   align-items: center;
   margin: 0.66rem auto;
   height: 1rem;
+  opacity: 0.66;
 }
 
 .time-at {
@@ -300,8 +304,6 @@ header {
   /* z-index: 0; */
   background-color: var(--utils-bar);
   bottom: 0;
-  padding-left: 1rem;
-  padding-right: 3rem;
   height: 2rem;
   border: none;
   border-top: 3px solid var(--background);
@@ -312,11 +314,12 @@ header {
   align-items: center;
 }
 .session-utils-box > button {
+  height: 2rem;
+  padding: 0 6px;
+  color: rgba(200, 200, 200);
   background: none;
   border: none;
-  color: rgba(200, 200, 200);
   font-size: 0.66em;
-  padding: 0 0.33rem;
 }
 
 .session-utils-box > button:hover {
@@ -326,17 +329,36 @@ header {
 .status-bar {
   display: flex;
   align-items: center;
+  vertical-align: middle;
+  padding-right: 0;
   color: var(--light);
-  padding-right: 1.66rem;
   font-family: var(--font-primary);
+  font-size: 66%;
+  height: 100%;
 }
+
+.location-btn {
+  letter-spacing: 1px;
+  padding: 0 3px;
+  margin: auto 3px;
+  height: 1.88rem;
+  background: none;
+  color: var(--light);
+  border: none;
+}
+
 .msg-submit-btn {
   border-radius: 3px;
-  height: 2.66rem;
+  height: 3rem;
 }
 
 .util-spacer {
+  margin: 0 0.33rem;
   width: 0;
   border: 1px solid var(--prime);
-  height: 12px;
+  height: 15px;
+}
+
+.location-decor {
+  color: var(--prime);
 }

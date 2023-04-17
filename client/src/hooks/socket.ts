@@ -3,8 +3,9 @@ import { io, Socket } from "socket.io-client";
 import { API } from "../api/api";
 import { SessionAuthHandle } from "../auth/auth";
 
-const currentProto = window.location.protocol;
-const protoByEnv = currentProto === "http:" ? `http://localhost:3001` : ``;
+const currentProtocol = window.location.protocol;
+const protocolByEnv =
+  currentProtocol === "http:" ? `http://localhost:3001` : ``;
 
 export type SocketProp = null | Socket<any, any>;
 
@@ -15,7 +16,7 @@ export const useChatSocket = (currentRoom: string): SocketProp => {
 
   useEffect(() => {
     // Init client-specific socket connection
-    const socket = io(protoByEnv);
+    const socket = io(protocolByEnv);
     ///////////////////////////////
     setSocket(socket);
     ///////////////////////////////
@@ -52,4 +53,47 @@ export const useUserRooms = () => {
   }, []);
 
   return [userRooms];
+};
+
+type Author = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+};
+
+type MessageType = {
+  _id: string;
+  text: string;
+  author: Author;
+  createdAt: string;
+  recipient: string;
+};
+
+export type MessageArray = MessageType[];
+
+export const useMessageQueue = (
+  currentRoom: string
+): [MessageArray, (data: MessageArray) => void] => {
+  const [messageState, setMessageState] = useState<MessageArray>([]);
+
+  const MAX_LENGTH = 50;
+
+  useEffect(() => {
+    const getMessages = async () => {
+      const messages = await API.getRecentMessages(currentRoom);
+      setMessageState(messages.data.reverse());
+    };
+
+    getMessages();
+  }, [currentRoom]);
+
+  const setTrimmedMessages = <T extends MessageArray>(messageData: T): void => {
+    while (messageData.length > MAX_LENGTH) {
+      messageData.shift();
+    }
+    setMessageState(messageData);
+  };
+
+  return [messageState, setTrimmedMessages];
 };

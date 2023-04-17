@@ -8,7 +8,7 @@ export type Settings = {
   currentTheme: string;
 };
 
-export const useUserSettings = (): [Settings, Dispatch<Settings>] => {
+export const useUserSettings = (): [Settings, any] => {
   const currentStore = new LSItemHandler("settings");
   const hasCurrentStore = currentStore.exists();
 
@@ -21,7 +21,7 @@ export const useUserSettings = (): [Settings, Dispatch<Settings>] => {
         currentTheme: "Mono Ocean",
       };
 
-  const [userSettings, setUserSettings] = useState<any>(loadState);
+  const [userSettings, setUserSettings] = useState<Settings>(loadState);
 
   useEffect(() => {
     const storage = new LSItemHandler("settings");

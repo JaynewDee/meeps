@@ -1,12 +1,12 @@
 import {
   BsGear as Gear,
   BsQuestionCircle as Question,
-  BsDoorOpen as ExitDoor
+  BsDoorOpen as ExitDoor,
 } from "react-icons/bs";
 import { SessionAuthHandle } from "../auth/auth";
 import { useUserContext } from "../context";
 import { Dispatch, SetStateAction, MouseEvent, memo } from "react";
-import { Settings } from "../App";
+import { Settings } from "../hooks/settings";
 
 //
 
