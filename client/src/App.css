@@ -11,6 +11,8 @@ header {
   border-bottom: 3px solid white;
   z-index: 1;
   color: var(--light);
+  font-family: var(--font-primary);
+  height: 4rem;
 }
 
 .modal-container {
@@ -53,11 +55,9 @@ header {
 }
 
 .app-title {
-  font-size: 2rem;
-  font-style: italic;
+  font-size: 2em;
   margin-left: 1rem;
-  margin-bottom: 0;
-  margin-top: 3rem;
+  margin-top: auto;
 }
 
 .menu-options {
@@ -93,7 +93,6 @@ header {
 
 .registration-form > div > input {
   padding: 0.33rem 1rem;
-  font-size: 1;
 }
 .registration-form > input::placeholder {
   text-align: center;
@@ -163,7 +162,7 @@ header {
   box-shadow: inset 0px 0.33rem 21px 1px rgba(0, 0, 0, 0.4);
   z-index: 0;
   margin: 0 auto;
-  top: 6rem;
+  top: 3rem;
   bottom: 4rem;
   background-color: var(--background);
   color: var(--light);

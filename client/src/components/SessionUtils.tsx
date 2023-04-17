@@ -12,7 +12,13 @@ const SessionUtils: React.FC<any> = ({}) => {
   };
 
   const spacer = () => (
-    <div style={{ width: 0, border: "1px solid black", height: "12px" }}></div>
+    <div
+      style={{
+        width: 0,
+        border: "1px solid var(--foreground)",
+        height: "12px",
+      }}
+    ></div>
   );
 
   const fetchRooms = async () => {
