@@ -3,7 +3,7 @@ import { API } from "../api/api";
 import { SessionAuthHandle } from "../auth/auth";
 import { useUserContext } from "../context";
 
-const SessionUtils: React.FC<any> = ({}) => {
+const SessionUtils: React.FC<any> = ({ currentRoom }) => {
   const { logout } = useUserContext();
 
   const destroySession = () => {
@@ -15,7 +15,7 @@ const SessionUtils: React.FC<any> = ({}) => {
     <div
       style={{
         width: 0,
-        border: "1px solid var(--foreground)",
+        border: "1px solid var(--prime)",
         height: "12px",
       }}
     ></div>
@@ -33,14 +33,17 @@ const SessionUtils: React.FC<any> = ({}) => {
   };
 
   return (
-    <div className="session-utils-box">
-      {spacer()}
-      <button onClick={destroySession}>END SESSION</button>
-      {spacer()}
-      <button onClick={fetchRooms}>FETCH ROOMS</button>
-      {spacer()}
-      <button onClick={fetchUserRooms}>FETCH USER'S ROOMS</button>
-      {spacer()}
+    <div className="utils-container">
+      <div className="session-utils-box">
+        {spacer()}
+        <button onClick={destroySession}>END SESSION</button>
+        {spacer()}
+        <button onClick={fetchRooms}>FETCH ROOMS</button>
+        {spacer()}
+        <button onClick={fetchUserRooms}>FETCH USER'S ROOMS</button>
+        {spacer()}
+      </div>
+      <div className="status-bar">{currentRoom.toUpperCase()}</div>
     </div>
   );
 };

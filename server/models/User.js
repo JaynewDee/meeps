@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const ChatRoom = require("./ChatRoom");
 const bcrypt = require("bcrypt");
 
-const validateEmail = (email) => {
+const validateEmail = email => {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email);
 };
@@ -11,45 +11,45 @@ const userSchema = new Schema({
   firstName: {
     type: String,
     required: false,
-    trim: true
+    trim: true,
   },
   lastName: {
     type: String,
     required: false,
-    trim: true
+    trim: true,
   },
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    validate: [validateEmail, "E-mail address invalid!"]
+    validate: [validateEmail, "E-mail address invalid!"],
   },
   password: {
     type: String,
     required: true,
-    minlength: 5
+    minlength: 5,
   },
   currentRoom: {
     type: Schema.Types.ObjectId,
-    ref: "ChatRoom"
+    ref: "ChatRoom",
   },
   rooms: [
     {
       type: Schema.Types.ObjectId,
-      ref: "ChatRoom"
-    }
+      ref: "ChatRoom",
+    },
   ],
   messages: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Message"
-    }
-  ]
+      ref: "Message",
+    },
+  ],
 });
 
 // set up pre-save middleware to create password
@@ -63,6 +63,9 @@ userSchema.pre("save", async function (next) {
     { name: "central" },
     { $push: { members: this._id }, unique: true }
   );
+
+  const central = await ChatRoom.findOne({ name: "central" });
+  this.rooms.push(central._id);
 
   next();
 });

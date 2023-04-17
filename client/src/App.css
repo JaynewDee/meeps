@@ -200,7 +200,8 @@ header {
 }
 
 .message-content:hover {
-  transform: scale(1.01);
+  mix-blend-mode: screen;
+  transform: scale(1.005);
 }
 
 .message-content:first-child {
@@ -264,7 +265,7 @@ header {
 }
 
 .chat-msg-field {
-  height: 2.33rem;
+  height: 2.66rem;
   width: 100%;
   padding-left: 2rem;
   font-size: 1.66em;
@@ -296,22 +297,25 @@ header {
   color: rgba(255, 255, 255, 0.874);
 }
 
-.session-utils-box {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100vw;
-  z-index: 0;
-  background-color: var(--utils-bar);
+.utils-container {
   position: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  /* z-index: 0; */
+  background-color: var(--utils-bar);
   bottom: 0;
   padding-left: 1rem;
-  padding-right: 1rem;
+  padding-right: 3rem;
   height: 2rem;
   border: none;
   border-top: 3px solid var(--background);
 }
-
+.session-utils-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .session-utils-box > button {
   background: none;
   border: none;
@@ -319,13 +323,19 @@ header {
   height: 100%;
   font-size: 0.66em;
   padding: 0 0.33rem;
-  z-index: -1;
 }
 
 .session-utils-box > button:hover {
   background: rgba(30, 30, 30, 1);
 }
 
+.status-bar {
+  display: flex;
+  align-items: center;
+  color: var(--light);
+  padding-right: 1.66rem;
+  font-family: var(--font-primary);
+}
 .msg-submit-btn {
   border-radius: 3px;
   height: 2.66rem;

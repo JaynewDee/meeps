@@ -12,8 +12,6 @@ function App() {
 
   const CurrentTheme = useThemeSettings(userSettings.currentTheme);
 
-  const [userRooms] = useUserRooms();
-
   const [modalState, setModalState] = useState("");
 
   return (
@@ -32,7 +30,6 @@ function App() {
           setDisplay: setModalState,
           userSettings,
           setUserSettings,
-          userRooms,
         })}
       </div>
     </UserContextProvider>

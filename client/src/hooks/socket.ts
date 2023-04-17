@@ -46,7 +46,9 @@ export const useUserRooms = () => {
       const res = await API.getUserRooms(data._id);
       setUserRooms(res.data);
     };
-    fetchUserRooms();
+    if (SessionAuthHandle.validate()) {
+      fetchUserRooms();
+    }
   }, []);
 
   return [userRooms];

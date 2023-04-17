@@ -25,7 +25,7 @@ const ChatView: React.FC<any> = ({ socket, currentRoom }) => {
           setMessageState={setLocalMessageState}
         />
         <ChatForm socket={socket} currentRoom={currentRoom} />
-        <SessionUtils />
+        <SessionUtils currentRoom={currentRoom} />
       </Suspense>
     </>
   );

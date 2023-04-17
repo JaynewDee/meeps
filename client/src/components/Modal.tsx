@@ -1,12 +1,15 @@
 import { Dispatch, SetStateAction, Suspense, useState } from "react";
 import { createPortal } from "react-dom";
+import { BiExit } from "react-icons/bi";
+
 import "./Modal.css";
+import { useUserRooms } from "../hooks/socket";
+
 interface ModalProps {
   display: string;
   setDisplay: Dispatch<SetStateAction<string>>;
   userSettings: any;
   setUserSettings: Dispatch<SetStateAction<any>>;
-  userRooms: any[];
   styles: any;
 }
 
@@ -15,12 +18,13 @@ const Modal: React.FC<ModalProps> = ({
   setDisplay,
   userSettings,
   setUserSettings,
-  userRooms,
   styles,
 }) => {
   const [selectRoomState, setSelectRoomState] = useState(
     userSettings.currentRoom
   );
+
+  const [userRooms] = useUserRooms();
 
   const handleRoomSelect = (e: any) => {
     setSelectRoomState(e.target.value);
@@ -53,13 +57,11 @@ const Modal: React.FC<ModalProps> = ({
           value={selectRoomState}
           style={{ fontFamily: "var(--font-primary)" }}
         >
-          <Suspense fallback={<>Loading user data ...</>}>
-            {userRooms.map(({ _id, name }) => (
-              <option key={_id} value={name}>
-                {name}
-              </option>
-            ))}
-          </Suspense>
+          {userRooms.map(({ _id, name }) => (
+            <option key={_id} value={name}>
+              {name}
+            </option>
+          ))}
         </select>
         <button onClick={handleSwitchRooms}>SWITCH ROOMS</button>
       </div>
@@ -96,7 +98,7 @@ const Modal: React.FC<ModalProps> = ({
     ) : (
       <div className="modal-container">
         <button className="close-modal-btn" onClick={handleClose}>
-          X
+          {BiExit({ size: "1.33rem" })}
         </button>
         <div>{display === "settings" ? SettingsContent() : HelpContent()}</div>
       </div>
