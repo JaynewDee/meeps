@@ -3,7 +3,7 @@ import React, {
   SetStateAction,
   useEffect,
   useMemo,
-  useRef
+  useRef,
 } from "react";
 import { SocketProp } from "../hooks";
 import { LSItemHandler } from "../storage";
@@ -34,7 +34,7 @@ interface MessageProps {
 const Messages: React.FC<MessageProps> = ({
   socket,
   messages,
-  setMessageState
+  setMessageState,
 }) => {
   socket!.on("chat message", (msg: MessageType) => {
     setMessageState([...messages, msg]);
@@ -50,7 +50,7 @@ const Messages: React.FC<MessageProps> = ({
         scrollRef.current!.scrollTo({
           top: scrollRef.current!.scrollHeight,
           left: 0,
-          behavior: "smooth"
+          behavior: "smooth",
         });
       }, 200);
     }
@@ -61,14 +61,11 @@ const Messages: React.FC<MessageProps> = ({
 
   //
 
-  const MemoAllMessages = useMemo(
-    () => messages.map((message: MessageType) => Message(message)),
-    [messages]
-  );
-
   return (
     <div ref={scrollRef} className="scroll-wrapper">
-      <div className="messages-container">{MemoAllMessages}</div>
+      <div className="messages-container">
+        {messages.map((message: MessageType) => Message(message))}
+      </div>
     </div>
   );
 };
@@ -84,7 +81,7 @@ const Message: React.FC<MessageType> = ({ _id, author, createdAt, text }) => {
       <span>
         {time.toLocaleTimeString(navigator.language, {
           hour: "2-digit",
-          minute: "2-digit"
+          minute: "2-digit",
         })}
       </span>
       <span style={{ color: "var(--prime)", paddingLeft: ".33rem" }}>
