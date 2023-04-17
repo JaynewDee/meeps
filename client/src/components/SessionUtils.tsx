@@ -11,26 +11,16 @@ const SessionUtils: React.FC<any> = ({ currentRoom }) => {
     logout();
   };
 
-  const spacer = () => (
-    <div
-      style={{
-        width: 0,
-        border: "1px solid var(--prime)",
-        height: "12px",
-      }}
-    ></div>
-  );
-
   const fetchRooms = async () => {
     const res = await API.getRooms();
-    console.log(res);
   };
 
   const fetchUserRooms = async () => {
     const { data } = SessionAuthHandle.getUser();
     const res = await API.getUserRooms(data._id);
-    console.log(res);
   };
+
+  const spacer = () => <div className="util-spacer"></div>;
 
   return (
     <div className="utils-container">
@@ -38,10 +28,10 @@ const SessionUtils: React.FC<any> = ({ currentRoom }) => {
         {spacer()}
         <button onClick={destroySession}>END SESSION</button>
         {spacer()}
-        <button onClick={fetchRooms}>FETCH ROOMS</button>
+        {/* <button onClick={fetchRooms}>FETCH ROOMS</button>
         {spacer()}
         <button onClick={fetchUserRooms}>FETCH USER'S ROOMS</button>
-        {spacer()}
+        {spacer()} */}
       </div>
       <div className="status-bar">{currentRoom.toUpperCase()}</div>
     </div>

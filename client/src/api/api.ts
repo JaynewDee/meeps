@@ -51,13 +51,29 @@ const HTTPOptions = {
 
 export const API: APIModule = {
   baseUrl: baseByEnv + "/api",
+  getMe: async function () {
+    return await fetch(`${this.baseUrl}/user/me`, HTTPOptions.authGet())
+      .then(res => res.json())
+      .catch(err => console.error(err));
+  },
   getRooms: async function () {
     return await fetch(`${this.baseUrl}/rooms`)
       .then(res => res.json())
       .catch(err => console.error(err));
   },
-  getMe: async function () {
-    return await fetch(`${this.baseUrl}/user/me`, HTTPOptions.authGet())
+  getUserRooms: async function (userId: string) {
+    return await fetch(
+      `${this.baseUrl}/rooms/user?userId=${userId}`,
+      HTTPOptions.authGet()
+    )
+      .then(res => res.json())
+      .catch(err => console.error(err));
+  },
+  getRecentMessages: async function (roomName: string) {
+    return await fetch(
+      `${this.baseUrl}/rooms/msgs?roomName=${roomName}`,
+      HTTPOptions.authGet()
+    )
       .then(res => res.json())
       .catch(err => console.error(err));
   },
@@ -75,22 +91,6 @@ export const API: APIModule = {
     return await fetch(
       `${this.baseUrl}/user/msg?roomName=${roomName}`,
       HTTPOptions.authPost(msgEntity)
-    )
-      .then(res => res.json())
-      .catch(err => console.error(err));
-  },
-  getUserRooms: async function (userId: string) {
-    return await fetch(
-      `${this.baseUrl}/rooms/user?userId=${userId}`,
-      HTTPOptions.authGet()
-    )
-      .then(res => res.json())
-      .catch(err => console.error(err));
-  },
-  getRecentMessages: async function (roomName: string) {
-    return await fetch(
-      `${this.baseUrl}/rooms/msgs?roomName=${roomName}`,
-      HTTPOptions.authGet()
     )
       .then(res => res.json())
       .catch(err => console.error(err));

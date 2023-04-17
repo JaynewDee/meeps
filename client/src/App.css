@@ -201,7 +201,7 @@ header {
 
 .message-content:hover {
   mix-blend-mode: screen;
-  transform: scale(1.005);
+  transform: scale(1.003);
 }
 
 .message-content:first-child {
@@ -216,11 +216,6 @@ header {
 .datetime {
   cursor: pointer;
   font-size: 0.66em;
-}
-.message-username:hover,
-.datetime:hover {
-}
-.datetime {
 }
 
 .message-text::before {
@@ -320,7 +315,6 @@ header {
   background: none;
   border: none;
   color: rgba(200, 200, 200);
-  height: 100%;
   font-size: 0.66em;
   padding: 0 0.33rem;
 }
@@ -339,4 +333,10 @@ header {
 .msg-submit-btn {
   border-radius: 3px;
   height: 2.66rem;
+}
+
+.util-spacer {
+  width: 0;
+  border: 1px solid var(--prime);
+  height: 12px;
 }
