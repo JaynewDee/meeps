@@ -1,5 +1,6 @@
 .settings-container {
   font-size: var(--base-font-size);
+  border-radius: 6px;
 }
 
 select,
