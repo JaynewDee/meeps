@@ -208,11 +208,13 @@ header {
 
 .message-username,
 .datetime {
+  cursor: pointer;
   font-size: 0.66em;
 }
-
+.message-username:hover,
+.datetime:hover {
+}
 .datetime {
-  margin-right: 1rem;
 }
 
 .message-text::before {

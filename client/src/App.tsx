@@ -24,10 +24,11 @@ function App() {
         />
         <Main currentRoom={userSettings.currentRoom} />
         {Modal({
+          styles: CurrentTheme,
           display: modalState,
           setDisplay: setModalState,
           userSettings,
-          setUserSettings
+          setUserSettings,
         })}
       </div>
     </UserContextProvider>

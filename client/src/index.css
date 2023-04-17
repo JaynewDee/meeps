@@ -77,7 +77,7 @@ button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--prime);
+  background-color: var(--foreground);
 }
 
 @media screen and (max-width: 1024px) {
@@ -98,10 +98,6 @@ button:hover {
   }
   .message-content {
     border-right: unset;
-  }
-
-  .app-title {
-    margin-top: 1rem;
   }
   .menu-icon {
     font-size: 1.66rem;

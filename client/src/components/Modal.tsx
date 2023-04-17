@@ -1,18 +1,21 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { createPortal } from "react-dom";
+import "./Modal.css";
 
 interface ModalProps {
   display: string;
   setDisplay: Dispatch<SetStateAction<string>>;
   userSettings: any;
   setUserSettings: Dispatch<SetStateAction<any>>;
+  styles: any;
 }
 
 const Modal: React.FC<ModalProps> = ({
   display,
   setDisplay,
   userSettings,
-  setUserSettings
+  setUserSettings,
+  styles,
 }) => {
   const [selectRoomState, setSelectRoomState] = useState(
     userSettings.currentRoom
@@ -25,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({
   const handleThemeSelect = (e: any) => {
     setUserSettings((prev: any) => ({
       ...prev,
-      currentTheme: e.target.value
+      currentTheme: e.target.value,
     }));
   };
 
@@ -38,7 +41,7 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   const SettingsContent = () => (
-    <div className="settings-container">
+    <div className="settings-container" style={styles}>
       <div className="change-room-container">
         <label style={{ textAlign: "center" }}>Traverse Rooms</label>
         <select onChange={handleRoomSelect} value={selectRoomState}>
@@ -51,7 +54,7 @@ const Modal: React.FC<ModalProps> = ({
       <div className="change-theme-container">
         <label style={{ textAlign: "center" }}>THEME</label>
         <select onChange={handleThemeSelect} value={userSettings.currentTheme}>
-          {["Mono Ocean", "Comet", "Summer Jungle"].map((opt) => (
+          {["Mono Ocean", "Comet", "Summer Jungle"].map(opt => (
             <option key={opt} value={opt}>
               {opt}
             </option>
