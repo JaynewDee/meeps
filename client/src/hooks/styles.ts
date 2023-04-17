@@ -7,6 +7,7 @@ export const useThemeSettings = (currentTheme: string) => {
       prime: "rgba(0, 100, 133, 1)",
       harsh: "rgba(164, 22, 35, 1)",
       variant: "rgba(240, 246, 0)",
+      scrollbarColor: "rgba(0, 100, 133, 1)",
       msgField: "black",
       utilsBar: "rgba(15, 15, 15, .9)",
       fontPrimary: `"Anonymous Pro", monospace`,
@@ -19,6 +20,7 @@ export const useThemeSettings = (currentTheme: string) => {
       prime: "#A22C29",
       harsh: "rgba(164, 22, 35, 1)",
       variant: "rgba(240, 246, 0)",
+      scrollbarColor: "#A22C29",
       msgField: "black",
       utilsBar: "",
       fontPrimary: `"Dongle", sans-serif`,
@@ -31,6 +33,7 @@ export const useThemeSettings = (currentTheme: string) => {
       prime: "#CF5C36",
       harsh: "rgba(164, 22, 35, 1)",
       variant: "rgba(240, 246, 0)",
+      scrollbarColor: "#CF5C36",
       msgField: "black",
       utilsBar: "rgba(15, 15, 15, .9)",
       fontPrimary: `"Nova Oval", cursive`,
@@ -45,6 +48,7 @@ export const useThemeSettings = (currentTheme: string) => {
     prime,
     harsh,
     variant,
+    scrollbarColor,
     msgField,
     utilsBar,
     fontPrimary,
@@ -62,5 +66,6 @@ export const useThemeSettings = (currentTheme: string) => {
     "--utils-bar": utilsBar,
     "--font-primary": fontPrimary,
     "--base-font-size": baseFontSize,
+    "--scrollbar-color": scrollbarColor,
   } as React.CSSProperties;
 };

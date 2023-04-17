@@ -5,13 +5,16 @@ import Main from "./main";
 import Modal from "./components/Modal";
 import { UserContextProvider } from "./context";
 import { useThemeSettings, useUserSettings } from "./hooks";
+import { useUserRooms } from "./hooks/socket";
 
 function App() {
   const [userSettings, setUserSettings] = useUserSettings();
 
-  const [modalState, setModalState] = useState("");
-
   const CurrentTheme = useThemeSettings(userSettings.currentTheme);
+
+  const [userRooms] = useUserRooms();
+
+  const [modalState, setModalState] = useState("");
 
   return (
     <UserContextProvider>
@@ -29,6 +32,7 @@ function App() {
           setDisplay: setModalState,
           userSettings,
           setUserSettings,
+          userRooms,
         })}
       </div>
     </UserContextProvider>

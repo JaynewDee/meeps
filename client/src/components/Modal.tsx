@@ -1,12 +1,12 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, Suspense, useState } from "react";
 import { createPortal } from "react-dom";
 import "./Modal.css";
-
 interface ModalProps {
   display: string;
   setDisplay: Dispatch<SetStateAction<string>>;
   userSettings: any;
   setUserSettings: Dispatch<SetStateAction<any>>;
+  userRooms: any[];
   styles: any;
 }
 
@@ -15,6 +15,7 @@ const Modal: React.FC<ModalProps> = ({
   setDisplay,
   userSettings,
   setUserSettings,
+  userRooms,
   styles,
 }) => {
   const [selectRoomState, setSelectRoomState] = useState(
@@ -42,18 +43,39 @@ const Modal: React.FC<ModalProps> = ({
 
   const SettingsContent = () => (
     <div className="settings-container" style={styles}>
-      <div className="change-room-container">
+      <div
+        className="change-room-container"
+        style={{ fontFamily: "var(--font-primary)" }}
+      >
         <label style={{ textAlign: "center" }}>Traverse Rooms</label>
-        <select onChange={handleRoomSelect} value={selectRoomState}>
-          <option value="central">Central</option>
-          <option value="Super Cool Room">Super Cool Room</option>
-          <option value="private">Private</option>
+        <select
+          onChange={handleRoomSelect}
+          value={selectRoomState}
+          style={{ fontFamily: "var(--font-primary)" }}
+        >
+          <Suspense fallback={<>Loading user data ...</>}>
+            {userRooms.map(({ _id, name }) => (
+              <option key={_id} value={name}>
+                {name}
+              </option>
+            ))}
+          </Suspense>
         </select>
         <button onClick={handleSwitchRooms}>SWITCH ROOMS</button>
       </div>
       <div className="change-theme-container">
-        <label style={{ textAlign: "center" }}>THEME</label>
-        <select onChange={handleThemeSelect} value={userSettings.currentTheme}>
+        <label
+          style={{ textAlign: "center", fontFamily: "var(--font-primary)" }}
+        >
+          THEME
+        </label>
+        <select
+          onChange={handleThemeSelect}
+          value={userSettings.currentTheme}
+          style={{
+            fontFamily: "var(--font-primary)",
+          }}
+        >
           {["Mono Ocean", "Comet", "Summer Jungle"].map(opt => (
             <option key={opt} value={opt}>
               {opt}

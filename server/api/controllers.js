@@ -10,7 +10,7 @@ async function getUserRooms(req, res) {
 
   const user = await User.findOne({ _id: userId }).populate({
     path: "rooms",
-    select: "_id name members"
+    select: "_id name members",
   });
 
   res.json({ status: 200, data: user.rooms });
@@ -84,12 +84,12 @@ async function storeUserMsg(req, res) {
   const created = await Message.create({
     text,
     author,
-    recipient: toRoom._id
+    recipient: toRoom._id,
   });
 
   const newMsg = await Message.findOne({ _id: created._id }).populate({
     path: "author",
-    select: "email firstName lastName username rooms"
+    select: "email firstName lastName username",
   });
 
   await User.findOneAndUpdate(
@@ -116,7 +116,7 @@ async function getRecentMessages(req, res) {
   if (!fromRoom)
     return res.json({
       status: 404,
-      message: "That room doesn't seem to exist!"
+      message: "That room doesn't seem to exist!",
     });
 
   try {
@@ -125,7 +125,7 @@ async function getRecentMessages(req, res) {
       .limit(50)
       .populate({
         path: "author",
-        select: "email firstName lastName username"
+        select: "email firstName lastName username",
       });
 
     res.json({ status: 200, data: recentMsgs });
@@ -139,7 +139,7 @@ async function getRecentMessages(req, res) {
 async function getMe(req, res) {
   const ownUser = await User.findOne(
     {
-      email: "jdiehl2236@gmail.com"
+      email: "jdiehl2236@gmail.com",
     },
     ["email username firstName lastName"]
   )
@@ -167,5 +167,5 @@ module.exports = {
   getAllRooms,
   getMe,
   getRecentMessages,
-  deleteAllMessages
+  deleteAllMessages,
 };

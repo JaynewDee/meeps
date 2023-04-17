@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import { API } from "../api/api";
+import { SessionAuthHandle } from "../auth/auth";
 
 const currentProto = window.location.protocol;
 const protoByEnv = currentProto === "http:" ? `http://localhost:3001` : ``;
@@ -22,7 +24,7 @@ export const useChatSocket = (currentRoom: string) => {
       socket.emit("join room", currentRoom);
     });
     ///////////////////////////////
-    socket.on("joined room", (data) => {
+    socket.on("joined room", data => {
       console.log(data);
     });
     ///////////////////////////////
@@ -33,4 +35,19 @@ export const useChatSocket = (currentRoom: string) => {
   }, []);
 
   return socket;
+};
+
+export const useUserRooms = () => {
+  const [userRooms, setUserRooms] = useState([]);
+
+  useEffect(() => {
+    const fetchUserRooms = async () => {
+      const { data } = SessionAuthHandle.getUser();
+      const res = await API.getUserRooms(data._id);
+      setUserRooms(res.data);
+    };
+    fetchUserRooms();
+  }, []);
+
+  return [userRooms];
 };

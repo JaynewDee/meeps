@@ -70,6 +70,7 @@ button:hover {
 ::-webkit-scrollbar {
   width: 6px;
   position: absolute;
+  cursor: grab;
 }
 
 ::-webkit-scrollbar-track {
@@ -77,7 +78,7 @@ button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--foreground);
+  background-color: var(--scrollbar-color);
 }
 
 @media screen and (max-width: 1024px) {
