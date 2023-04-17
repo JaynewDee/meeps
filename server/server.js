@@ -10,33 +10,33 @@ const app = express();
 const db = require("./config/db");
 const { api } = require("./api/routes");
 
-const server = http.createServer(app);
 const { Server } = require("socket.io");
+const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*"
+    origin: "*",
   },
-  perMessageDeflate: false
+  perMessageDeflate: false,
 });
 
-io.on("connection", (socket) => {
+io.on("connection", socket => {
   console.info("A socket user has connected.");
 
   // Listen for new message type called `notification`
   // emit notifications for `login` and `logout` events
 
-  socket.on("notification", (data) => {
+  socket.on("notification", data => {
     console.log(data);
   });
 
-  socket.on("join room", (roomName) => {
+  socket.on("join room", roomName => {
     console.log(roomName);
     socket.join(roomName);
     socket.emit("joined room", `Joined room ${roomName}`);
   });
 
-  socket.on("chat message", (msg) => {
+  socket.on("chat message", msg => {
     console.log(`Message from socket client: ${msg.toString()}`);
     if (!msg) return;
 

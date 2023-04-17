@@ -1,6 +1,4 @@
-const User = require("../models/User");
-const ChatRoom = require("../models/ChatRoom");
-const Message = require("../models/Message");
+const { User, ChatRoom, Message } = require("../models");
 const jwtAuth = require("../auth");
 
 //////////////////////////////////////////////////////////////////////////////////
