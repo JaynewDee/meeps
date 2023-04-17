@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { SessionAuthHandle } from "./auth/auth";
 import Auth from "./components/Auth";
 import ChatView from "./components/ChatView";
@@ -23,6 +23,12 @@ function Main({ currentRoom }: { currentRoom: string }) {
 
     logout();
   }, []);
+
+  useEffect(() => {
+    if (!userState.isLoggedIn) {
+      socket?.disconnect();
+    }
+  }, [userState]);
 
   useEffect(() => {
     socket?.emit("join room", currentRoom);

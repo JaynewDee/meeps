@@ -11,6 +11,8 @@ header {
   border-bottom: 3px solid white;
   z-index: 1;
   color: var(--light);
+  font-family: var(--font-primary);
+  height: 4rem;
 }
 
 .modal-container {
@@ -43,20 +45,20 @@ header {
 .settings-container {
   display: flex;
   flex-flow: column nowrap;
-  margin: 6rem auto 0;
+  margin: 3rem auto 0;
+  overflow-y: scroll;
 }
 .settings-container > div {
   display: flex;
   flex-flow: column nowrap;
   width: 15rem;
+  margin: 1rem auto;
 }
 
 .app-title {
-  font-size: 2rem;
-  font-style: italic;
+  font-size: 2em;
   margin-left: 1rem;
-  margin-bottom: 0;
-  margin-top: 3rem;
+  margin-top: auto;
 }
 
 .menu-options {
@@ -86,12 +88,12 @@ header {
   align-items: center;
   width: 100vw;
   height: 100vh;
-  font-family: var(--mono);
+  font-family: var(--font-primary);
+  font-size: var(--base-font-size);
 }
 
 .registration-form > div > input {
   padding: 0.33rem 1rem;
-  font-size: 1;
 }
 .registration-form > input::placeholder {
   text-align: center;
@@ -101,7 +103,7 @@ header {
   filter: drop-shadow(0px 6px 0px #181818);
   background: none;
   border: none;
-  font-size: 1rem;
+  font-size: 1em;
 }
 
 .auth-submit {
@@ -161,20 +163,20 @@ header {
   box-shadow: inset 0px 0.33rem 21px 1px rgba(0, 0, 0, 0.4);
   z-index: 0;
   margin: 0 auto;
-  top: 6rem;
+  top: 3rem;
   bottom: 4rem;
   background-color: var(--background);
   color: var(--light);
 }
 
 .messages-container {
-  font-size: 1rem;
+  font-size: var(--base-font-size);
   word-break: break-all;
   text-align: left;
   width: 90%;
   padding-left: 3rem;
   padding-right: 3rem;
-  font-family: var(--mono);
+  font-family: var(--font-primary);
 }
 
 .message-username::before {
@@ -191,26 +193,34 @@ header {
   border-top: 1px solid rgba(20, 20, 20, 0.9);
   padding: 0.66rem 0.33rem;
   border-radius: 0 7% 0 0;
-  margin: 1rem;
+  margin: 1rem 1rem 0.33rem;
   box-shadow: 5px -5px 21px 1px rgba(25, 25, 25, 0.01);
   border-radius: 6px;
   word-break: keep-all;
 }
 
+.message-content:hover {
+  mix-blend-mode: screen;
+  transform: scale(1.005);
+}
+
 .message-content:first-child {
   margin-top: 1rem;
 }
-/* .message-content:last-child {
+
+.message-content:last-child {
   margin-bottom: 2rem;
-} */
+}
 
 .message-username,
 .datetime {
-  font-size: 0.66rem;
+  cursor: pointer;
+  font-size: 0.66em;
 }
-
+.message-username:hover,
+.datetime:hover {
+}
 .datetime {
-  margin-right: 1rem;
 }
 
 .message-text::before {
@@ -219,7 +229,6 @@ header {
 
 .message-text {
   padding-left: 2rem;
-  padding-bottom: 1rem;
 }
 
 .name-and-date {
@@ -256,10 +265,10 @@ header {
 }
 
 .chat-msg-field {
-  height: 2.33rem;
+  height: 2.66rem;
   width: 100%;
   padding-left: 2rem;
-  font-size: 1.33rem;
+  font-size: 1.66em;
   border-radius: 0 3px 0 0;
   caret-color: var(--prime);
   margin-bottom: -0.33rem;
@@ -288,28 +297,31 @@ header {
   color: rgba(255, 255, 255, 0.874);
 }
 
-.session-utils-box {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  z-index: 0;
-  width: 100vw;
-  background-color: var(--utils-bar);
+.utils-container {
   position: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  /* z-index: 0; */
+  background-color: var(--utils-bar);
   bottom: 0;
   padding-left: 1rem;
-  padding-right: 1rem;
+  padding-right: 3rem;
   height: 2rem;
   border: none;
   border-top: 3px solid var(--background);
 }
-
+.session-utils-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .session-utils-box > button {
   background: none;
   border: none;
   color: rgba(200, 200, 200);
-  height: 1.66rem;
-  font-size: 0.66rem;
+  height: 100%;
+  font-size: 0.66em;
   padding: 0 0.33rem;
 }
 
@@ -317,6 +329,14 @@ header {
   background: rgba(30, 30, 30, 1);
 }
 
+.status-bar {
+  display: flex;
+  align-items: center;
+  color: var(--light);
+  padding-right: 1.66rem;
+  font-family: var(--font-primary);
+}
 .msg-submit-btn {
-  border-radius: 0;
+  border-radius: 3px;
+  height: 2.66rem;
 }

@@ -4,25 +4,25 @@ const ChatRoom = require("./ChatRoom");
 const messageSchema = new Schema({
   text: {
     type: String,
-    required: true
+    required: true,
   },
   author: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
   recipient: {
     type: Schema.Types.ObjectId,
-    ref: "ChatRoom"
+    ref: "ChatRoom",
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-messageSchema.post("remove", (doc) => {
+messageSchema.post("remove", async doc => {
   const msgId = doc._id;
-  ChatRoom.findOneAndUpdate(
+  await ChatRoom.findOneAndUpdate(
     { name: "central" },
     { $pull: { messages: msgId } }
   );

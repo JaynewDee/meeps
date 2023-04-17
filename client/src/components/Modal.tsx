@@ -1,26 +1,30 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { createPortal, flushSync } from "react-dom";
+import { Dispatch, SetStateAction, Suspense, useState } from "react";
+import { createPortal } from "react-dom";
+import { BiExit } from "react-icons/bi";
+
+import "./Modal.css";
+import { useUserRooms } from "../hooks/socket";
 
 interface ModalProps {
   display: string;
   setDisplay: Dispatch<SetStateAction<string>>;
   userSettings: any;
   setUserSettings: Dispatch<SetStateAction<any>>;
+  styles: any;
 }
 
 const Modal: React.FC<ModalProps> = ({
   display,
   setDisplay,
   userSettings,
-  setUserSettings
+  setUserSettings,
+  styles,
 }) => {
   const [selectRoomState, setSelectRoomState] = useState(
     userSettings.currentRoom
   );
 
-  const [selectThemeState, setSelectThemeState] = useState(
-    userSettings.currentTheme
-  );
+  const [userRooms] = useUserRooms();
 
   const handleRoomSelect = (e: any) => {
     setSelectRoomState(e.target.value);
@@ -29,7 +33,7 @@ const Modal: React.FC<ModalProps> = ({
   const handleThemeSelect = (e: any) => {
     setUserSettings((prev: any) => ({
       ...prev,
-      currentTheme: e.target.value
+      currentTheme: e.target.value,
     }));
   };
 
@@ -37,40 +41,56 @@ const Modal: React.FC<ModalProps> = ({
     setUserSettings((prev: any) => ({ ...prev, currentRoom: selectRoomState }));
   };
 
-  const handleSwitchTheme = () => {};
-
   const handleClose = () => {
     setDisplay("");
   };
 
-  console.log(selectThemeState);
-
   const SettingsContent = () => (
-    <div className="settings-container">
-      <div className="change-room-container">
+    <div className="settings-container" style={styles}>
+      <div
+        className="change-room-container"
+        style={{ fontFamily: "var(--font-primary)" }}
+      >
         <label style={{ textAlign: "center" }}>Traverse Rooms</label>
-        <select onChange={handleRoomSelect} value={selectRoomState}>
-          <option value="central">Central</option>
-          <option value="Super Cool Room">Super Cool Room</option>
-          <option value="private">Private</option>
+        <select
+          onChange={handleRoomSelect}
+          value={selectRoomState}
+          style={{ fontFamily: "var(--font-primary)" }}
+        >
+          {userRooms.map(({ _id, name }) => (
+            <option key={_id} value={name}>
+              {name}
+            </option>
+          ))}
         </select>
         <button onClick={handleSwitchRooms}>SWITCH ROOMS</button>
       </div>
       <div className="change-theme-container">
-        <label style={{ textAlign: "center" }}>THEME</label>
-        <select onChange={handleThemeSelect} value={userSettings.currentTheme}>
-          {["Mono Ocean", "Falling Star", "Summer Jungle"].map((opt) => (
+        <label
+          style={{ textAlign: "center", fontFamily: "var(--font-primary)" }}
+        >
+          THEME
+        </label>
+        <select
+          onChange={handleThemeSelect}
+          value={userSettings.currentTheme}
+          style={{
+            fontFamily: "var(--font-primary)",
+          }}
+        >
+          {["Mono Ocean", "Comet", "Summer Jungle"].map(opt => (
             <option key={opt} value={opt}>
               {opt}
             </option>
           ))}
         </select>
-        <button onClick={handleSwitchTheme}>CHANGE</button>
       </div>
     </div>
   );
 
-  const HelpContent = () => {};
+  const HelpContent = () => {
+    return <div>HELP</div>;
+  };
 
   return createPortal(
     !display ? (
@@ -78,9 +98,9 @@ const Modal: React.FC<ModalProps> = ({
     ) : (
       <div className="modal-container">
         <button className="close-modal-btn" onClick={handleClose}>
-          X
+          {BiExit({ size: "1.33rem" })}
         </button>
-        <div>{display === "settings" ? SettingsContent() : <></>}</div>
+        <div>{display === "settings" ? SettingsContent() : HelpContent()}</div>
       </div>
     ),
     document.getElementById("modal-root") as HTMLElement

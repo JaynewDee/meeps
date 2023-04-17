@@ -57,7 +57,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ socket, currentRoom }) => {
         onChange={handleInputChange}
       />
       <button className="msg-submit-btn" type="submit" onClick={sendMessage}>
-        {Arrow({ size: "1.66rem" })}
+        {Arrow({ size: "1.66rem", color: "var(--)" })}
       </button>
       {error && <div className="error-box">{error}</div>}
     </form>

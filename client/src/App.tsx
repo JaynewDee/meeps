@@ -4,26 +4,15 @@ import Header from "./components/Header";
 import Main from "./main";
 import Modal from "./components/Modal";
 import { UserContextProvider } from "./context";
-import { useThemeSettings } from "./hooks";
-
-export type Settings = {
-  displayName: string;
-  hideRealName: boolean;
-  currentRoom: string;
-  currentTheme: string;
-};
+import { useThemeSettings, useUserSettings } from "./hooks";
+import { useUserRooms } from "./hooks/socket";
 
 function App() {
-  const [userSettings, setUserSettings] = useState<Settings>({
-    displayName: "",
-    hideRealName: true,
-    currentRoom: "central",
-    currentTheme: "Falling Star"
-  });
-
-  const [modalState, setModalState] = useState("");
+  const [userSettings, setUserSettings] = useUserSettings();
 
   const CurrentTheme = useThemeSettings(userSettings.currentTheme);
+
+  const [modalState, setModalState] = useState("");
 
   return (
     <UserContextProvider>
@@ -36,10 +25,11 @@ function App() {
         />
         <Main currentRoom={userSettings.currentRoom} />
         {Modal({
+          styles: CurrentTheme,
           display: modalState,
           setDisplay: setModalState,
           userSettings,
-          setUserSettings
+          setUserSettings,
         })}
       </div>
     </UserContextProvider>

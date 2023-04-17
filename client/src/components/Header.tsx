@@ -5,7 +5,7 @@ import {
 } from "react-icons/bs";
 import { SessionAuthHandle } from "../auth/auth";
 import { useUserContext } from "../context";
-import { Dispatch, SetStateAction, MouseEvent } from "react";
+import { Dispatch, SetStateAction, MouseEvent, memo } from "react";
 import { Settings } from "../App";
 
 //
@@ -30,31 +30,38 @@ const Header: React.FC<SettingsProp> = ({ modalState, setModalState }) => {
     setModalState(type === modalState ? "" : type);
   };
 
+  const isLoggedIn = SessionAuthHandle.validate();
+
   return (
     <header>
       <h1 className="app-title">ROOMY</h1>
       <div className="menu-options">
-        <span
-          className="settings-icon menu-icon"
-          data-modal="settings"
-          onClick={handleModalDisplay}
-        >
-          {Gear({})}
-        </span>
-        <span
-          className="help-icon menu-icon"
-          data-modal="help"
-          onClick={handleModalDisplay}
-        >
-          {Question({})}
-        </span>
-        <span className="exit-icon menu-icon" onClick={destroySession}>
-          {ExitDoor({})}
-        </span>
+        {isLoggedIn && (
+          <>
+            {" "}
+            <span
+              className="settings-icon menu-icon"
+              data-modal="settings"
+              onClick={handleModalDisplay}
+            >
+              {Gear({})}
+            </span>
+            <span
+              className="help-icon menu-icon"
+              data-modal="help"
+              onClick={handleModalDisplay}
+            >
+              {Question({})}
+            </span>
+            <span className="exit-icon menu-icon" onClick={destroySession}>
+              {ExitDoor({})}
+            </span>
+          </>
+        )}
       </div>
       <></>
     </header>
   );
 };
 
-export default Header;
+export default memo(Header);

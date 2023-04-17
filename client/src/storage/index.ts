@@ -1,36 +1,6 @@
-const { indexedDB, localStorage } = window;
+import { Settings } from "../hooks";
 
-export class IDB {
-  name: string;
-  version: number;
-
-  constructor(name: string, version: number) {
-    this.name = name;
-    this.version = version;
-  }
-
-  public open() {
-    const request = indexedDB.open(this.name, this.version);
-    request.onerror = () => {
-      console.error(`Error loading database ${this.name}`);
-    };
-
-    request.onsuccess = (event: any) => {
-      return event.target.result;
-    };
-  }
-
-  public destroy() {
-    const deleteRequest = indexedDB.deleteDatabase(this.name);
-    deleteRequest.onerror = () => {
-      console.error(`Error deleting database ${this.name}`);
-    };
-
-    deleteRequest.onsuccess = () => {
-      console.log(`Database ${this.name} successfully deleted.`);
-    };
-  }
-}
+const { localStorage } = window;
 
 export class LSItemHandler {
   key: string;
@@ -44,7 +14,17 @@ export class LSItemHandler {
     return data ? JSON.parse(data) : {};
   }
 
-  set(value: any) {
+  exists() {
+    const data = this.get();
+
+    if (Object.keys(data).length) {
+      return true;
+    }
+
+    return false;
+  }
+
+  set(value: Settings) {
     localStorage.setItem(this.key, JSON.stringify(value));
   }
 

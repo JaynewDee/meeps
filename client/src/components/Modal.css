@@ -1,0 +1,32 @@
+.settings-container {
+  font-size: var(--base-font-size);
+  border-radius: 6px;
+}
+
+select,
+option,
+label {
+  padding: 0.66rem 0.33rem;
+  font-size: 1.66em;
+}
+
+select {
+  border-radius: 6px;
+}
+
+.change-room-container > select {
+  z-index: 1;
+}
+
+.change-room-container > button {
+  border-radius: 0 0 6px 6px;
+  padding: 0.33rem 0 0.11rem;
+  margin-top: -0.11rem;
+  z-index: 0;
+  background-color: var(--foreground);
+  color: var(--light);
+}
+.change-room-container > button:hover {
+  background-color: var(--light);
+  color: var(--background);
+}

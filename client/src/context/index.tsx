@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+  useState
+} from "react";
 
 interface ContextProps {
   children: ReactNode;
@@ -29,10 +36,19 @@ const UserContextProvider = ({ children }: ContextProps) => {
     isLoggedIn: false
   });
 
-  const login = () => setUserState({ isLoggedIn: true });
-  const logout = () => setUserState({ isLoggedIn: false });
+  const login = useCallback(
+    () => setUserState({ isLoggedIn: true }),
+    [setUserState]
+  );
+  const logout = useCallback(
+    () => setUserState({ isLoggedIn: false }),
+    [setUserState]
+  );
 
-  const CtxValue = { userState, login, logout };
+  const CtxValue = useMemo(
+    () => ({ userState, login, logout }),
+    [userState, login, logout]
+  );
 
   return (
     <UserContext.Provider value={CtxValue}>{children}</UserContext.Provider>

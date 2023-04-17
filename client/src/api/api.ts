@@ -28,7 +28,6 @@ type RequestObject = {
 
 interface APIModule {
   baseUrl: string;
-  token: string | null;
   postOptions: (body: PostBody) => RequestObject;
   login: (entity: LoginEntity) => Promise<any>;
   register: (entity: RegisterEntity) => Promise<any>;
@@ -51,7 +50,6 @@ const baseByEnv =
 
 export const API: APIModule = {
   baseUrl: baseByEnv + "/api",
-  token: SessionAuthHandle.getToken(),
   postOptions: (body: PostBody) => ({
     method: "POST",
     headers: {
@@ -59,6 +57,28 @@ export const API: APIModule = {
     },
     body: JSON.stringify(body)
   }),
+  getRooms: async function () {
+    return await fetch(`${this.baseUrl}/rooms`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${SessionAuthHandle.getToken()}`
+      }
+    })
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  },
+  getMe: async function () {
+    return await fetch(`${this.baseUrl}/user/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${SessionAuthHandle.getToken()}`
+      }
+    })
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  },
   login: async function (userEntity: LoginEntity) {
     return await fetch(`${this.baseUrl}/user`, this.postOptions(userEntity))
       .then((res) => res.json())
@@ -74,7 +94,7 @@ export const API: APIModule = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`
+        Authorization: `Bearer ${SessionAuthHandle.getToken()}`
       },
       body: JSON.stringify(msgEntity)
     })
@@ -86,29 +106,7 @@ export const API: APIModule = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`
-      }
-    })
-      .then((res) => res.json())
-      .catch((err) => console.error(err));
-  },
-  getRooms: async function () {
-    return await fetch(`${this.baseUrl}/rooms`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`
-      }
-    })
-      .then((res) => res.json())
-      .catch((err) => console.error(err));
-  },
-  getMe: async function () {
-    return await fetch(`${this.baseUrl}/user/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`
+        Authorization: `Bearer ${SessionAuthHandle.getToken()}`
       }
     })
       .then((res) => res.json())
@@ -121,7 +119,7 @@ export const API: APIModule = {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`
+          Authorization: `Bearer ${SessionAuthHandle.getToken()}`
         }
       }
     };
@@ -137,7 +135,7 @@ export const API: APIModule = {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`
+          Authorization: `Bearer ${SessionAuthHandle.getToken()}`
         }
       }
     };

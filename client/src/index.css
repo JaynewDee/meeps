@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nova+Oval&display=swap");
+
 @import url("./App.css");
+
 :root {
   font-family: "Anonymous Pro", monospace;
   line-height: 1.5;
@@ -17,6 +21,14 @@
   overflow: hidden;
 }
 
+#modal-root > * {
+  font-family: var(--font-primary);
+}
+
+p {
+  color: var(--light);
+}
+
 #root {
   height: 100vh;
   width: 100vw;
@@ -27,6 +39,7 @@
   background-color: var(--background);
   height: 100%;
   width: 100%;
+  font-size: var(--base-font-size);
 }
 
 body {
@@ -41,7 +54,7 @@ button {
 }
 
 input {
-  background-color: var(--foreground);
+  background-color: var(--background);
   color: var(--light);
 }
 
@@ -57,6 +70,7 @@ button:hover {
 ::-webkit-scrollbar {
   width: 6px;
   position: absolute;
+  cursor: grab;
 }
 
 ::-webkit-scrollbar-track {
@@ -64,7 +78,7 @@ button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--prime);
+  background-color: var(--scrollbar-color);
 }
 
 @media screen and (max-width: 1024px) {
@@ -76,10 +90,6 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
-  .scroll-wrapper {
-    top: 4rem;
-    bottom: 4rem;
-  }
   .messages-container {
     padding-left: 0rem;
     padding-right: 1rem;
@@ -89,12 +99,6 @@ button:hover {
   }
   .message-content {
     border-right: unset;
-  }
-  .datetime {
-    font-size: 0.5rem;
-  }
-  .app-title {
-    margin-top: 1rem;
   }
   .menu-icon {
     font-size: 1.66rem;

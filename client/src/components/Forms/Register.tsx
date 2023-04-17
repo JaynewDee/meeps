@@ -1,5 +1,5 @@
 import { catchAsync } from "catch-flow";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { API } from "../../api/api";
 import { SessionAuthHandle } from "../../auth/auth";
 import { handleError, useAuthValidation, SocketProp } from "../../hooks";
@@ -19,7 +19,7 @@ interface RegisterProps {
   setDisplay: SetAuthDisplay;
 }
 
-const Register: React.FC<RegisterProps> = ({ setDisplay, socket }) => {
+const Register: React.FC<RegisterProps> = ({ setDisplay }) => {
   const [inputState, setInputState] = useState(defaultState);
   const [errorState, setErrorState] = useState("");
 
