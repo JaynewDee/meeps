@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch } from "react";
 import { LSItemHandler } from "../storage";
 
 export type Settings = {
@@ -8,7 +8,7 @@ export type Settings = {
   currentTheme: string;
 };
 
-export const useUserSettings = () => {
+export const useUserSettings = (): [Settings, Dispatch<Settings>] => {
   const currentStore = new LSItemHandler("settings");
   const hasCurrentStore = currentStore.exists();
 
@@ -18,7 +18,7 @@ export const useUserSettings = () => {
         displayName: "",
         hideRealName: true,
         currentRoom: "central",
-        currentTheme: "Mono Ocean"
+        currentTheme: "Mono Ocean",
       };
 
   const [userSettings, setUserSettings] = useState<any>(loadState);

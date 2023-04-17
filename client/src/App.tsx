@@ -5,7 +5,6 @@ import Main from "./main";
 import Modal from "./components/Modal";
 import { UserContextProvider } from "./context";
 import { useThemeSettings, useUserSettings } from "./hooks";
-import { useUserRooms } from "./hooks/socket";
 
 function App() {
   const [userSettings, setUserSettings] = useUserSettings();

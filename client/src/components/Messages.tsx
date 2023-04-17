@@ -55,14 +55,11 @@ const Messages: React.FC<MessageProps> = ({
 
   //
 
-  const MemoAllMessages = useMemo(
-    () => messages.map((message: MessageType) => Message(message)),
-    [messages]
-  );
-
   return (
     <div ref={scrollRef} className="scroll-wrapper">
-      <div className="messages-container">{MemoAllMessages}</div>
+      <div className="messages-container">
+        {messages.map((message: MessageType) => Message(message))}
+      </div>
     </div>
   );
 };

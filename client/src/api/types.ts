@@ -23,7 +23,6 @@ export type RequestObject = {
   body: string;
 };
 
-// postOptions: (body: PostBody) => RequestObject;
 export interface APIModule {
   baseUrl: string;
   login: (entity: LoginEntity) => Promise<any>;

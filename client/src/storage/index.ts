@@ -9,12 +9,12 @@ export class LSItemHandler {
     this.key = key;
   }
 
-  get() {
+  get(): any {
     const data = localStorage.getItem(this.key);
     return data ? JSON.parse(data) : {};
   }
 
-  exists() {
+  exists(): boolean {
     const data = this.get();
 
     if (Object.keys(data).length) {
@@ -24,11 +24,11 @@ export class LSItemHandler {
     return false;
   }
 
-  set(value: Settings | any) {
+  set(value: Settings | any): void {
     localStorage.setItem(this.key, JSON.stringify(value));
   }
 
-  delete() {
+  delete(): void {
     localStorage.removeItem(this.key);
   }
 }

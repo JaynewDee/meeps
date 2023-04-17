@@ -10,7 +10,7 @@ export const handleError = (type: string, setter: ErrorDispatch<string>) => {
       "Your password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character from the set @$!%*?",
     badEmail: "The format of the input email fails validation!",
     userNotFound:
-      "That user doesn't appear to exist ...  Try again or register.  Hint: All credentials are case-sensitive."
+      "That user doesn't appear to exist ...  Try again or register.  Hint: All credentials are case-sensitive.",
   };
 
   setter(errTypes[type]);
@@ -18,6 +18,7 @@ export const handleError = (type: string, setter: ErrorDispatch<string>) => {
   setTimeout(() => setter(""), 5000);
   return false;
 };
+
 type DataDispatch<T> = Dispatch<SetStateAction<T>>;
 type ErrorDispatch<T> = DataDispatch<T>;
 
@@ -47,7 +48,7 @@ interface ValidationInput {
 const matchers = {
   email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
   password:
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
 };
 
 export const useAuthValidation = (
@@ -68,7 +69,7 @@ export const useAuthValidation = (
       }
 
       return "pass";
-    }
+    },
   };
 
   const failBy = checks[type]();

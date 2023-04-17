@@ -8,7 +8,7 @@ const protoByEnv = currentProto === "http:" ? `http://localhost:3001` : ``;
 
 export type SocketProp = null | Socket<any, any>;
 
-export const useChatSocket = (currentRoom: string) => {
+export const useChatSocket = (currentRoom: string): SocketProp => {
   const [socket, setSocket] = useState<SocketProp>(null);
 
   //

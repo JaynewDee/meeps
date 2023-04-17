@@ -1,4 +1,4 @@
-export const useThemeSettings = (currentTheme: string) => {
+export const useThemeSettings = (currentTheme: string): React.CSSProperties => {
   const themes: { [key: string]: any } = {
     "Mono Ocean": {
       foreground: "rgba(0, 100, 133, 1)",
