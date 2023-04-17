@@ -1,4 +1,4 @@
-import { Settings } from "../hooks";
+import { Settings } from "../hooks/settings";
 
 const { localStorage } = window;
 
@@ -24,7 +24,7 @@ export class LSItemHandler {
     return false;
   }
 
-  set(value: Settings) {
+  set(value: Settings | any) {
     localStorage.setItem(this.key, JSON.stringify(value));
   }
 
