@@ -1,3 +1,5 @@
+import { Settings } from "../hooks";
+
 const { localStorage } = window;
 
 export class LSItemHandler {
@@ -12,15 +14,18 @@ export class LSItemHandler {
     return data ? JSON.parse(data) : {};
   }
 
-  set(value: any) {
-    localStorage.setItem(this.key, JSON.stringify(value));
+  exists() {
+    const data = this.get();
+
+    if (Object.keys(data).length) {
+      return true;
+    }
+
+    return false;
   }
 
-  update(value: any) {
-    const current = this.get();
-    console.log(current);
-    if (Object.keys(current).length === 0) {
-    }
+  set(value: Settings) {
+    localStorage.setItem(this.key, JSON.stringify(value));
   }
 
   delete() {

@@ -4,28 +4,11 @@ import Header from "./components/Header";
 import Main from "./main";
 import Modal from "./components/Modal";
 import { UserContextProvider } from "./context";
-import { useThemeSettings } from "./hooks";
+import { useThemeSettings, useUserSettings } from "./hooks";
 import { LSItemHandler } from "./storage";
 
-export type Settings = {
-  displayName: string;
-  hideRealName: boolean;
-  currentRoom: string;
-  currentTheme: string;
-};
-
 function App() {
-  const [userSettings, setUserSettings] = useState<Settings>({
-    displayName: "",
-    hideRealName: true,
-    currentRoom: "central",
-    currentTheme: "Comet"
-  });
-
-  useEffect(() => {
-    const storage = new LSItemHandler("settings");
-    storage.update({});
-  }, []);
+  const [userSettings, setUserSettings] = useUserSettings();
 
   const [modalState, setModalState] = useState("");
 
