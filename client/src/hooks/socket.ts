@@ -15,7 +15,7 @@ export const useChatSocket = (currentRoom: string): SocketProp => {
   //
 
   useEffect(() => {
-    // Init client-specific socket connection
+    ///////////////////////////////
     const socket = io(protocolByEnv);
     ///////////////////////////////
     setSocket(socket);

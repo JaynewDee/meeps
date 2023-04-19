@@ -30,6 +30,8 @@ function Main({ currentRoom }: { currentRoom: string }) {
     }
   }, [userState]);
 
+  // Event not emitted when expected
+  //
   useEffect(() => {
     socket?.emit("join room", currentRoom);
   }, [currentRoom]);
