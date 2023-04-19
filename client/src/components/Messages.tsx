@@ -1,4 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { SocketProp } from "../hooks";
 import { LSItemHandler } from "../storage";
 
@@ -58,13 +64,15 @@ const Messages: React.FC<MessageProps> = ({
   return (
     <div ref={scrollRef} className="scroll-wrapper">
       <div className="messages-container">
-        {messages.map((message: MessageType) => Message(message))}
+        {messages.map((message: MessageType) => {
+          return Message(message);
+        })}
       </div>
     </div>
   );
 };
 
-const Message: React.FC<MessageType> = ({ _id, author, createdAt, text }) => {
+const Message = ({ _id, author, createdAt, text }: MessageType) => {
   const symbolTime = (time: Date) => (
     <div className="datetime">
       <span style={{ color: "var(--prime)", paddingRight: ".33rem" }}>

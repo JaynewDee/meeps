@@ -64,4 +64,4 @@ const Header: React.FC<SettingsProp> = ({ modalState, setModalState }) => {
   );
 };
 
-export default memo(Header);
+export default Header;
