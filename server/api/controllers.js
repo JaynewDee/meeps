@@ -119,8 +119,8 @@ async function getRecentMessages(req, res) {
 
   try {
     const recentMsgs = await Message.find({ recipient: fromRoom._id })
-      .sort({ createdAt: -1 })
       .limit(50)
+      .sort({ createdAt: -1 })
       .populate({
         path: "author",
         select: "email firstName lastName username",

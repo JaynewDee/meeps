@@ -345,6 +345,11 @@ header {
   background: none;
   color: var(--light);
   border: none;
+  opacity: 0.75;
+}
+
+.location-btn:hover {
+  opacity: 1;
 }
 
 .msg-submit-btn {

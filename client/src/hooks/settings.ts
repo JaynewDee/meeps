@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch } from "react";
+import { useState, useEffect } from "react";
 import { LSItemHandler } from "../storage";
 
 export type Settings = {
@@ -8,7 +8,7 @@ export type Settings = {
   currentTheme: string;
 };
 
-export const useUserSettings = (): [Settings, any] => {
+export const useUserSettings = () => {
   const currentStore = new LSItemHandler("settings");
   const hasCurrentStore = currentStore.exists();
 
@@ -21,7 +21,7 @@ export const useUserSettings = (): [Settings, any] => {
         currentTheme: "Mono Ocean",
       };
 
-  const [userSettings, setUserSettings] = useState<Settings>(loadState);
+  const [userSettings, setUserSettings] = useState<any>(loadState);
 
   useEffect(() => {
     const storage = new LSItemHandler("settings");
