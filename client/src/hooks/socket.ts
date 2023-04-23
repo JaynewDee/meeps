@@ -47,6 +47,7 @@ export const useUserRooms = () => {
       const res = await API.getUserRooms(data._id);
       setUserRooms(res.data);
     };
+
     if (SessionAuthHandle.validate()) {
       fetchUserRooms();
     }
@@ -97,3 +98,23 @@ export const useMessageQueue = (
 
   return [messageState, setTrimmedMessages];
 };
+
+///////////
+/////
+///////
+
+///////////
+/////
+///////
+
+///////////
+/////
+///////
+
+///////////
+/////
+///////
+
+///////////
+/////
+///////
