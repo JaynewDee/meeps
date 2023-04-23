@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, Suspense, useState } from "react";
 import { createPortal } from "react-dom";
 import { BiExit } from "react-icons/bi";
 
@@ -78,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({
             fontFamily: "var(--font-primary)",
           }}
         >
-          {["Mono Ocean", "Comet", "Autumn Jungle"].map(opt => (
+          {["Mono Ocean", "Comet", "Summer Jungle"].map(opt => (
             <option key={opt} value={opt}>
               {opt}
             </option>

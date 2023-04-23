@@ -12,10 +12,9 @@ function App() {
 
   const CurrentTheme = useThemeSettings(userSettings.currentTheme);
 
-  const [userRooms] = useUserRooms();
-
   const [modalState, setModalState] = useState("");
 
+  const [userRooms] = useUserRooms(modalState);
   return (
     <UserContextProvider>
       <div className="App" style={CurrentTheme}>
@@ -25,6 +24,7 @@ function App() {
           modalState={modalState}
           setModalState={setModalState}
         />
+        <Main currentRoom={userSettings.currentRoom} />
         {Modal({
           styles: CurrentTheme,
           display: modalState,
@@ -33,7 +33,6 @@ function App() {
           userRooms,
           setUserSettings,
         })}
-        <Main currentRoom={userSettings.currentRoom} />
       </div>
     </UserContextProvider>
   );

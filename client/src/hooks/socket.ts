@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { API } from "../api/api";
 import { SessionAuthHandle } from "../auth/auth";
@@ -38,10 +38,10 @@ export const useChatSocket = (currentRoom: string): SocketProp => {
   return socket;
 };
 
-export const useUserRooms = () => {
+export const useUserRooms = (modalState: string) => {
   const [userRooms, setUserRooms] = useState([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchUserRooms = async () => {
       const { data } = SessionAuthHandle.getUser();
       const res = await API.getUserRooms(data._id);
@@ -51,7 +51,7 @@ export const useUserRooms = () => {
     if (SessionAuthHandle.validate()) {
       fetchUserRooms();
     }
-  }, []);
+  }, [modalState]);
 
   return [userRooms];
 };
@@ -98,23 +98,3 @@ export const useMessageQueue = (
 
   return [messageState, setTrimmedMessages];
 };
-
-///////////
-/////
-///////
-
-///////////
-/////
-///////
-
-///////////
-/////
-///////
-
-///////////
-/////
-///////
-
-///////////
-/////
-///////
