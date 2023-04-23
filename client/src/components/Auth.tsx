@@ -14,8 +14,8 @@ const Auth: React.FC<AuthProps> = ({ socket }) => {
 
   const formProps = useMemo(
     () => ({
-      setDisplay: setDisplayState,
-      socket: socket
+      setDisplayState,
+      socket,
     }),
     [socket, setDisplayState]
   );

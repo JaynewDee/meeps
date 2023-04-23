@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { BiExit } from "react-icons/bi";
 
 import "./Modal.css";
-import { useUserRooms } from "../hooks/socket";
+import { useUserRooms } from "../../hooks/socket";
 
 interface ModalProps {
   display: string;
@@ -78,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({
             fontFamily: "var(--font-primary)",
           }}
         >
-          {["Mono Ocean", "Comet", "Summer Jungle"].map(opt => (
+          {["Mono Ocean", "Comet", "Autumn Jungle"].map(opt => (
             <option key={opt} value={opt}>
               {opt}
             </option>

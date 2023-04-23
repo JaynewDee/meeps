@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Header from "./components/Header";
 import Main from "./main";
-import Modal from "./components/Modal";
+import Modal from "./components/Modal/Modal";
 import { UserContextProvider } from "./context";
 import { useThemeSettings, useUserSettings } from "./hooks";
 import { useUserRooms } from "./hooks/socket";
@@ -15,6 +15,7 @@ function App() {
   const [modalState, setModalState] = useState("");
 
   const [userRooms] = useUserRooms(modalState);
+
   return (
     <UserContextProvider>
       <div className="App" style={CurrentTheme}>

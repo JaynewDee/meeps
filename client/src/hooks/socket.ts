@@ -60,7 +60,7 @@ type Author = {
   _id: string;
   firstName: string;
   lastName: string;
-  username: string;
+  username: string | null;
 };
 
 type MessageType = {
@@ -83,7 +83,8 @@ export const useMessageQueue = (
   useEffect(() => {
     const getMessages = async () => {
       const messages = await API.getRecentMessages(currentRoom);
-      setMessageState(messages.data.reverse());
+      const formatted = formattedMessages(messages.data.reverse());
+      setMessageState(formatted);
     };
 
     getMessages();
@@ -93,8 +94,27 @@ export const useMessageQueue = (
     while (messageData.length > MAX_LENGTH) {
       messageData.shift();
     }
-    setMessageState(messageData);
+    const formatted = formattedMessages(messageData);
+    setMessageState(formatted);
   };
 
   return [messageState, setTrimmedMessages];
+};
+
+const formattedMessages = (messageData: MessageArray): MessageArray => {
+  const dataCopy = messageData.slice();
+  let previous: string | null = "";
+
+  for (let i = 0; i < dataCopy.length; i++) {
+    if (
+      previous &&
+      (previous === dataCopy[i].author.username || previous === null)
+    ) {
+      dataCopy[i].author.username = null;
+      continue;
+    }
+    previous = dataCopy[i].author.username;
+  }
+
+  return dataCopy;
 };

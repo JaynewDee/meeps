@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SocketProp } from "../hooks";
 import { LSItemHandler } from "../storage";
 
@@ -46,7 +46,7 @@ const Messages: React.FC<MessageProps> = ({
           left: 0,
           behavior: "smooth",
         });
-      }, 200);
+      }, 100);
     }
 
     const LSmsgs = new LSItemHandler("messages");
@@ -66,7 +66,14 @@ const Messages: React.FC<MessageProps> = ({
   );
 };
 
-const timeFormatter = (time: Date) => (
+interface FormattedMessage {
+  _id: string;
+  text: string;
+  createdAt: string;
+  author?: string;
+}
+
+const formattedTime = (time: Date) => (
   <div className="datetime">
     <span style={{ color: "var(--prime)", paddingRight: ".33rem" }}>{"<"}</span>
     <span>{time.toLocaleDateString()}</span>
@@ -83,10 +90,29 @@ const timeFormatter = (time: Date) => (
 
 const Message = ({ _id, author, createdAt, text }: MessageType) => {
   return (
-    <div className="message-content" key={_id}>
-      <div className="name-and-date">
-        <span className="message-username">{author.username}</span>
-        {timeFormatter(new Date(createdAt))}
+    <div
+      className="message-content"
+      key={_id}
+      style={
+        !author.username
+          ? {
+              borderTop: "none",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexFlow: "row-reverse nowrap",
+            }
+          : {}
+      }
+    >
+      <div
+        className="name-and-date"
+        style={!author.username ? { marginRight: "0" } : {}}
+      >
+        {author.username && (
+          <span className="message-username">{author.username}</span>
+        )}
+        {formattedTime(new Date(createdAt))}
       </div>
       <p className="message-text">{text}</p>
     </div>

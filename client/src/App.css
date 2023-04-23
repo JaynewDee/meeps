@@ -220,6 +220,10 @@ header {
   cursor: pointer;
   font-size: 0.66em;
 }
+.datetime {
+  margin-left: auto;
+  margin-right: 0;
+}
 
 .message-text::before {
   content: "";
@@ -227,6 +231,7 @@ header {
 
 .message-text {
   padding-left: 2rem;
+  margin-right: auto;
 }
 
 .name-and-date {

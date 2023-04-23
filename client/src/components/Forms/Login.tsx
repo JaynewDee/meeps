@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { API } from "../../api/api";
 import { SessionAuthHandle } from "../../auth/auth";
-import { useAuthValidation, SocketProp, handleError } from "../../hooks";
+import { useAuthValidation, handleError } from "../../hooks";
 import { SetAuthDisplay } from "../Auth";
 import { useUserContext } from "../../context";
 
 interface LoginProps {
-  socket: SocketProp;
-  setDisplay: SetAuthDisplay;
+  setDisplayState: SetAuthDisplay;
 }
 
-const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
+const Login: React.FC<LoginProps> = ({ setDisplayState }) => {
   const [inputState, setInputState] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const [errorState, setErrorState] = useState("");
@@ -22,7 +21,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
     const { name, value } = e.target;
     setInputState({
       ...inputState,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -50,7 +49,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
     }
   };
 
-  const switchToRegister = () => setDisplay("register");
+  const switchToRegister = () => setDisplayState("register");
 
   return (
     <form className="registration-form" onSubmit={handleSubmitLogin}>
@@ -78,7 +77,7 @@ const Login: React.FC<LoginProps> = ({ setDisplay, socket }) => {
         style={{
           marginBottom: "0",
           marginTop: "2rem",
-          fontSize: ".66rem"
+          fontSize: ".66rem",
         }}
       >
         First time here?

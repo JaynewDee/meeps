@@ -11,15 +11,15 @@ const defaultState = {
   lastName: "",
   username: "",
   email: "",
-  password: ""
+  password: "",
 };
 
 interface RegisterProps {
   socket: SocketProp;
-  setDisplay: SetAuthDisplay;
+  setDisplayState: SetAuthDisplay;
 }
 
-const Register: React.FC<RegisterProps> = ({ setDisplay }) => {
+const Register: React.FC<RegisterProps> = ({ setDisplayState }) => {
   const [inputState, setInputState] = useState(defaultState);
   const [errorState, setErrorState] = useState("");
 
@@ -27,7 +27,7 @@ const Register: React.FC<RegisterProps> = ({ setDisplay }) => {
     const { name, value } = e.target;
     setInputState({
       ...inputState,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -51,7 +51,7 @@ const Register: React.FC<RegisterProps> = ({ setDisplay }) => {
     }
   });
 
-  const switchToLogin = () => setDisplay("login");
+  const switchToLogin = () => setDisplayState("login");
 
   return (
     <form className="registration-form" onSubmit={handleSubmitRegistration}>
@@ -100,7 +100,7 @@ const Register: React.FC<RegisterProps> = ({ setDisplay }) => {
         style={{
           marginBottom: "0",
           marginTop: "2rem",
-          fontSize: ".66rem"
+          fontSize: ".66rem",
         }}
       >
         Already registered?
