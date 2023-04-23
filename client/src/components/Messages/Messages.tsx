@@ -2,7 +2,7 @@ import "./Messages.css";
 import React, { useEffect, useRef } from "react";
 import { SocketProp } from "../../hooks";
 import { LSItemHandler } from "../../storage";
-import { useFormattedTime } from "../../hooks/format";
+import { useFormattedTime } from "../../hooks";
 
 // TODO
 // Implement scroller tools for quickly jumping to top or bottom

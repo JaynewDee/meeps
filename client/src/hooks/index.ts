@@ -6,6 +6,7 @@ import {
 } from "./validation";
 import { useUserSettings } from "./settings";
 import { useThemeSettings } from "./styles";
+import { useFormattedMessages, useFormattedTime } from "./format";
 
 export {
   useChatSocket,
@@ -14,6 +15,8 @@ export {
   useAuthValidation,
   useMessageValidation,
   handleError,
+  useFormattedMessages,
+  useFormattedTime,
 };
 
 export { SocketProp };

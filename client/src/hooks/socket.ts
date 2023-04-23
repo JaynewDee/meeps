@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { API } from "../api/api";
 import { SessionAuthHandle } from "../auth/auth";
-import { useFormattedMessages } from "./format";
+import { useFormattedMessages } from ".";
 
 const currentProtocol = window.location.protocol;
 const protocolByEnv =
