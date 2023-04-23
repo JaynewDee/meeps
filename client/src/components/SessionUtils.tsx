@@ -1,5 +1,4 @@
 import React from "react";
-import { API } from "../api/api";
 import { SessionAuthHandle } from "../auth/auth";
 import { useUserContext } from "../context";
 
@@ -9,15 +8,6 @@ const SessionUtils: React.FC<any> = ({ currentRoom }) => {
   const destroySession = () => {
     SessionAuthHandle.logout();
     logout();
-  };
-
-  const fetchRooms = async () => {
-    const res = await API.getRooms();
-  };
-
-  const fetchUserRooms = async () => {
-    const { data } = SessionAuthHandle.getUser();
-    const res = await API.getUserRooms(data._id);
   };
 
   const spacer = () => <div className="util-spacer"></div>;

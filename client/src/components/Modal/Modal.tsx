@@ -1,9 +1,8 @@
-import { Dispatch, SetStateAction, Suspense, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { createPortal } from "react-dom";
 import { BiExit } from "react-icons/bi";
 
 import "./Modal.css";
-import { useUserRooms } from "../../hooks/socket";
 
 interface ModalProps {
   display: string;

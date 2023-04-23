@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect, useState } from "react";
-import Messages, { MessageArray } from "./Messages";
+import React, { Suspense } from "react";
+import Messages from "./Messages";
 import ChatForm from "./Forms/ChatForm";
 import SessionUtils from "./SessionUtils";
 import { useMessageQueue } from "../hooks/socket";

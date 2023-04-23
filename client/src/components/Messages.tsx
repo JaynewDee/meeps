@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { SocketProp } from "../hooks";
 import { LSItemHandler } from "../storage";
 
@@ -6,7 +6,7 @@ type Author = {
   _id: string;
   firstName: string;
   lastName: string;
-  username: string;
+  username: string | null;
 };
 
 type MessageType = {
@@ -66,18 +66,11 @@ const Messages: React.FC<MessageProps> = ({
   );
 };
 
-interface FormattedMessage {
-  _id: string;
-  text: string;
-  createdAt: string;
-  author?: string;
-}
-
 const formattedTime = (time: Date) => (
   <div className="datetime">
     <span style={{ color: "var(--prime)", paddingRight: ".33rem" }}>{"<"}</span>
-    <span>{time.toLocaleDateString()}</span>
-    <span className="time-at">{"@"}</span>
+    {/* <span>{time.toLocaleDateString()}</span>
+    <span className="time-at">{"@"}</span> */}
     <span>
       {time.toLocaleTimeString(navigator.language, {
         hour: "2-digit",
