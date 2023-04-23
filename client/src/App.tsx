@@ -13,6 +13,10 @@ PERNICIOUS BUG
 A new message does not update the message queue if sent immediately after authenticating.
 A page refresh displays any backlogged messages and beyond that point, message queue stays in sync.
 
+-- FIXED --
+
+useEffect in main.tsx was disconnecting from socket immediately after authentication due to async login
+
 */
 
 function App() {

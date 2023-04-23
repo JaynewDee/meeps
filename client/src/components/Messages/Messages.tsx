@@ -1,6 +1,11 @@
+import "./Messages.css";
 import React, { useEffect, useRef } from "react";
-import { SocketProp } from "../hooks";
-import { LSItemHandler } from "../storage";
+import { SocketProp } from "../../hooks";
+import { LSItemHandler } from "../../storage";
+import { useFormattedTime } from "../../hooks/format";
+
+// TODO
+// Implement scroller tools for quickly jumping to top or bottom
 
 type Author = {
   _id: string;
@@ -66,21 +71,6 @@ const Messages: React.FC<MessageProps> = ({
   );
 };
 
-const formattedTime = (time: Date) => (
-  <div className="datetime">
-    <span style={{ color: "var(--prime)", paddingRight: ".33rem" }}>{"<"}</span>
-    {/* <span>{time.toLocaleDateString()}</span>
-    <span className="time-at">{"@"}</span> */}
-    <span>
-      {time.toLocaleTimeString(navigator.language, {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}
-    </span>
-    <span style={{ color: "var(--prime)", paddingLeft: ".33rem" }}>{">"}</span>
-  </div>
-);
-
 const Message = ({ _id, author, createdAt, text }: MessageType) => {
   return (
     <div
@@ -105,7 +95,7 @@ const Message = ({ _id, author, createdAt, text }: MessageType) => {
         {author.username && (
           <span className="message-username">{author.username}</span>
         )}
-        {formattedTime(new Date(createdAt))}
+        {useFormattedTime(new Date(createdAt))}
       </div>
       <p className="message-text">{text}</p>
     </div>

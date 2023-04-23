@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { API } from "../api/api";
 import { SessionAuthHandle } from "../auth/auth";
+import { useFormattedMessages } from "./format";
 
 const currentProtocol = window.location.protocol;
 const protocolByEnv =
@@ -83,7 +84,7 @@ export const useMessageQueue = (
   useEffect(() => {
     const getMessages = async () => {
       const messages = await API.getRecentMessages(currentRoom);
-      const formatted = formattedMessages(messages.data.reverse());
+      const formatted = useFormattedMessages(messages.data.reverse());
       setMessageState(formatted);
     };
 
@@ -94,27 +95,9 @@ export const useMessageQueue = (
     while (messageData.length > MAX_LENGTH) {
       messageData.shift();
     }
-    const formatted = formattedMessages(messageData);
+    const formatted = useFormattedMessages(messageData);
     setMessageState(formatted);
   };
 
   return [messageState, setTrimmedMessages];
-};
-
-const formattedMessages = (messageData: MessageArray): MessageArray => {
-  const dataCopy = messageData.slice();
-  let previous: string | null = "";
-
-  for (let i = 0; i < dataCopy.length; i++) {
-    if (
-      previous &&
-      (previous === dataCopy[i].author.username || previous === null)
-    ) {
-      dataCopy[i].author.username = null;
-      continue;
-    }
-    previous = dataCopy[i].author.username;
-  }
-
-  return dataCopy;
 };

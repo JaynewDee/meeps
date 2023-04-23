@@ -25,12 +25,6 @@ function Main({ currentRoom }: { currentRoom: string }) {
   }, []);
 
   useEffect(() => {
-    if (!userState.isLoggedIn) {
-      socket?.disconnect();
-    }
-  }, [userState]);
-
-  useEffect(() => {
     socket?.emit("join room", currentRoom);
   }, [currentRoom]);
 
