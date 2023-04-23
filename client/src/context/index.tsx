@@ -4,7 +4,7 @@ import {
   useCallback,
   useContext,
   useMemo,
-  useState
+  useState,
 } from "react";
 
 interface ContextProps {
@@ -20,7 +20,7 @@ const useUserContext = () => {
 
   if (context === undefined) {
     throw new Error(
-      "Attempted to use RoomContext outside of the context's Provider."
+      "Attempted to use UserContext outside of the context's Provider."
     );
   }
 
@@ -33,7 +33,7 @@ interface ContextProps {
 
 const UserContextProvider = ({ children }: ContextProps) => {
   const [userState, setUserState] = useState({
-    isLoggedIn: false
+    isLoggedIn: false,
   });
 
   const login = useCallback(

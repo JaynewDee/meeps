@@ -26,7 +26,7 @@ export const useThemeSettings = (currentTheme: string): React.CSSProperties => {
       fontPrimary: `"Dongle", sans-serif`,
       baseFontSize: "26px",
     },
-    "Summer Jungle": {
+    "Autumn Jungle": {
       foreground: "#264027",
       background: "#1f1f1f",
       light: "rgba(255,255,255,0.87)",

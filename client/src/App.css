@@ -301,7 +301,6 @@ header {
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  /* z-index: 0; */
   background-color: var(--utils-bar);
   bottom: 0;
   height: 2rem;

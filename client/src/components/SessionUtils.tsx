@@ -28,10 +28,6 @@ const SessionUtils: React.FC<any> = ({ currentRoom }) => {
         {spacer()}
         <button onClick={destroySession}>END SESSION</button>
         {spacer()}
-        {/* <button onClick={fetchRooms}>FETCH ROOMS</button>
-        {spacer()}
-        <button onClick={fetchUserRooms}>FETCH USER'S ROOMS</button>
-        {spacer()} */}
       </div>
       <div className="status-bar">
         <div>
@@ -40,7 +36,6 @@ const SessionUtils: React.FC<any> = ({ currentRoom }) => {
             {currentRoom}
             <span className="location-decor">{"]"}:::</span>
           </button>
-          {/* <span>{currentRoom}</span> */}
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { API } from "../api/api";
 import { SessionAuthHandle } from "../auth/auth";
@@ -41,7 +41,7 @@ export const useChatSocket = (currentRoom: string): SocketProp => {
 export const useUserRooms = () => {
   const [userRooms, setUserRooms] = useState([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchUserRooms = async () => {
       const { data } = SessionAuthHandle.getUser();
       const res = await API.getUserRooms(data._id);

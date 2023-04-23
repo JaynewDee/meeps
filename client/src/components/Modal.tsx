@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, Suspense, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { createPortal } from "react-dom";
 import { BiExit } from "react-icons/bi";
 
@@ -9,6 +9,7 @@ interface ModalProps {
   display: string;
   setDisplay: Dispatch<SetStateAction<string>>;
   userSettings: any;
+  userRooms: any;
   setUserSettings: Dispatch<SetStateAction<any>>;
   styles: any;
 }
@@ -17,14 +18,13 @@ const Modal: React.FC<ModalProps> = ({
   display,
   setDisplay,
   userSettings,
+  userRooms,
   setUserSettings,
   styles,
 }) => {
   const [selectRoomState, setSelectRoomState] = useState(
     userSettings.currentRoom
   );
-
-  const [userRooms] = useUserRooms();
 
   const handleRoomSelect = (e: any) => {
     setSelectRoomState(e.target.value);
@@ -57,7 +57,7 @@ const Modal: React.FC<ModalProps> = ({
           value={selectRoomState}
           style={{ fontFamily: "var(--font-primary)" }}
         >
-          {userRooms.map(({ _id, name }) => (
+          {userRooms.map(({ _id, name }: any) => (
             <option key={_id} value={name}>
               {name}
             </option>
@@ -78,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({
             fontFamily: "var(--font-primary)",
           }}
         >
-          {["Mono Ocean", "Comet", "Summer Jungle"].map(opt => (
+          {["Mono Ocean", "Comet", "Autumn Jungle"].map(opt => (
             <option key={opt} value={opt}>
               {opt}
             </option>

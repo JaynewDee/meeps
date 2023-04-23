@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { SessionAuthHandle } from "./auth/auth";
 import Auth from "./components/Auth";
 import ChatView from "./components/ChatView";
@@ -10,7 +10,7 @@ function Main({ currentRoom }: { currentRoom: string }) {
 
   const socket = useChatSocket(currentRoom);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Synchronize state with session token
     const isLoggedIn = SessionAuthHandle.validate();
 
