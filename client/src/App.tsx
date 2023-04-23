@@ -7,6 +7,14 @@ import { UserContextProvider } from "./context";
 import { useThemeSettings, useUserSettings } from "./hooks";
 import { useUserRooms } from "./hooks/socket";
 
+/* 
+PERNICIOUS BUG
+
+A new message does not update the message queue if sent immediately after authenticating.
+A page refresh displays any backlogged messages and beyond that point, message queue stays in sync.
+
+*/
+
 function App() {
   const [userSettings, setUserSettings] = useUserSettings();
 
