@@ -45,11 +45,11 @@ interface ValidationInput {
   password: string;
 }
 
-const matchers = {
+const matchers = Object.freeze({
   email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
   password:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-};
+});
 
 export const useAuthValidation = (
   type: string,
