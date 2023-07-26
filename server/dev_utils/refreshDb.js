@@ -21,12 +21,18 @@ const admin = (centralId) => ({
 db.once("open", async () => {
   try {
     await db.dropDatabase();
-    const { _id } = await ChatRoom.create(central);
-    console.log(_id);
+
+    const {
+      _id
+    } = await ChatRoom.create(central);
+
     await User.create(admin(_id));
+
     process.exit(0);
   } catch (err) {
+
     console.error(err);
+
     process.exit(1);
   }
 });

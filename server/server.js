@@ -1,5 +1,7 @@
 require("dotenv").config();
-const { join } = require("path");
+const {
+  join
+} = require("path");
 
 const express = require("express");
 const http = require("http");
@@ -8,9 +10,13 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 const db = require("./config/db");
-const { api } = require("./api/routes");
+const {
+  api
+} = require("./api/routes");
 
-const { Server } = require("socket.io");
+const {
+  Server
+} = require("socket.io");
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -37,7 +43,7 @@ io.on("connection", socket => {
   });
 
   socket.on("chat message", msg => {
-    console.log(`Message from socket client: ${msg.toString()}`);
+    console.log(`Message from socket client: ${msg.text}`);
     if (!msg) return;
 
     try {
@@ -55,7 +61,9 @@ io.on("connection", socket => {
 // ! Do not change from 3001 !
 const PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -64,9 +72,9 @@ app.use(
   express.static(
     join(
       __dirname,
-      process.env.NODE_ENV === "production"
-        ? "../client/dist"
-        : "../client/index.html"
+      process.env.NODE_ENV === "production" ?
+      "../client/dist" :
+      "../client/index.html"
     )
   )
 );
