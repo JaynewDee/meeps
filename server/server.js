@@ -9,54 +9,15 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
 
+const launchSocket = require('./socket');
 const db = require("./config/db");
 const {
   api
 } = require("./api/routes");
 
-const {
-  Server
-} = require("socket.io");
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-  },
-  perMessageDeflate: false,
-});
-
-io.on("connection", socket => {
-  console.info("A socket user has connected.");
-
-  // Listen for new message type called `notification`
-  // emit notifications for `login` and `logout` events
-
-  socket.on("notification", data => {
-    console.log(data);
-  });
-
-  socket.on("join room", roomName => {
-    console.log(roomName);
-    socket.join(roomName);
-    socket.emit("joined room", `Joined room ${roomName}`);
-  });
-
-  socket.on("chat message", msg => {
-    console.log(`Message from socket client: ${msg.text}`);
-    if (!msg) return;
-
-    try {
-      io.emit("chat message", msg);
-    } catch (err) {
-      console.error(err);
-    }
-  });
-
-  socket.on("disconnect", () => {
-    console.warn("A socket user has disconnected.");
-  });
-});
+launchSocket(server)
 
 // ! Do not change from 3001 !
 const PORT = process.env.PORT || 3001;
